@@ -36,6 +36,11 @@ div#loginform{
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
   </div>
+   <div class="checkbox">
+    <label>
+      <input type="checkbox"> 아이디 저장
+    </label>
+  </div>
   <button type="submit" class="btn btn-success btn-block">로그인</button>
 </div>
 </form>
