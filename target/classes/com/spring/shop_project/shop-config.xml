@@ -6,8 +6,8 @@
 <configuration>
 <!-- 0. typealias 정의  -->
 <typeAliases>
-	<typeAlias type="" alias=""/>
-	<typeAlias type="" alias=""/>
+	<!-- <typeAlias type="" alias=""/>
+	<typeAlias type="" alias=""/> -->
 </typeAliases>
 
 
