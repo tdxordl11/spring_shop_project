@@ -22,16 +22,16 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/logintest", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-
-		return "logintest";
-	}
-	
-	@RequestMapping(value = "/adminpage", method = RequestMethod.GET)
-	public String home2(Locale locale, Model model) {
-
-		return "adminpage";
-	}
+//	@RequestMapping(value = "/index", method = RequestMethod.GET)
+//	public String home(Locale locale, Model model) {
+//
+//		return "logintest";
+//	}
+//	
+//	@RequestMapping(value = "/adminpage", method = RequestMethod.GET)
+//	public String home2(Locale locale, Model model) {
+//
+//		return "adminpage";
+//	}
 	
 }

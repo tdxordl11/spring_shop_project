@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="jquery-3.2.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
 <style type="text/css">
    html, body
 {
@@ -62,7 +62,36 @@ body
 					<button type="submit" class="btn btn-success btn-block">로그인</button>
 				</div>
 			</form>
-
+<c:if test="${currentUser eq null or userId eq null}">
+ <div> 
+ <div></div>
+     <a href="${naverURL}">
+     <img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+     
+     <a href="https://kauth.kakao.com/oauth/authorize?client_id=eb4186f5fb71a201dcbc9a8d9ae2a4ff&redirect_uri=http://localhost:8084/shop_project/kakao_login&response_type=code">
+            <img src="https://developers.kakao.com/assets/img/about/logos/kakaologin/kr/kakao_account_login_btn_medium_narrow.png">
+        </a>
+  </div>
+  </c:if>
+  
+  <c:if test="${currentUser ne null}">
+  <div>
+    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
+	  ${currentUser }<br>
+	  for naver
+    <a href="http://localhost:8084/shop_project/getProfile?accessToken=${currentAT}">Get User's Profile</a>
+    <a href="http://localhost:8084/shop_project/refreshToken?refreshToken=${currentRT}">Refresh Token</a>
+    <a href="http://localhost:8084/shop_project/deleteToken?accessToken=${currentAT}">Delete Token (연동해제)</a>
+    <a href="http://localhost:8084/shop_project/invalidate">로그아웃 (Invalidate Session)</a>
+    </div>
+    </c:if>
+    <c:if test="${userId ne null }">
+    ${userId }로 연결되어있습니다.<br>
+    <div>for kakao
+    <input type="button" value="카카오 로그아웃" onclick="location.href='/shop_project/kakao_logout'">
+    <input type="button" value="카카오 연동해제" onclick="location.href='/shop_project/kakao_unlink'">
+  </div>
+  </c:if>
 		</div>
 </div>
 </body>
