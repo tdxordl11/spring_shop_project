@@ -74,7 +74,7 @@ public class NaverLoginAPI {
 	 
 	
 	public HashMap<String, String> getProfileFromNaver(String accessToken) {
-	    // �꽕�씠踰� 濡쒓렇�씤 �젒洹� �넗�겙;
+		// 네이버 로그인 접근 토큰
 	    String apiURL = "https://openapi.naver.com/v1/nid/me";
 	    String headerStr = "Bearer " + accessToken; // Bearer �떎�쓬�뿉 怨듬갚 異붽�
 	    String res = StringEscapeUtils.unescapeJava(requestToServer(apiURL, headerStr));
@@ -115,7 +115,7 @@ public class NaverLoginAPI {
     		    return res;
     		  }
     	  /**
-    	   * �꽌踰� �넻�떊 硫붿냼�뱶
+    	   * 서버 통신 메소드
     	   * @param apiURL
     	   * @return
     	   */
@@ -123,7 +123,7 @@ public class NaverLoginAPI {
 	    return requestToServer(apiURL, "");
 	  }
 	  /**
-	   * �꽌踰� �넻�떊 硫붿냼�뱶
+	   * 서버 통신 메소드
 	   * @param apiURL
 	   * @param headerStr
 	   * @return
@@ -143,9 +143,9 @@ public class NaverLoginAPI {
 	    responseCode = con.getResponseCode();
 	    BufferedReader br;
 	    System.out.println("responseCode="+responseCode);
-	    if(responseCode == 200) { // �젙�긽 �샇異�
+	    if(responseCode == 200) { // 정상 호출
 	      br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-	    } else {  // �뿉�윭 諛쒖깮
+	    } else {  // 에러 발생
 	      br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	    }
 	    String inputLine;
