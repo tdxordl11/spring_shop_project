@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chart">
+	
+	<!-- 검색기간 설정한 날짜 사이의 1일당 총 매출액 계산 -> 라인 차트로 하루 매출액 추이 표시가능 -->
+	<select id="incomechart" resultType="chart" parameterType="java.util.Map">
+		select to_char(order_date, 'YYYY,MM,DD') order_date, sum(order_price*order_balance) totaldayincome 
+		from shoporder
+		where order_date between #{startdate} and #{enddate}
+		group by order_date
+		order by order_date
+		<!-- int[] 배열 받아온거 반복문  -->
+		<!-- 같은 의미 where r between #{array[0]} and #{array[1]} -->
+		<!-- where rownum >= 1 and rownum <= 10 ==>CDATA쓰기 귀찮으면 between써 
+		rownum 사용시 주의 : 먼저 rownum 번호 생성 다해놔-->
+	</select>
+	
+	<!-- 한달간 각 품목별 매출액 계산 -> 차트로 품목별 매출액 비율 파이차트로 그려줌 -->
+	<select id="piechart" resultType="chart" parameterType="String">
+		select to_char(order_date, 'MM') order_month, sum(order_price*order_balance) monthincomeperproduct, product_id
+		from shoporder
+		where to_char(order_date, 'MM') = #{month}
+		group by to_char(order_date,'MM'), product_id
+		order by monthincomeperproduct desc 
+	
+	</select>
+	
+	<!-- 한달 총 매출액 구하기  -->
+	<select id="monthtotal" resultType="int" parameterType="String">
+		select sum(monthincome) monthtotal 
+		from (
+		select to_char(order_date, 'MM') order_month, sum(order_price*order_balance) monthincome, product_id
+		from shoporder
+		where to_char(order_date, 'MM') = #{month}
+		group by to_char(order_date,'MM'), product_id 
+		order by monthincome desc
+		)
+	</select>
+	
+	
+	
+	
+</mapper>
+
+		
+	
+
+
+
+
+
+
