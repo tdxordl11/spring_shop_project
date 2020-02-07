@@ -33,7 +33,7 @@ public class UserController {
 //		  return "logintest";
 //	  }
 	  /**
-	   * ·Î±×ÀÎ È­¸éÀÌ ÀÖ´Â ÆäÀÌÁö ÄÁÆ®·Ñ
+	   * ï¿½Î±ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½
 	   * @param session
 	   * @param model
 	   * @return
@@ -56,15 +56,15 @@ public class UserController {
 	    	model.addAttribute("login", vo);
 	    	return "main";
 	    }else if(service.checkUser(vo)==0) {
-	    	System.out.println("¾ÆÀÌµð¾øÀ½");
+	    	System.out.println("ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½");
 	    }else if(service.checkUser(vo)==2) {
-	    	System.out.println("ºñ¹øÆ²¸²");
+	    	System.out.println("ï¿½ï¿½ï¿½Æ²ï¿½ï¿½");
 	    }
 	    return "logintest";
 	  }
 
 	  /**
-	   * ÄÝ¹é ÆäÀÌÁö ÄÁÆ®·Ñ·¯
+	   * ï¿½Ý¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	   * @param session
 	   * @param request
 	   * @param model
@@ -89,7 +89,7 @@ public class UserController {
 	    return "test-naver-callback";
 	  }
 	  /**
-	   * ÅäÅ« °»½Å ¿äÃ» ÆäÀÌÁö ÄÁÆ®·Ñ·¯
+	   * ï¿½ï¿½Å« ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	   * @param session
 	   * @param request
 	   * @param model
@@ -104,7 +104,7 @@ public class UserController {
 	    return "test-naver-callback";
 	  }
 	  /**
-	   * ÅäÅ« »èÁ¦ ÄÁÆ®·Ñ·¯
+	   * ï¿½ï¿½Å« ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	   * @param session
 	   * @param request
 	   * @param model
@@ -119,21 +119,21 @@ public class UserController {
 	    return "test-naver-callback";
 	  }
 	  /**
-	   * ¾×¼¼½º ÅäÅ«À¸·Î ³×ÀÌ¹ö¿¡¼­ ÇÁ·ÎÇÊ ¹Þ±â
+	   * ï¿½×¼ï¿½ï¿½ï¿½ ï¿½ï¿½Å«ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½
 	   * @param accessToken
 	   * @return
 	   */
 	//  @ResponseBody
 	  @RequestMapping("/getProfile")
 	  public String getProfileFromNaver(String accessToken) {
-	    // ³×ÀÌ¹ö ÇÁ·ÎÇÊ Á¢±Ù;
+	    // ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
 	    	HashMap<String, String> userInfo = naver.getProfileFromNaver(accessToken);
 	    	System.out.println(userInfo.get("name"));
 //			service.insertUser(userInfo);
 			return "logintest";
 	  }
 	  /**
-	   * ¼¼¼Ç ¹«È¿È­(·Î±×¾Æ¿ô)
+	   * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿È­(ï¿½Î±×¾Æ¿ï¿½)
 	   * @param session
 	   * @return
 	   */
@@ -150,12 +150,12 @@ public class UserController {
 		  HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
 		    System.out.println("login Controller : " + userInfo);
 	      
-		   //    Å¬¶óÀÌ¾ðÆ®ÀÇ ÀÌ¸ÞÀÏÀÌ Á¸ÀçÇÒ ¶§ ¼¼¼Ç¿¡ ÇØ´ç ÀÌ¸ÞÀÏ°ú ÅäÅ« µî·Ï
+		   //    Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½Ø´ï¿½ ï¿½Ì¸ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Å« ï¿½ï¿½ï¿½
 		    if (userInfo.get("email") != null) {
 		        session.setAttribute("userId", userInfo.get("email"));
 		        session.setAttribute("access_Token", access_Token);
 		    }
-	      return "logintest";
+	      return "test-naver-callback";
 	  }
 	  
 	  @RequestMapping(value="/kakao_logout")

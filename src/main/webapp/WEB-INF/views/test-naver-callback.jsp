@@ -16,7 +16,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
 <script>
 $(document).ready(function(){
-	
+	$(opener.location).attr('href','http://localhost:8081/shop_project/login');
+	window.close();
 });
 </script>
 <body>
