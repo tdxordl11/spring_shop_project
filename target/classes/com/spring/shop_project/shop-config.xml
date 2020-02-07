@@ -9,6 +9,7 @@
 	<typeAlias type="com.spring.shop_project.AdminVO" alias="admin"/>
 	<typeAlias type="com.spring.shop_project.ReviewVO" alias="review"/>
 	<typeAlias type="com.spring.shop_project.OrderVO" alias="chart"/>
+	<typeAlias type="com.spring.shop_project.UserVO" alias="user" />
 </typeAliases>
 
 

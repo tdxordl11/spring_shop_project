@@ -2,10 +2,11 @@ package com.spring.shop_project;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 @Service
-public class UserMybatisService implements UserService {
+public class UserServiceImpl implements UserService {
 	@Autowired
-	UserMybatisDAO dao;
+	UserDAO dao;
 
 	@Override
 	public String Login() {
@@ -13,6 +14,10 @@ public class UserMybatisService implements UserService {
 		return null;
 	}
 
-	
+	@Override
+	public int checkUser(UserVO vo) {
+		int res = dao.checkUser(vo);
+		return res;
+	}
 	
 }

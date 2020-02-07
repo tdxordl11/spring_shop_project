@@ -47,6 +47,21 @@ public class UserController {
 	    model.addAttribute("naverURL", naverURL[1]);
 	    return "logintest";
 	  }
+	  
+	  @RequestMapping(value="/login", method = RequestMethod.POST)
+	  public String loginNaverResult(HttpSession session, Model model, UserVO vo) {
+	    if(service.checkUser(vo)==1) {
+	    	System.out.println(vo.getUser_password());
+	    	session.setAttribute("user_id", vo.getUser_id());
+	    	model.addAttribute("login", vo);
+	    	return "main";
+	    }else if(service.checkUser(vo)==0) {
+	    	System.out.println("아이디없음");
+	    }else if(service.checkUser(vo)==2) {
+	    	System.out.println("비번틀림");
+	    }
+	    return "logintest";
+	  }
 
 	  /**
 	   * 콜백 페이지 컨트롤러
@@ -157,6 +172,13 @@ public class UserController {
 	      session.removeAttribute("access_Token");
 	      session.removeAttribute("userId");
 	      return "redirect:/login";
+	  }
+	  
+	  @RequestMapping(value="/kakao_pay")
+	  public String readypay(HttpSession session, Model model) {
+	      String url = kakao.getReadyPay((String)session.getAttribute("access_Token"));
+	      model.addAttribute("url", url);
+	      return "kakaopay";
 	  }
 
 	

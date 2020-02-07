@@ -36,7 +36,7 @@ public class KakaoLoginAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=eb4186f5fb71a201dcbc9a8d9ae2a4ff");
-            sb.append("&redirect_uri=http://localhost:8084/shop_project/kakao_login");
+            sb.append("&redirect_uri=http://localhost:8081/shop_project/kakao_login");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -187,4 +187,62 @@ public class KakaoLoginAPI {
 		    }
 
 	 }
+	 
+	 public String getReadyPay (String access_Token) {
+//		    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+			    String result = "";
+			    String next_redirect_url = "";
+			    String reqURL = "https://kapi.kakao.com/v1/payment/ready";
+			    try {
+			        URL url = new URL(reqURL);
+			        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			        conn.setRequestMethod("POST");
+			        conn.setDoOutput(true);
+			        
+			        //    요청에 필요한 Header에 포함될 내용
+			        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+			        conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			        
+			        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+		            StringBuilder sb = new StringBuilder();
+		            
+		            sb.append("&cid=TC0ONETIME");
+		            sb.append("&partner_order_id=partner_order_id");
+		            sb.append("&partner_user_id=partner_user_id");
+		            sb.append("&item_name=초코파이");
+		            sb.append("&quantity=1");
+		            sb.append("&total_amount=2200");
+		            sb.append("&vat_amount=200");
+		            sb.append("&tax_free_amount=0");
+		            sb.append("&approval_url=http://localhost:8081/shop_project/login");
+		            sb.append("&fail_url=https://localhost:8081/shop_project/fail");
+		            sb.append("&cancel_url=http://localhost:8081/shop_project/login");
+		            bw.write(sb.toString());
+		            bw.flush();
+			        
+			        int responseCode = conn.getResponseCode();
+			        System.out.println("responseCode : " + responseCode);
+			        
+			        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        
+			        String line = "";
+//			        String result = "";
+			        
+			        while ((line = br.readLine()) != null) {
+			            result += line;
+			        }
+			        System.out.println("response body : " + result);
+			        
+			        JsonParser parser = new JsonParser();
+			        JsonElement element = parser.parse(result);
+			        
+			        next_redirect_url = element.getAsJsonObject().get("next_redirect_pc_url").getAsString();
+			        br.close();
+			    } catch (IOException e) {
+			        // TODO Auto-generated catch block
+			        e.printStackTrace();
+			    }
+			    
+			    return next_redirect_url;
+		    }
 }

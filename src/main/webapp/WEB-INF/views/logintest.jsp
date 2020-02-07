@@ -42,18 +42,18 @@ body
 <body>
 <div class="container">
     <div class="main">
-			<form>
+			<form action="/shop_project/login" method=post>
 				<div id=loginform>
 					<h3 style="text-align: center;">로그인</h3>
 					<div class="form-group">
 						<label for="exampleInputId1">ID</label> <input type="text"
-							class="form-control" placeholder="아이디" name="userid"
+							class="form-control" placeholder="아이디" name="user_id"
 							maxlength="20">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">Password</label> <input
 							type="password" class="form-control" id="exampleInputPassword1"
-							placeholder="Password">
+							placeholder="Password" name="user_password">
 					</div>
 					<div class="checkbox">
 						<label> <input type="checkbox"> 아이디 저장
@@ -68,7 +68,7 @@ body
      <a href="${naverURL}">
      <img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
      
-     <a href="https://kauth.kakao.com/oauth/authorize?client_id=eb4186f5fb71a201dcbc9a8d9ae2a4ff&redirect_uri=http://localhost:8084/shop_project/kakao_login&response_type=code">
+     <a href="https://kauth.kakao.com/oauth/authorize?client_id=eb4186f5fb71a201dcbc9a8d9ae2a4ff&redirect_uri=http://localhost:8081/shop_project/kakao_login&response_type=code">
             <img src="https://developers.kakao.com/assets/img/about/logos/kakaologin/kr/kakao_account_login_btn_medium_narrow.png">
         </a>
   </div>
@@ -79,17 +79,20 @@ body
     <h3>이 부분은 로그인한 사용자한테만 보임</h3>
 	  ${currentUser }<br>
 	  for naver
-    <a href="http://localhost:8084/shop_project/getProfile?accessToken=${currentAT}">Get User's Profile</a>
-    <a href="http://localhost:8084/shop_project/refreshToken?refreshToken=${currentRT}">Refresh Token</a>
-    <a href="http://localhost:8084/shop_project/deleteToken?accessToken=${currentAT}">Delete Token (연동해제)</a>
-    <a href="http://localhost:8084/shop_project/invalidate">로그아웃 (Invalidate Session)</a>
+    <a href="http://localhost:8081/shop_project/getProfile?accessToken=${currentAT}">Get User's Profile</a>
+    <a href="http://localhost:8081/shop_project/refreshToken?refreshToken=${currentRT}">Refresh Token</a>
+    <a href="http://localhost:8081/shop_project/deleteToken?accessToken=${currentAT}">Delete Token (연동해제)</a>
+    <a href="http://localhost:8081/shop_project/invalidate">로그아웃 (Invalidate Session)</a>
     </div>
     </c:if>
     <c:if test="${userId ne null }">
     ${userId }로 연결되어있습니다.<br>
     <div>for kakao
+<!--     <a href="https://accounts.kakao.com/logout?continue=https://accounts.kakao.com/weblogin/account"> -->
     <input type="button" value="카카오 로그아웃" onclick="location.href='/shop_project/kakao_logout'">
+<!--     </a> -->
     <input type="button" value="카카오 연동해제" onclick="location.href='/shop_project/kakao_unlink'">
+    <input type="button" value="카카오페이 테스트" onclick="location.href='/shop_project/kakao_pay'">
   </div>
   </c:if>
 		</div>

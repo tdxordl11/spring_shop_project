@@ -24,10 +24,10 @@ public class NaverLoginAPI {
 	  
 	String CLIENT_ID = "2YhMeGgLvT4bEzZiZHO_";  //naver api id key
 	String CLI_SECRET = "aUY9RLxRRy";  //naver apir secret key
-	String redirectURI = "http://localhost:8084/shop_project/naver_callback";
+	String redirectURI = "http://localhost:8081/shop_project/naver_callback";
 	
 	public String[] naverURL() {
-		String redirectURI = "http://localhost:8084/shop_project/naver_callback";
+//		String redirectURI = this.redirectURI;
 	    SecureRandom random = new SecureRandom();
 	    String state = new BigInteger(130, random).toString();
 	    String naverURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -76,7 +76,7 @@ public class NaverLoginAPI {
 	public HashMap<String, String> getProfileFromNaver(String accessToken) {
 		// 네이버 로그인 접근 토큰
 	    String apiURL = "https://openapi.naver.com/v1/nid/me";
-	    String headerStr = "Bearer " + accessToken; // Bearer �떎�쓬�뿉 怨듬갚 異붽�
+	    String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
 	    String res = StringEscapeUtils.unescapeJava(requestToServer(apiURL, headerStr));
 	    System.out.println(res);
 	    	JsonParser parser = new JsonParser();
