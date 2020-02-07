@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="admin">
+<mapper namespace="shop">
 
+	<insert id="adminsignup" parameterType="admin">
+		insert into admin values ( #{admin_id}, #{admin_password}, '0', #{admin_otpkey}, #{admin_phone}, #{admin_name}, #{admin_address}, 0 )
+	</insert>
 	
+	<select id="adminidcheck" parameterType="String" resultType="String">
+		select count(*) from admin where admin_id = #{admin_id}
+	</select>
+	
+	<select id="logincheck" parameterType="java.util.List" resultType="String">
+		select count(*) from admin where admin_id = #{admin_id} and admin_password = #{admin_password}
+	</select>
 
+	<select id="otpcodeload" resultType="String" parameterType="String">
+		select admin_otpkey from admin where admin_id = #{admin_id}
+	</select>
 	
+	<select id="admingetlist" resultType="admin">
+		select * from admin
+	</select>
 </mapper>
 
 		

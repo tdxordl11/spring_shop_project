@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="review">
-
-	
-
-	
+<mapper namespace="shop">
+	<select id="getreviewlist" resultType="review">
+		select review_seq, review_title, review_contents, review_recommend, product_name, user_id
+		from review r, product p
+		where r.product_id = p.product_id
+	</select>
 </mapper>
 
 		

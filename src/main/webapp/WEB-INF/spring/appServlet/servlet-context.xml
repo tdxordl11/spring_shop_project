@@ -25,5 +25,15 @@
 	
 	<context:component-scan base-package="com.spring.shop_project" />
 	
+    <interceptors>
+        <interceptor>
+            <mapping path="/admin/*"/>
+            <exclude-mapping path="/admin/log*"/> <!-- login,logout 제외 -->
+            <exclude-mapping path="/admin/signup"/>
+            <exclude-mapping path="/admin/admin*"/>
+            <exclude-mapping path="/admin/otpqrGen"/>
+            <beans:bean class="com.spring.shop_project.AuthInterceptor" />
+        </interceptor>
+    </interceptors>
 	
 </beans:beans>
