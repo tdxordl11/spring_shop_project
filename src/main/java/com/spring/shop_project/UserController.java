@@ -180,6 +180,13 @@ public class UserController {
 	      model.addAttribute("url", url);
 	      return "kakaopay";
 	  }
+	  
+	  @RequestMapping(value="/kakao_pay_success")
+	  public String successpay(HttpSession session, Model model, String pg_token) {
+	      String resbody = kakao.getReadyPaySucess((String)session.getAttribute("access_Token"), pg_token);
+//	      model.addAttribute("url", url);
+	      return "pay_success";
+	  }
 
 	
 }

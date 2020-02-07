@@ -18,6 +18,8 @@ import com.google.gson.JsonParser;
 @Service
 public class KakaoLoginAPI {
 	
+	String tid = null;
+	
 	public String getAccessToken (String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
@@ -214,7 +216,7 @@ public class KakaoLoginAPI {
 		            sb.append("&total_amount=2200");
 		            sb.append("&vat_amount=200");
 		            sb.append("&tax_free_amount=0");
-		            sb.append("&approval_url=http://localhost:8081/shop_project/login");
+		            sb.append("&approval_url=http://localhost:8081/shop_project/kakao_pay_success");
 		            sb.append("&fail_url=https://localhost:8081/shop_project/fail");
 		            sb.append("&cancel_url=http://localhost:8081/shop_project/login");
 		            bw.write(sb.toString());
@@ -237,6 +239,7 @@ public class KakaoLoginAPI {
 			        JsonElement element = parser.parse(result);
 			        
 			        next_redirect_url = element.getAsJsonObject().get("next_redirect_pc_url").getAsString();
+			        tid = element.getAsJsonObject().get("tid").getAsString();
 			        br.close();
 			    } catch (IOException e) {
 			        // TODO Auto-generated catch block
@@ -245,4 +248,55 @@ public class KakaoLoginAPI {
 			    
 			    return next_redirect_url;
 		    }
+	 
+	 public String getReadyPaySucess (String access_Token, String pg_token) {
+		    String result = "";
+//		    String pg_token = "";
+		    String reqURL = "https://kapi.kakao.com/v1/payment/approve";
+		    try {
+		        URL url = new URL(reqURL);
+		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		        conn.setRequestMethod("POST");
+		        conn.setDoOutput(true);
+		        
+		        //    요청에 필요한 Header에 포함될 내용
+		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+		        conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		        
+		        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+	            StringBuilder sb = new StringBuilder();
+	            
+	            sb.append("&cid=TC0ONETIME");
+	            sb.append("&tid=" + tid);
+	            sb.append("&partner_order_id=partner_order_id");
+	            sb.append("&partner_user_id=partner_user_id");
+	            sb.append("&pg_token=" + pg_token);
+	            bw.write(sb.toString());
+	            bw.flush();
+		        
+		        int responseCode = conn.getResponseCode();
+		        System.out.println("responseCode : " + responseCode);
+		        
+		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+		        
+		        String line = "";
+//		        String result = "";
+		        
+		        while ((line = br.readLine()) != null) {
+		            result += line;
+		        }
+		        System.out.println("pay success response body : " + result);
+		        
+//		        JsonParser parser = new JsonParser();
+//		        JsonElement element = parser.parse(result);
+//		        
+//		        next_redirect_url = element.getAsJsonObject().get("next_redirect_pc_url").getAsString();
+		        br.close();
+		    } catch (IOException e) {
+		        // TODO Auto-generated catch block
+		        e.printStackTrace();
+		    }
+		    
+		    return result;
+	    }
 }
