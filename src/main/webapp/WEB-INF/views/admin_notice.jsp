@@ -1,43 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+function popup(url){
+    var name = "popup test";
+    var option = "width = 600, height = 750, top = 100, left = 200, location = no"
+    window.open(url, name, option);
+}
+</script>
+<style>
+.left-box {
+  float: left;
+  padding: 9px;
+}
+.right-box {
+  float: right;
+}
+</style>
 </head>
 <body>
 <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">cs°ü¸®</h1>
+          <h1 class="h3 mb-2 text-gray-800">csê´€ë¦¬</h1>
           <p class="mb-4"> </p>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">°øÁö»çÇ× °ü¸®</h6>
+              <div class="left-box"><h6 class="m-0 font-weight-bold text-primary">ê³µì§€ì‚¬í•­ ê´€ë¦¬</h6></div>
+              <div class="right-box"><a class="btn btn-primary" href=javascript:popup('<%=request.getContextPath() + "/admin/admin_notice_write"%>')>ì‘ì„±í•˜ê¸°</a></div>
             </div>
             <div class="card-body">
               <div class="table-responsive">
+
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>SEQ</th>
-                      <th>À¯ÀúID</th>
-                      <th>Á¦Ç°¸í</th>
-                      <th>¸®ºä¸í</th>
-                      <th>ÃßÃµÁ¡¼ö</th>
+                      <th>ì‘ì„±ì</th>
+                      <th>ê³µì§€ì‚¬í•­ ì œëª©</th>
+                      <th>ê³µì§€ê¸°ê°„</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <c:forEach items="${adminlist }" var="vo" >
+                    <c:forEach items="${noticelist }" var="vo" >
 	                    <tr>
+							<td>${vo.notice_seq }</td>
 							<td>${vo.admin_id }</td>
-							<td>${vo.admin_authlevel }</td>
-							<td>${vo.admin_phone }</td>
-							<td>${vo.admin_address }</td>
-							<td>${vo.admin_name }</td>
-							<td>${vo.admin_otpkey }</td>
-							<td>${vo.admin_active }</td>
+							<td><a href=javascript:popup('<%=request.getContextPath() + "/admin/admin_notice_detail?notice_seq="%>${vo.notice_seq }')>${vo.notice_title }</a></td>
+							<td>${vo.start_date } ~ ${vo.end_date }</td>
 	                    </tr>
                     </c:forEach>
                   </tbody>

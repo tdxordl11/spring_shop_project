@@ -4,8 +4,8 @@
 <mapper namespace="user">
 
 	<select id="checkuser" resultType="String" parameterType="user">
-select user_password from shopuser where user_id=#{user_id}
-</select>
+		select user_password from shopuser where user_id=#{user_id}
+	</select>
 
 	
 </mapper>

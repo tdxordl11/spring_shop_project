@@ -49,5 +49,31 @@ public class AdminServiceImpl implements AdminService {
 	public List<ReviewVO> getReviewList() {
 		return dao.getReviewList();
 	}
+
+	@Override
+	public ReviewVO getReviewDetail(int seq) {
+		return dao.getReviewDetail(seq);
+	}
+
+	@Override
+	public List<NoticeVO> noticeGetList() {
+		return dao.noticeGetList();
+	}
+
+	@Override
+	public NoticeVO getNoticeDetail(int seq) {
+		return dao.getNoticeDetail(seq);
+	}
+
+	@Override
+	public int noticeWrite(NoticeVO vo) {
+		return dao.noticeWrite(vo);
+	}
+
+	@Override
+	public int noticeUpdate(NoticeVO vo) {
+		return dao.noticUpdate(vo);
+	}
+
 	
 }

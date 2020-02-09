@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="notice">
-
+<mapper namespace="shop">
+	<select id="getnoticelist" resultType="notice">
+		select notice_seq, notice_title, notice_contents, admin_id, to_char(start_date,'YYYY/MM/DD') start_date, to_char(end_date,'YYYY/MM/DD') end_date
+		from notice
+	</select>
 	
-
+	<select id="getnoticedetail" resultType="notice" parameterType="int">
+		select notice_seq, notice_title, notice_contents, admin_id, to_char(start_date,'YYYY/MM/DD') start_date, to_char(end_date,'YYYY/MM/DD') end_date
+		from notice
+		where notice_seq = #{notice_seq}
+	</select>
 	
+	<insert id="noticewrite" parameterType="notice">
+		insert into notice values((select max(notice_seq)+1 from notice), #{notice_title}, #{notice_contents}, #{admin_id} ,to_date(#{start_date},'YY/MM/DD'), to_date(#{end_date},'YY/MM/DD'))
+	</insert>
+	
+	<insert id="noticeupdate" parameterType="notice">
+		update notice
+		set notice_title = #{notice_title}, notice_contents = #{notice_contents}, start_date = to_date(#{start_date},'YYYY/MM/DD'), end_date = to_date(#{end_date},'YYYY/MM/DD')
+		where notice_seq = #{notice_seq}
+	</insert>
 </mapper>
 
 		

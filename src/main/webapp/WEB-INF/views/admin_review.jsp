@@ -1,20 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
 <title>Insert title here</title>
+   <script>
+        function popup(url){
+            var name = "popup test";
+            var option = "width = 600, height = 700, top = 100, left = 200, location = no"
+            window.open(url, name, option);
+        }
+    </script>
 </head>
 <body>
 <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">cs°ü¸®</h1>
+          <h1 class="h3 mb-2 text-gray-800">csê´€ë¦¬</h1>
           <p class="mb-4"> </p>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">ÀÌ¿ëÈÄ±â °ü¸®</h6>
+              <h6 class="m-0 font-weight-bold text-primary">ì´ìš©í›„ê¸° ê´€ë¦¬</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -22,10 +34,10 @@
                   <thead>
                     <tr>
                       <th>SEQ</th>
-                      <th>À¯ÀúID</th>
-                      <th>Á¦Ç°¸í</th>
-                      <th>¸®ºä¸í</th>
-                      <th>ÃßÃµÁ¡¼ö</th>
+                      <th>ìœ ì €ID</th>
+                      <th>ì œí’ˆëª…</th>
+                      <th>ë¦¬ë·°ëª…</th>
+                      <th>ì¶”ì²œì ìˆ˜</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -34,10 +46,10 @@
 							<td>${vo.review_seq }</td>
 							<td>${vo.user_id }</td>
 							<td>${vo.product_name }</td>
-							<td>${vo.review_title }</td><!-- detail : pop¾÷ ajaxÀÛ¼º -->
+							<td><a href=javascript:popup('<%=request.getContextPath() + "/admin/admin_review_detail?review_seq="%>${vo.review_seq }')>${vo.review_title }</a></td>
 							<td>
 								<c:forEach begin="1" end="${vo.review_recommend }">
-								¡Ú
+								â˜…
 								</c:forEach>
 							</td>
 	                    </tr>

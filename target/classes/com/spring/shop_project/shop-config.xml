@@ -10,6 +10,7 @@
 	<typeAlias type="com.spring.shop_project.ReviewVO" alias="review"/>
 	<typeAlias type="com.spring.shop_project.OrderVO" alias="chart"/>
 	<typeAlias type="com.spring.shop_project.UserVO" alias="user" />
+	<typeAlias type="com.spring.shop_project.NoticeVO" alias="notice"/>
 </typeAliases>
 
 

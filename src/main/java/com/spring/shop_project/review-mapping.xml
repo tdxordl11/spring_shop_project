@@ -7,6 +7,12 @@
 		from review r, product p
 		where r.product_id = p.product_id
 	</select>
+	
+	<select id="getreviewdetail" resultType="review" parameterType="int">
+		select review_seq, review_title, review_contents, review_recommend, product_name, user_id
+		from review r, product p
+		where r.product_id = p.product_id and review_seq = #{review_seq}
+	</select>
 </mapper>
 
 		

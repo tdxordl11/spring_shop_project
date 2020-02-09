@@ -1,5 +1,10 @@
 package com.spring.shop_project;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +45,7 @@ public class AdminController {
 	
 		//boolean chk = service.otpCheck(vo);
 		
-		boolean chk=true;
+		boolean chk = true;
 		
 		if(chk == false) {
 			mav.addObject("checked", 2);
@@ -121,44 +126,125 @@ public class AdminController {
 		mav.setViewName("admin_manage");
 		return mav;
 	}
-	
-	//1:1 문의 관리
-		@RequestMapping("/admin/admin_qna")
-		public ModelAndView qnaManage() {
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("adminlist", service.adminGetList());
-			mav.setViewName("admin_qna");
-			return mav;
-		}
-		
-	//이용후기 관리
-	@RequestMapping("/admin/admin_review" )
+
+	// 1:1 문의 관리
+	@RequestMapping("/admin/admin_qna")
+	public ModelAndView qnaManage() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("adminlist", service.adminGetList());
+		mav.setViewName("admin_qna");
+		return mav;
+	}
+
+	// 이용후기 관리
+	@RequestMapping("/admin/admin_review")
 	public ModelAndView reviewManage() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reviewlist", service.getReviewList());
 		mav.setViewName("admin_review");
 		return mav;
 	}
-	/*
-	 * //이용후기 디테일 admin_review_detail
-	 * 
-	 * @RequestMapping("/admin/admin_review") public ModelAndView
-	 * reviewManageDetail(@RequestParam (value = "review_seq") int seq) {
-	 * ModelAndView mav = new ModelAndView(); //mav.addObject("reviewlist",
-	 * service.getReviewDetail()); mav.setViewName("admin_review_detail"); return
-	 * mav; }
-	 */
-	
-	//공지사항 관리
+
+	// 이용후기 디테일 admin_review_detail
+	@RequestMapping(value = "/admin/admin_review_detail", method = RequestMethod.GET)
+	public ModelAndView reviewManageDetail(@RequestParam(value = "review_seq") int seq) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reviewdetail", service.getReviewDetail(seq));
+		mav.setViewName("admin_review_detail");
+		return mav;
+	}
+
+	// 공지사항 관리
 	@RequestMapping("/admin/admin_notice")
 	public ModelAndView noticeManage() {
+		//write, update 시 refresh 되도록....
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("adminlist", service.adminGetList());
+		mav.addObject("noticelist", service.noticeGetList());
 		mav.setViewName("admin_notice");
 		return mav;
 	}
+
+	// 공지사항 디테일
+	@RequestMapping(value = "/admin/admin_notice_detail", method = RequestMethod.GET)
+	public ModelAndView noticeManageDetail(@RequestParam(value = "notice_seq") int seq) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("noticedetail", service.getNoticeDetail(seq));
+		mav.setViewName("admin_notice_detail");
+		return mav;
+	}
 	
-	//쿠폰 관리
+	//공지사항 작성 view
+	@RequestMapping(value = "/admin/admin_notice_write", method = RequestMethod.GET)
+	public String noticeWriteView() {
+		return "admin_notice_write";
+	}
+	
+	// 공지사항 작성
+	@RequestMapping(value = "/admin/admin_notice_write", method = RequestMethod.POST)
+	public void noticeWrite(NoticeVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	
+		NoticeVO ntvo = vo;
+		//세션에서 작성자명 가져옴
+		SessionVO sessionVO = (SessionVO)session.getAttribute("session");
+		ntvo.setAdmin_id(sessionVO.getId());
+		
+		int chk = service.noticeWrite(vo); // 1: 정상등록 	
+		PrintWriter out;
+		if(chk==1){
+			//성공 시
+			response.setContentType("text/html; charset=UTF-8");
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('등록 되었습니다'); self.close();</script>");	 
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+        } else {
+        	//실패 시
+        }
+	}
+	
+	// 공지사항 수정
+		@RequestMapping(value = "/admin/admin_notice_update", method = RequestMethod.POST)
+		public void noticeUpdate(NoticeVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	
+			//세션에서 작성자명 가져옴
+			SessionVO sessionVO = (SessionVO)session.getAttribute("session");
+			PrintWriter out;
+			if(sessionVO.getId().equals(vo.getAdmin_id())){
+				//작성자와 수정자가 일치하는 경우
+				try {
+					response.setContentType("text/html; charset=UTF-8");
+					int chk = service.noticeUpdate(vo);
+					if(chk == 1) { // 정상 업데이트
+						out = response.getWriter();
+						out.println("<script>alert('수정 되었습니다'); self.close();</script>");	 
+						out.flush();
+					} else {
+						//실패시
+					}
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	        } else {
+	        	//작성자와 수정자가 일치하지 않는 경우
+	        	response.setContentType("text/html; charset=UTF-8");
+				try {
+					out = response.getWriter();
+					out.println("<script>alert('타 사용자의 게시물은 수정이 불가합니다.'); self.close();</script>");	 
+					out.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	        }
+		}
+
+	
+	
+	// 쿠폰 관리
 	@RequestMapping("/admin/admin_discount")
 	public ModelAndView discountManage() {
 		ModelAndView mav = new ModelAndView();
@@ -166,6 +252,5 @@ public class AdminController {
 		mav.setViewName("admin_discount");
 		return mav;
 	}
-	
-	
+
 }

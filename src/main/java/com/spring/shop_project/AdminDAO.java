@@ -42,8 +42,25 @@ public class AdminDAO {
 	public List<ReviewVO> getReviewList() {
 		return session.selectList("shop.getreviewlist");
 	}
-	
 
+	public ReviewVO getReviewDetail(int seq) {
+		return session.selectOne("shop.getreviewdetail", seq);
+	}
 
+	public List<NoticeVO> noticeGetList() {
+		return session.selectList("shop.getnoticelist");
+	}
+
+	public NoticeVO getNoticeDetail(int seq) {
+		return session.selectOne("shop.getnoticedetail", seq);
+	}
+
+	public int noticeWrite(NoticeVO vo) {
+		return session.insert("shop.noticewrite",vo);
+	}
+
+	public int noticUpdate(NoticeVO vo) {
+		return session.update("shop.noticeupdate",vo);
+	}
 	
 }

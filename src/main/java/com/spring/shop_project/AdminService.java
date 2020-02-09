@@ -22,10 +22,21 @@ public interface AdminService {
 	//관리자 계정 리스트
 	public List<AdminVO> adminGetList();
 	
-	
 	//review 리스트 출력
 	public List<ReviewVO> getReviewList();
-		
-	//review 삭제
 	
+	//review 상세 출력
+	public ReviewVO getReviewDetail(int seq);
+		
+	//notice 리스트 출력
+	public List<NoticeVO> noticeGetList();
+	
+	//notice 상세 출력
+	public NoticeVO getNoticeDetail(int seq);
+	
+	//notice 작성
+	public int noticeWrite(NoticeVO vo);
+	
+	//notice 수정
+	public int noticeUpdate(NoticeVO vo);
 }
