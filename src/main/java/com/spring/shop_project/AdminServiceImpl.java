@@ -75,5 +75,11 @@ public class AdminServiceImpl implements AdminService {
 		return dao.noticUpdate(vo);
 	}
 
+	@Override
+	public List<QnaVO> adminQnaList() {
+		return dao.adminQnaList();
+	}
+
+
 	
 }

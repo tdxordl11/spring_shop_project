@@ -27,6 +27,9 @@ public interface AdminService {
 	
 	//review 상세 출력
 	public ReviewVO getReviewDetail(int seq);
+	
+	//qna 리스트출력
+	public List<QnaVO> adminQnaList();
 		
 	//notice 리스트 출력
 	public List<NoticeVO> noticeGetList();

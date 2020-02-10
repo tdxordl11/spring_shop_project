@@ -131,7 +131,7 @@ public class AdminController {
 	@RequestMapping("/admin/admin_qna")
 	public ModelAndView qnaManage() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("adminlist", service.adminGetList());
+		mav.addObject("qnalist", service.adminQnaList());
 		mav.setViewName("admin_qna");
 		return mav;
 	}
@@ -195,7 +195,7 @@ public class AdminController {
 			response.setContentType("text/html; charset=UTF-8");
 			try {
 				out = response.getWriter();
-				out.println("<script>alert('등록 되었습니다'); self.close();</script>");	 
+				out.println("<script>alert('등록 되었습니다'); opener.location.reload();window.close();</script>");	 
 				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -220,7 +220,7 @@ public class AdminController {
 					int chk = service.noticeUpdate(vo);
 					if(chk == 1) { // 정상 업데이트
 						out = response.getWriter();
-						out.println("<script>alert('수정 되었습니다'); self.close();</script>");	 
+						out.println("<script>alert('수정 되었습니다'); opener.location.reload();window.close();</script>");	 
 						out.flush();
 					} else {
 						//실패시
@@ -244,7 +244,7 @@ public class AdminController {
 
 	
 	
-	// 쿠폰 관리
+	// 쿠폰 관리 ( 미정 )
 	@RequestMapping("/admin/admin_discount")
 	public ModelAndView discountManage() {
 		ModelAndView mav = new ModelAndView();

@@ -62,5 +62,9 @@ public class AdminDAO {
 	public int noticUpdate(NoticeVO vo) {
 		return session.update("shop.noticeupdate",vo);
 	}
+
+	public List<QnaVO> adminQnaList() {
+		return session.selectList("shop.getqnalist");
+	}
 	
 }
