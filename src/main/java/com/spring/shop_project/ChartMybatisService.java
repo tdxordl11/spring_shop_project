@@ -17,14 +17,40 @@ public class ChartMybatisService implements ChartService {
 	}
 
 	@Override
-	public List<OrderVO> getShare(String month) {
-		return dao.getShare(month);
+	public List<OrderVO> getShare(String[] param3) {
+		return dao.getShare(param3);
 	}
 
 	@Override
-	public int getMonthTotal(String month) {
-		return dao.getMonthTotal(month);
+	public int getMonthTotal(String[] param1) {
+		return dao.getMonthTotal(param1);
 	}
+
+	@Override
+	public int prevMonthTotal(String[] param2) {
+		return dao.prevMonthTotal(param2);
+	}
+
+	@Override
+	public int prevYearMonthTotal(String[] param) {
+		return dao.prevYearMonthTotal(param);
+	}
+
+	@Override
+	public int todaytotalincome() {
+		return dao.todaytotalincome();
+	}
+
+	@Override
+	public int todaytotalorder() {
+		return dao.todaytotalorder();
+	}
+
+	@Override
+	public List<OrderVO> monthtop3(String[] param) {
+		return dao.monthtop3(param);
+	}
+	
 	
 	
 	

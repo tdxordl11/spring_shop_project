@@ -18,6 +18,7 @@
 
 
 $(document).ready(function() {
+	var year;
 	var month;
 	var str;
 	
@@ -43,25 +44,30 @@ $(document).ready(function() {
 	//}  
 	
 	//change
-	$("#month").change(function(){
-		var str = $("#month option:selected").val();
-		location.replace("/shop_project/piechart?month=" + str);
-		
-		$.ajax({
-			url:'piechart',
-			data:{ 'month' : $("#month option:selected").val()} ,
-			type:'get'    ,
- 			datatype:'json'   ,
-			success:function(){
-				drawChart();
-			},
-			error: function(err) {
-				alert(err);
-			}
+	$("#year").change(function(){
+		$("#month").change(function(){
+			var month = $("#month option:selected").val();
+			var year = $("#year option:selected").val();
+			location.replace("/shop_project/piechart?month="+month+"&year="+year);
 			
-		}); // ajax end
-		 
-	}); // change 함수 end
+			$.ajax({
+				url:'piechart',
+				data:{ 'month' : $("#month option:selected").val(), 'year' : $("#year option:selected").val()} ,
+				type:'get'    ,
+	 			datatype:'json'   ,
+				success:function(){
+					drawChart();
+				},
+				error: function(err) {
+					alert(err);
+				}
+				
+			}); // ajax end
+			 
+		}); // month change 함수 end
+		
+	});//  year change 함수 end
+	
 	
 	
 	//구글 파이 차트
@@ -115,6 +121,20 @@ $(document).ready(function() {
 </head>
 <body>
 <form>
+<%-- <select id=year name=year>
+	<option selected>년도 선택</option>
+	<c:forEach begin="2010" end="2030" step="1" var = i items="${2010-2030 }">
+		<option value="${i }"></option>
+	</c:forEach>
+
+</select> --%>
+<select id=year name=year>
+	<option selected>년도선택</option>
+	<option>2019</option>
+	<option>2020</option>
+</select>
+	
+
 <select id=month name=month>
 	<option selected>월선택</option>
 	<option>1월</option>

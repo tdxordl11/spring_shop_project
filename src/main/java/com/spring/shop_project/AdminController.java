@@ -252,5 +252,14 @@ public class AdminController {
 		mav.setViewName("admin_discount");
 		return mav;
 	}
+	
+	// Ελ°θ
+		@RequestMapping(value = "/admin/admin_chart", method = RequestMethod.GET)
+		public ModelAndView chart_view() {
+			ModelAndView mav = new ModelAndView();
+			//mav.addObject("noticedetail", service.getNoticeDetail(seq));
+			mav.setViewName("admin_chart");
+			return mav;
+		}
 
 }

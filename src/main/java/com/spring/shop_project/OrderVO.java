@@ -16,10 +16,44 @@ public class OrderVO {
 	int totaldayincome;
 	int monthincomeperproduct;
 	int monthtotal;
+	int prevmonthtotal;
+	int prevyearmonthtotal;
+	int todaytotalincome;
+	int todaytotalorder;
+	int rownum;
 	
 	
 	
-	
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+	public int getTodaytotalorder() {
+		return todaytotalorder;
+	}
+	public void setTodaytotalorder(int todaytotalorder) {
+		this.todaytotalorder = todaytotalorder;
+	}
+	public int getTodaytotalincome() {
+		return todaytotalincome;
+	}
+	public void setTodaytotalincome(int todaytotalincome) {
+		this.todaytotalincome = todaytotalincome;
+	}
+	public int getPrevyearmonthtotal() {
+		return prevyearmonthtotal;
+	}
+	public void setPrevyearmonthtotal(int prevyearmonthtotal) {
+		this.prevyearmonthtotal = prevyearmonthtotal;
+	}
+	public int getPrevmonthtotal() {
+		return prevmonthtotal;
+	}
+	public void setPrevmonthtotal(int prevmonthtotal) {
+		this.prevmonthtotal = prevmonthtotal;
+	}
 	public int getMonthtotal() {
 		return monthtotal;
 	}

@@ -98,7 +98,7 @@
 
       <!-- Nav Item - 통계 -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href='<%=contextpath +"/admin/main?menu=admin_chart"%>'>
           <i class="fas fa-fw fa-chart-area"></i>
           <span>통계</span></a>
       </li>
