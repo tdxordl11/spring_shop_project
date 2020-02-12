@@ -10,15 +10,17 @@ public class UserDAO {
 	SqlSession session;
 	
 	public int checkUser(UserVO vo){
-		int check = 0;
-//		System.out.println(session.selectOne("user.checkuser", vo));
-				if(session.selectOne("user.checkuser", vo) ==null) {
-					check = 0;
-				} else if(session.selectOne("user.checkuser", vo).equals(vo.getUser_password())) {
-					check = 1;
-				} else {
-					check = 2;
-				}
-		return check;
+
+		return session.selectOne("user.checkuser", vo);
+				
+	}
+	
+	public String userIdCheck(String id) {
+		String chk = session.selectOne("user.useridcheck", id); 
+		return chk;
+	}
+	
+	public int userSignUp(UserVO vo) {
+		return session.insert("user.usersignup", vo);
 	}
 }

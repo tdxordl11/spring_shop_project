@@ -1,20 +1,29 @@
 package com.spring.shop_project;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.json.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.spring.shop_main.KakaoLoginAPI;
+import com.spring.shop_main.MailService;
+import com.spring.shop_main.NaverLoginAPI;
 
 
 @Controller
@@ -26,6 +35,9 @@ public class UserController {
 	  private KakaoLoginAPI kakao;
 	  @Autowired
 	  private NaverLoginAPI naver;
+	  
+	  @Autowired
+	  MailService sendmail;
 
 //	  @RequestMapping(value = "/logintest", method = RequestMethod.GET)
 //	  public String Login() {
@@ -49,19 +61,93 @@ public class UserController {
 	  }
 	  
 	  @RequestMapping(value="/login", method = RequestMethod.POST)
-	  public String loginNaverResult(HttpSession session, Model model, UserVO vo) {
+	  public String loginResult(HttpSession session, Model model, UserVO vo) {
 	    if(service.checkUser(vo)==1) {
 	    	System.out.println(vo.getUser_password());
 	    	session.setAttribute("user_id", vo.getUser_id());
-	    	model.addAttribute("login", vo);
 	    	return "main";
 	    }else if(service.checkUser(vo)==0) {
-	    	System.out.println("���̵����");
-	    }else if(service.checkUser(vo)==2) {
-	    	System.out.println("���Ʋ��");
+	    	System.out.println("로그인 안됨");
+	    	model.addAttribute("login", "아이디 혹은 비밀번호를 확인해주세요.");
 	    }
 	    return "logintest";
 	  }
+	  
+	  @RequestMapping("/signup")
+	  public ModelAndView memberSignUp() {
+		  
+		  ModelAndView mav = new ModelAndView();
+		  int ran = new Random().nextInt(900000) + 100000;
+		  mav.setViewName("member_signup");
+		  mav.addObject("random", ran);
+		  return mav;
+
+//		  int ran = new Random().nextInt(900000) + 100000;
+//		  HttpSession session = req.getSession(true);
+//		  String authCode = String.valueOf(ran);
+//		  session.setAttribute("authCode", authCode);
+//		  session.setAttribute("random", random);
+//		  String subject = "회원가입 인증 코드 발급 안내 입니다.";
+//		  StringBuilder sb = new StringBuilder();
+//		  sb.append("귀하의 인증 코드는 " + authCode + "입니다.");
+//
+//		 
+//	    return "member_signup";
+	  }
+	  
+	  @RequestMapping(value = "/signup", method = RequestMethod.POST)
+		public ModelAndView userSignUp(UserVO vo) {
+			ModelAndView mav = new ModelAndView();
+			
+			int chk = service.userSignUp(vo);
+			
+			if ( chk == 1 ) {
+				System.out.println("회원가입 완료"); 
+			} else {
+				System.out.println("회원가입 실패");
+			}
+			
+			mav.addObject("checked", chk);
+			mav.setViewName("/admin_login");
+			
+			return mav;
+		}
+	  
+	  @RequestMapping(value="/useridcheck",  method = RequestMethod.GET, produces="application/json;charset=utf-8")
+		@ResponseBody
+		public String adminIdCheck(String user_id) { // json ���·� �޾ƾ���
+			return "{\"check\" : \"" + service.userIdCheck(user_id)  + "\"}";
+		}
+
+	  
+	  @RequestMapping(value="/emailcheck", method=RequestMethod.GET)
+	  @ResponseBody
+	  public boolean createEmailCheck(@RequestParam String userEmail, @RequestParam int random, HttpServletRequest req){
+	  //이메일 인증
+		  String sendid = "st.shop.final@gmail.com";
+		  int ran = new Random().nextInt(900000) + 100000;
+		  HttpSession session = req.getSession(true);
+		  String authCode = String.valueOf(ran);
+		  session.setAttribute("authCode", authCode);
+		  session.setAttribute("random", random);
+		  String subject = "회원가입 인증 코드 발급 안내 입니다.";
+		  StringBuilder sb = new StringBuilder();
+		  sb.append("귀하의 인증 코드는 " + authCode + "입니다.");
+	  return  sendmail.send(subject, sb.toString(), sendid, userEmail);
+	  }
+	  
+	@RequestMapping(value = "/emailAuth", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> emailAuth(@RequestParam String authCode, @RequestParam String random,
+			HttpSession session) {
+		String originalJoinCode = (String) session.getAttribute("authCode");
+		String originalRandom = Integer.toString((int) session.getAttribute("random"));
+		if (originalJoinCode.equals(authCode) && originalRandom.equals(random))
+			return new ResponseEntity<String>("complete", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("false", HttpStatus.OK);
+	}
+
 
 	  /**
 	   * �ݹ� ������ ��Ʈ�ѷ�
@@ -188,5 +274,9 @@ public class UserController {
 	      return "pay_success";
 	  }
 
+	  @RequestMapping(value="/imsi")
+	  public String logout11(HttpSession session) {
+	      return "main";
+	  }
 	
 }

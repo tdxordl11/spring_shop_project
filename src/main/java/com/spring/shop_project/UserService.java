@@ -6,4 +6,8 @@ public interface UserService {
 	
 	public int checkUser(UserVO vo);
 	
+	public String userIdCheck(String id);
+	
+	public int userSignUp(UserVO vo);
+	
 }

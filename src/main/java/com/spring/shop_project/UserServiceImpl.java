@@ -16,8 +16,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int checkUser(UserVO vo) {
-		int res = dao.checkUser(vo);
-		return res;
+		return dao.checkUser(vo);
 	}
+
+	@Override
+	public String userIdCheck(String id) {
+		return dao.userIdCheck(id);
+	}
+
+	@Override
+	public int userSignUp(UserVO vo) {
+		return dao.userSignUp(vo);
+	}
+	
+	
 	
 }
