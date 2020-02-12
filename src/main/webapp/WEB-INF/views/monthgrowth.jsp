@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="com.spring.shop_project.OrderVO"%>
 <%@page import="java.util.ArrayList"%>
@@ -25,9 +26,19 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<div>저번달 총 매출액 : ${prevmonthtotal} 원</div>
-	<div>이번달 총 매출액 : ${monthtotal} 원</div>
-	<%-- 소수 셋째자리에서 반올림  전월대비 증가율: ${(prevmonthtotal-monthtotal)/monthtotal *100} % 35.33812949640288 % --%>
-    <div>전월대비 증가율: ${Math.round((monthtotal-prevmonthtotal)/prevmonthtotal *10000)/100 } %</div> 
+	<%
+		int origin1 = (Integer)request.getAttribute("prevmonthtotal");
+		int origin2 = (Integer)request.getAttribute("monthtotal");
+	
+		DecimalFormat dc = new DecimalFormat("###,###,###,###");
+		String ch1 = dc.format(origin1);
+		String ch2 = dc.format(origin2);
+	%>
+	<div class="text-xs font-weight-bold text-info text-uppercase mb-1">저번달 총 매출액</div>
+	<div><%=ch1 %> 원</div><br>
+	<div class="text-xs font-weight-bold text-info text-uppercase mb-1">이번달 총 매출액</div>
+	<div><%=ch2 %> 원</div><br>
+	<div class="text-xs font-weight-bold text-info text-uppercase mb-1">전월대비 증가율</div>
+    <div>${Math.round((monthtotal-prevmonthtotal)/prevmonthtotal *10000)/100 } %</div> 
 </body>
 </html>

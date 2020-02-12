@@ -66,5 +66,17 @@ public class AdminDAO {
 	public List<QnaVO> adminQnaList() {
 		return session.selectList("shop.getqnalist");
 	}
+
+	public QnaVO getQnaDetail(int seq) {
+		return session.selectOne("shop.getqnadetail", seq);
+	}
+
+	public int qnaUpdate(QnaVO vo) {
+		return session.update("shop.qnaupdate",vo);
+	}
+
+	public AdminVO adminGetDetail(String user) {
+		return session.selectOne("shop.getadmindetail",user);
+	}
 	
 }

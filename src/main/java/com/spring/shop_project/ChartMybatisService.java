@@ -37,12 +37,12 @@ public class ChartMybatisService implements ChartService {
 	}
 
 	@Override
-	public int todaytotalincome() {
+	public String todaytotalincome() {
 		return dao.todaytotalincome();
 	}
 
 	@Override
-	public int todaytotalorder() {
+	public String todaytotalorder() {
 		return dao.todaytotalorder();
 	}
 

@@ -65,7 +65,7 @@
 	</select>
 	
 	<!-- 오늘 총 매출액 보여주기  -->
-	<select id="todaytotalincome" resultType="int">
+	<select id="todaytotalincome" resultType="String">
 		select sum(order_price*order_balance) totalincome 
 		from shoporder
 		where order_date = to_char(sysdate,'YY/MM/DD')
@@ -74,7 +74,7 @@
 	</select>
 	
 	<!-- 오늘 총 판매량 보여주기 미정 -->
-	<select id="todaytotalorder" resultType="int">
+	<select id="todaytotalorder" resultType="String">
 		select sum(order_balance) totalorder
 		from shoporder
 		where order_date = to_char(sysdate,'YY/MM/DD')

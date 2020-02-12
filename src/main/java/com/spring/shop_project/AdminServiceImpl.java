@@ -80,6 +80,21 @@ public class AdminServiceImpl implements AdminService {
 		return dao.adminQnaList();
 	}
 
+	@Override
+	public QnaVO getQnaDetail(int seq) {
+		return dao.getQnaDetail(seq);
+	}
+
+	@Override
+	public int qnaUpdate(QnaVO vo) {
+		return dao.qnaUpdate(vo);
+	}
+
+	@Override
+	public AdminVO adminGetDetail(String user) {
+		return dao.adminGetDetail(user);
+	}
+
 
 	
 }

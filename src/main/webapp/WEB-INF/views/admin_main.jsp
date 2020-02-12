@@ -71,7 +71,7 @@
 
       <!-- Nav Item - 결제관리 -->
       <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href='<%=contextpath +"/admin/main?menu=admin_orderlist"%>'>
           <i class="fas fa-fw fa-wrench"></i>
           <span>결제관리</span>
       </a>
@@ -90,7 +90,7 @@
             <a class="collapse-item" href='<%=contextpath +"/admin/main?menu=admin_qna"%>'>1:1 문의 관리</a>
             <a class="collapse-item" href='<%=contextpath +"/admin/main?menu=admin_review"%>'>이용후기 관리</a>
              <a class="collapse-item" href='<%=contextpath +"/admin/main?menu=admin_notice"%>'>공지사항 관리</a>
-              <a class="collapse-item" href='<%=contextpath +"/admin/main?menu=admin_discount"%>'>쿠폰 관리</a>
+             <%-- <a class="collapse-item" href='<%=contextpath +"/admin/main?menu=admin_discount"%>'>쿠폰 관리</a> --%>
 
           </div>
         </div>

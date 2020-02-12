@@ -30,31 +30,27 @@
         <br>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">SEQ</div>
-             <div class="h5 mb-0 font-weight-bold text-gray-800">${reviewdetail.review_seq }</div><br>
+             <input type="text" id="review_seq" name="review_seq" class="form-control" value="${reviewdetail.review_seq }" readonly="readonly"><br>
           </div>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">유저ID</div>
-             <div class="h5 mb-0 font-weight-bold text-gray-800">${reviewdetail.user_id }</div><br>
+              <input type="text"  class="form-control" value="${reviewdetail.user_id }" disabled="disabled"><br>
           </div>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">제품명</div>
-             <div class="h5 mb-0 font-weight-bold text-gray-800">${reviewdetail.product_name }</div><br>
+             <input type="text"  class="form-control" value="${reviewdetail.product_name }" disabled="disabled"><br>
           </div>
            <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">리뷰명</div>
-             <div class="h5 mb-0 font-weight-bold text-gray-800">${reviewdetail.review_title }</div><br>
+              <input type="text"  class="form-control" value="${reviewdetail.review_title }" disabled="disabled"><br>
           </div>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">리뷰내용</div>
-             <div class="h5 mb-0 font-weight-bold text-gray-800">${reviewdetail.review_contents }</div><br>
+              <input type="text"  class="form-control" value="${reviewdetail.review_contents }" disabled="disabled"><br>
           </div>
             <div class="col mr-2">
-             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">리뷰점수</div>
-             <div class="h5 mb-0 font-weight-bold text-gray-800">
-             	<c:forEach begin="1" end="${reviewdetail.review_recommend }">
-				★
-				</c:forEach>
-			 </div><br>
+             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">리뷰점수(5점만점)</div>
+            <input type="text"  class="form-control" value="${reviewdetail.review_recommend }점" disabled="disabled"><br>			    
           </div>
 			<div>
 				

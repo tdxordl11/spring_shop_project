@@ -107,7 +107,7 @@ $(document).ready(function() {
 	      var options = {
 	        title: '[ ' +str+ ' 인기 상품의 매출 비율 ]' ,
 	        is3D: true,
-	        sliceVisibilityThreshold: .2 // 20% 이하는 기타로 묶어주는 용도
+	        sliceVisibilityThreshold: .05 // 20% 이하는 기타로 묶어주는 용도
 	      };
 	
 	      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -151,7 +151,6 @@ $(document).ready(function() {
 	<option>12월</option>
 </select>
 </form>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
-    <div>총액: ${monthtotal} 원</div>
+    <div id="piechart" style="width: auto; height: 250px;"></div>
 </body>
 </html>

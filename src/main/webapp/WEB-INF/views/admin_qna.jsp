@@ -42,8 +42,9 @@ function popup(url){
                       <th>작성자</th>
                       <th>제품명</th>
                       <th>카테고리</th>
-                      <th>공지사항 제목</th>
+                      <th>문의 제목</th>
                       <th>작성시간</th>
+                      <th>답변여부</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -51,10 +52,18 @@ function popup(url){
 	                    <tr>
 							<td>${vo.cs_seq }</td>
 							<td>${vo.user_id }</td>
-							<td>${vo.product_id }</td>
+							<td>${vo.product_name }</td>
 							<td>${vo.cs_category }</td>
 							<td><a href=javascript:popup('<%=request.getContextPath() + "/admin/admin_qna_detail?cs_seq="%>${vo.cs_seq }')>${vo.cs_title }</a></td>
 							<td>${vo.cs_date }</td>
+							<td>
+								<c:if test="${vo.comments_contents == null}">
+									X
+        						</c:if>
+        						<c:if test="${vo.comments_contents != null}">
+									O (${vo.comments_date })
+        						</c:if>
+							</td>
 	                    </tr>
                     </c:forEach>
                   </tbody>

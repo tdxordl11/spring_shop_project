@@ -22,7 +22,7 @@ public class AdminController {
 	AdminServiceImpl service;
 	
 	@RequestMapping(value = "/admin/main", method = RequestMethod.GET )
-	public ModelAndView adminMain(@RequestParam(value="menu", defaultValue = "admin_manage") String menu) {
+	public ModelAndView adminMain(@RequestParam(value="menu", defaultValue = "admin_chart") String menu) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("menu", menu);
 		mav.setViewName("admin_main");
@@ -97,6 +97,14 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/admin/otpGen",  method = RequestMethod.GET, produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String adminOtpReGen() {
+		GoogleOTPService otp = new GoogleOTPService();
+		String otpkey = otp.generate();
+		return "{\"otpkey\" : \"" + otpkey + "\"}";
+	}
+	
 	@RequestMapping(value="/admin/otpqrGen",  method = RequestMethod.GET, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String adminOtpQRGen(String admin_id, String admin_address, String admin_otpkey) {
@@ -126,7 +134,31 @@ public class AdminController {
 		mav.setViewName("admin_manage");
 		return mav;
 	}
+	
+	//관리자 디테일 
+	@RequestMapping("/admin/admin_manage_detail")
+	public ModelAndView adminManageDetail(@RequestParam(value = "user") String user) {
+		ModelAndView mav = new ModelAndView();
+	    AdminVO vo = service.adminGetDetail(user);
+	    mav.addObject("admindetail",vo);
+		mav.setViewName("admin_manage_detail");
+		return mav;
+	}
 
+		
+	//관리자 정보 업데이트
+	@RequestMapping("/admin/admin_manage_update")
+	public ModelAndView adminManageDetail(AdminVO vo) {
+		ModelAndView mav = new ModelAndView();
+	    //AdminVO vo = service.adminGetDetail(user);
+	    mav.addObject("admindetail",vo);
+		mav.setViewName("admin_manage_detail");
+		return mav;
+	}
+		
+		
+		
+		
 	// 1:1 문의 관리
 	@RequestMapping("/admin/admin_qna")
 	public ModelAndView qnaManage() {
@@ -134,6 +166,34 @@ public class AdminController {
 		mav.addObject("qnalist", service.adminQnaList());
 		mav.setViewName("admin_qna");
 		return mav;
+	}
+	
+	// 1:1문의 상세
+	@RequestMapping("/admin/admin_qna_detail")
+	public ModelAndView qnaaManageDetail(@RequestParam(value = "cs_seq") int seq) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("qnalist", service.getQnaDetail(seq));
+		mav.setViewName("admin_qna_detail");
+		return mav;
+	}
+	
+	// 1:1문의 답변달기
+	@RequestMapping("/admin/admin_qna_update")
+	public void qnaManageUpdate(QnaVO vo, HttpServletRequest request, HttpServletResponse response) {
+		PrintWriter out;
+		
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			int chk = service.qnaUpdate(vo);
+			if(chk == 1) { // 정상 업데이트
+				out = response.getWriter();
+				out.println("<script>alert('답변이 등록 되었습니다'); opener.location.reload();window.close();</script>");	 
+				out.flush();
+			}
+		} catch (IOException e) {
+			e.getStackTrace();
+		}
+
 	}
 
 	// 이용후기 관리

@@ -51,12 +51,12 @@ public class ChartDAO {
 	}
 	
 	// ¿À´Ã ÃÑ ¸ÅÃâ¾× 
-	public int todaytotalincome() {
+	public String todaytotalincome() {
 		return session.selectOne("chart.todaytotalincome");
 	}
 	
 	// ¿À´Ã ÃÑ ÆÇ¸Å·®
-	public int todaytotalorder() {
+	public String todaytotalorder() {
 		return session.selectOne("chart.todaytotalorder");
 	}
 	

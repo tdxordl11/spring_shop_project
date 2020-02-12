@@ -21,10 +21,10 @@ public interface ChartService {
 	public int prevYearMonthTotal(String[] param);
 	
 	// ¿À´Ã ÃÑ ¸ÅÃâ¾×
-	public int todaytotalincome();
+	public String todaytotalincome();
 	
 	// ¿À´Ã ÃÑ ÆÇ¸Å·®
-	public int todaytotalorder();
+	public String todaytotalorder();
 	
 	// ÀÌ¹ø´Þ ÆÇ¸Å·® top3
 	public List<OrderVO> monthtop3(String[] param);

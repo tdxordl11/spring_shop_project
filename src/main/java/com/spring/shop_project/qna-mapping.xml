@@ -3,8 +3,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shop">
 	<select id="getqnalist" resultType="qna">
-		select CS_SEQ, USER_ID, PRODUCT_ID, CS_CATEGORY , CS_TITLE ,CS_CONTENTS, CS_DATE,  ADMIN_ID  ,COMMENTS_CONTENTS , COMMENTS_DATE  from cs
+		select CS_SEQ, USER_ID, PRODUCT_NAME, CS_CATEGORY , CS_TITLE ,CS_CONTENTS, CS_DATE,  ADMIN_ID  ,COMMENTS_CONTENTS , COMMENTS_DATE
+		from cs c, product p
+		where c.product_id = p.product_id(+)
 	</select>
+		
+	<select id="getqnadetail" resultType="qna" parameterType="int">
+		select CS_SEQ, USER_ID, PRODUCT_NAME, CS_CATEGORY , CS_TITLE ,CS_CONTENTS, CS_DATE,  ADMIN_ID  ,COMMENTS_CONTENTS , COMMENTS_DATE
+		from cs c, product p
+		where c.product_id = p.product_id(+) and cs_seq = #{cs_seq}
+	</select>
+	
+	<update id="qnaupdate" parameterType="qna">
+		update cs
+		set admin_id = #{admin_id}, comments_contents = #{comments_contents}, comments_date = sysdate
+		where cs_seq = #{cs_seq}
+	</update>
 </mapper>
 
 		

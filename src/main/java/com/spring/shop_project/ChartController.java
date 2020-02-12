@@ -21,12 +21,12 @@ public class ChartController {
 	@Autowired
 	ChartService service;
 	
-	 @RequestMapping(value="/incomechart" , method = RequestMethod.GET)
+	 @RequestMapping(value="/admin/incomechart" , method = RequestMethod.GET)
 	 public String IncomeChart() { 
 		 return "incomechart";
 	 }
 	
-	 @RequestMapping(value="/incomechart1" , method = RequestMethod.POST)
+	 @RequestMapping(value="/admin/incomechart1" , method = RequestMethod.POST)
 	 @ResponseBody
 	 public List<OrderVO> postIncomeChart(
 			@RequestParam(value = "startdate") String startdate,
@@ -43,7 +43,7 @@ public class ChartController {
 	
 	 //private static String before3 = Integer.toString(cal.get(cal.MONTH)-3);
 	 //private static String today = Integer.toString(cal.get(Calendar.DAY_OF_YEAR));
-	 @RequestMapping(value="/incomechart2" , method = RequestMethod.GET)
+	 @RequestMapping(value="/admin/incomechart2" , method = RequestMethod.GET)
 	 @ResponseBody
 	 public List<OrderVO> getIncomeChart(
 			@RequestParam(value = "startdate") String startdate,
@@ -112,12 +112,17 @@ public class ChartController {
 		}*/
 		String[] param3 = {month, year};
 		int monthtotal = service.getMonthTotal(param3);
-		List<OrderVO> monthshare = service.getShare(param3);
-		
 		ModelAndView nav = new ModelAndView();
-		nav.addObject("monthshare", monthshare);
-		nav.addObject("monthtotal", monthtotal);
-		nav.setViewName("piechart");
+		
+		if(service.getShare(param3) == null) {
+			nav.setViewName("piechartfail");
+		} else {
+			List<OrderVO> monthshare = service.getShare(param3);
+			
+			nav.addObject("monthshare", monthshare);
+			nav.addObject("monthtotal", monthtotal);
+			nav.setViewName("piechart");
+		}
 		
 		return nav;
 	}
@@ -207,21 +212,31 @@ public class ChartController {
 	// 오늘 매출액 총액 보여주기 미정
 	@RequestMapping(value="/todaytotalincome", method = RequestMethod.GET)
 	public ModelAndView todaytotalincome() {
-		 int todaytotalincome = service.todaytotalincome();
-		 ModelAndView nav = new ModelAndView();
-		 nav.addObject("todaytotalincome", todaytotalincome);
-		 nav.setViewName("todaytotalincome");
-		 
+		
+		ModelAndView nav = new ModelAndView();
+		if(service.todaytotalincome() == null) {
+			nav.setViewName("todaytotalfail");
+		} else {
+			int todaytotalincome = Integer.parseInt(service.todaytotalincome());
+			 nav.addObject("todaytotalincome", todaytotalincome);
+			 nav.setViewName("todaytotalincome");
+		}
+
 		 return nav;
 	}
 	
 	// 오늘 총 판매량 보여주기 미정
 	@RequestMapping(value="/todaytotalorder", method = RequestMethod.GET)
 	public ModelAndView todaytotalorder() {
-		 int todaytotalorder = service.todaytotalorder();
-		 ModelAndView nav = new ModelAndView();
-		 nav.addObject("todaytotalorder", todaytotalorder);
-		 nav.setViewName("todaytotalorder");
+		
+		ModelAndView nav = new ModelAndView();
+		if(service.todaytotalorder() == null) {
+			nav.setViewName("todaytotalfail");
+		} else {
+			int todaytotalorder = Integer.parseInt(service.todaytotalorder());
+			nav.addObject("todaytotalorder", todaytotalorder);
+			nav.setViewName("todaytotalorder");
+		}
 		 
 		 return nav;
 	}

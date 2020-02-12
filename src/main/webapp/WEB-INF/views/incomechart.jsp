@@ -4,20 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.4.1.js"   
-   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="   
-   crossorigin="anonymous">
-</script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"  />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script type="text/javascript">
+<script>
 
 $(document).ready(function() {
 	var chart_view_cnt = 0;
@@ -160,13 +152,10 @@ $(document).ready(function() {
 	
 });
 </script>
-</head>
-<body>
+
 	<form autocomplete=off action="incomechart1" method="post">
 	조회기간 :<input type="text" id="startDate" name="startdate"> ~
 	<input type="text" id="endDate" name="enddate">
 	<input type="button" value="조회" id="searchbtn"> 
-
-    <div id="chart_div" style="width: 900px; height: 500px"></div>
-</body>
-</html>
+	</form>
+    <div id="chart_div" style="width: auto; height: 300px;"></div>

@@ -2,12 +2,13 @@ package com.spring.shop_project;
 
 public class OrderVO {
 
-	int order_id;
-	String order_name;           
+	int order_seq;
+	String order_id;           
 	int order_balance;        
 	int order_price;          
 	String order_payment;       
-	String product_id;           
+	String product_id;  
+	String product_name;
 	String user_id;              
 	String order_date;         
 	String shipment_address;     
@@ -16,73 +17,17 @@ public class OrderVO {
 	int totaldayincome;
 	int monthincomeperproduct;
 	int monthtotal;
-	int prevmonthtotal;
-	int prevyearmonthtotal;
-	int todaytotalincome;
-	int todaytotalorder;
-	int rownum;
-	
-	
-	
-	public int getRownum() {
-		return rownum;
+	public int getOrder_seq() {
+		return order_seq;
 	}
-	public void setRownum(int rownum) {
-		this.rownum = rownum;
+	public void setOrder_seq(int order_seq) {
+		this.order_seq = order_seq;
 	}
-	public int getTodaytotalorder() {
-		return todaytotalorder;
-	}
-	public void setTodaytotalorder(int todaytotalorder) {
-		this.todaytotalorder = todaytotalorder;
-	}
-	public int getTodaytotalincome() {
-		return todaytotalincome;
-	}
-	public void setTodaytotalincome(int todaytotalincome) {
-		this.todaytotalincome = todaytotalincome;
-	}
-	public int getPrevyearmonthtotal() {
-		return prevyearmonthtotal;
-	}
-	public void setPrevyearmonthtotal(int prevyearmonthtotal) {
-		this.prevyearmonthtotal = prevyearmonthtotal;
-	}
-	public int getPrevmonthtotal() {
-		return prevmonthtotal;
-	}
-	public void setPrevmonthtotal(int prevmonthtotal) {
-		this.prevmonthtotal = prevmonthtotal;
-	}
-	public int getMonthtotal() {
-		return monthtotal;
-	}
-	public void setMonthtotal(int monthtotal) {
-		this.monthtotal = monthtotal;
-	}
-	public int getTotaldayincome() {
-		return totaldayincome;
-	}
-	public void setTotaldayincome(int totaldayincome) {
-		this.totaldayincome = totaldayincome;
-	}
-	public int getMonthincomeperproduct() {
-		return monthincomeperproduct;
-	}
-	public void setMonthincomeperproduct(int monthincomeperproduct) {
-		this.monthincomeperproduct = monthincomeperproduct;
-	}
-	public int getOrder_id() {
+	public String getOrder_id() {
 		return order_id;
 	}
-	public void setOrder_id(int order_id) {
+	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
-	}
-	public String getOrder_name() {
-		return order_name;
-	}
-	public void setOrder_name(String order_name) {
-		this.order_name = order_name;
 	}
 	public int getOrder_balance() {
 		return order_balance;
@@ -107,6 +52,12 @@ public class OrderVO {
 	}
 	public void setProduct_id(String product_id) {
 		this.product_id = product_id;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 	public String getUser_id() {
 		return user_id;
@@ -137,7 +88,27 @@ public class OrderVO {
 	}
 	public void setOrder_invoice(String order_invoice) {
 		this.order_invoice = order_invoice;
-	}        
+	}
+	public int getTotaldayincome() {
+		return totaldayincome;
+	}
+	public void setTotaldayincome(int totaldayincome) {
+		this.totaldayincome = totaldayincome;
+	}
+	public int getMonthincomeperproduct() {
+		return monthincomeperproduct;
+	}
+	public void setMonthincomeperproduct(int monthincomeperproduct) {
+		this.monthincomeperproduct = monthincomeperproduct;
+	}
+	public int getMonthtotal() {
+		return monthtotal;
+	}
+	public void setMonthtotal(int monthtotal) {
+		this.monthtotal = monthtotal;
+	}
+	
+   
 	
 	
 	

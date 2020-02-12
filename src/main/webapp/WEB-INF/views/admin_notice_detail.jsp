@@ -51,18 +51,16 @@ $.datepicker.setDefaults({
       <div class="card shadow mb-4">
        <form action='<%=contextpath + "/admin/admin_notice_update" %>' method="post">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">이용후기 관리</h6>
+          <h6 class="m-0 font-weight-bold text-primary">공지사항 관리</h6>
         </div>
         <br>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">SEQ</div>
-             <div class="h5 mb-0 font-weight-bold text-gray-800">${noticedetail.notice_seq }</div><br>
-             <input type="hidden" name="notice_seq" value="${noticedetail.notice_seq }">
+             <input type="text" id="notice_seq" name="notice_seq" class="form-control" value="${noticedetail.notice_seq }" readonly="readonly"><br>
           </div>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">작성자</div>
-             <div class="h5 mb-0 font-weight-bold text-gray-800">${noticedetail.admin_id }</div><br>
-             <input type="hidden" name="admin_id" value="${noticedetail.admin_id }">
+             <input type="text" id="admin_id" name="admin_id" class="form-control" value="${noticedetail.admin_id }" readonly="readonly"><br>
           </div>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">공지사항 제목</div>

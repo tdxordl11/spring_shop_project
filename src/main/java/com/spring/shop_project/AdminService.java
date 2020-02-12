@@ -15,6 +15,9 @@ public interface AdminService {
 	
 	//admin user optcode load
 	public String otpCodeLoad(String id);
+	
+	//admin detail
+	public AdminVO adminGetDetail(String user);
 
 	//otp check
 	public boolean otpCheck(AdminVO vo);
@@ -30,6 +33,12 @@ public interface AdminService {
 	
 	//qna 리스트출력
 	public List<QnaVO> adminQnaList();
+	
+	//qna 상세 출력
+	public QnaVO getQnaDetail(int seq);
+	
+	//qna 답변등록
+	public int qnaUpdate(QnaVO vo);
 		
 	//notice 리스트 출력
 	public List<NoticeVO> noticeGetList();

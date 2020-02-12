@@ -22,6 +22,10 @@
 	<select id="admingetlist" resultType="admin">
 		select * from admin
 	</select>
+	
+	<select id="getadmindetail" resultType="admin" parameterType="String">
+		select * from admin where admin_id = #{admin_id}
+	</select>
 </mapper>
 
 		

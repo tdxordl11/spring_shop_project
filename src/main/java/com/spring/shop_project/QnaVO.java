@@ -4,6 +4,7 @@ public class QnaVO {
 	int cs_seq;
     String user_id;
     String product_id;
+    String product_name;
     String cs_category;
     String cs_title;
     String cs_contents;
@@ -12,6 +13,12 @@ public class QnaVO {
     String comments_contents;
     String comments_date;
     
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
 	public int getCs_seq() {
 		return cs_seq;
 	}
