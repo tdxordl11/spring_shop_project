@@ -1,5 +1,7 @@
 package com.spring.shop_project;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.json.ParseException;
@@ -52,7 +55,7 @@ public class UserController {
 	   * @throws UnsupportedEncodingException
 	   * @throws UnknownHostException 
 	   */
-	  @RequestMapping("/login")
+	  @RequestMapping("/user_login")
 	  public String loginNaver(HttpSession session, Model model) {
 	    String[] naverURL = naver.naverURL();
 	    session.setAttribute("state", naverURL[0]);
@@ -60,7 +63,7 @@ public class UserController {
 	    return "logintest";
 	  }
 	  
-	  @RequestMapping(value="/login", method = RequestMethod.POST)
+	  @RequestMapping(value="/user_login", method = RequestMethod.POST)
 	  public String loginResult(HttpSession session, Model model, UserVO vo) {
 	    if(service.checkUser(vo)==1) {
 	    	System.out.println(vo.getUser_password());
@@ -68,9 +71,9 @@ public class UserController {
 	    	return "main";
 	    }else if(service.checkUser(vo)==0) {
 	    	System.out.println("로그인 안됨");
-	    	model.addAttribute("login", "아이디 혹은 비밀번호를 확인해주세요.");
+	    	model.addAttribute("login_failed", "아이디 혹은 비밀번호를 확인해주세요.");
 	    }
-	    return "logintest";
+	    return "redirect:/main?menu=user_login";
 	  }
 	  
 	  @RequestMapping("/signup")
@@ -108,7 +111,7 @@ public class UserController {
 			}
 			
 			mav.addObject("checked", chk);
-			mav.setViewName("/admin_login");
+			mav.setViewName("/main");
 			
 			return mav;
 		}
@@ -216,7 +219,7 @@ public class UserController {
 	    	HashMap<String, String> userInfo = naver.getProfileFromNaver(accessToken);
 	    	System.out.println(userInfo.get("name"));
 //			service.insertUser(userInfo);
-			return "logintest";
+			return "main";
 	  }
 	  /**
 	   * ���� ��ȿȭ(�α׾ƿ�)
@@ -226,7 +229,7 @@ public class UserController {
 	  @RequestMapping("/invalidate")
 	  public String invalidateSession(HttpSession session) {
 	    session.invalidate();
-	    return "redirect:/login";
+	    return "redirect:/main";
 	  }
 	  
 	  @RequestMapping(value="/kakao_login")
@@ -249,7 +252,7 @@ public class UserController {
 	      kakao.kakaoLogout((String)session.getAttribute("access_Token"));
 	      session.removeAttribute("access_Token");
 	      session.removeAttribute("userId");
-	      return "redirect:/login";
+	      return "redirect:/main";
 	  }
 	  
 	  @RequestMapping(value="/kakao_unlink")
@@ -257,7 +260,7 @@ public class UserController {
 	      kakao.kakaoUnlink((String)session.getAttribute("access_Token"));
 	      session.removeAttribute("access_Token");
 	      session.removeAttribute("userId");
-	      return "redirect:/login";
+	      return "redirect:/main";
 	  }
 	  
 	  @RequestMapping(value="/kakao_pay")
@@ -273,10 +276,26 @@ public class UserController {
 //	      model.addAttribute("url", url);
 	      return "pay_success";
 	  }
-
-	  @RequestMapping(value="/imsi")
-	  public String logout11(HttpSession session) {
-	      return "main";
+	  
+	  @RequestMapping(value="/kakao_pay_cancel")
+	  public String cancelpay(HttpServletResponse response) {
+		  PrintWriter out;
+		  try {
+			out = response.getWriter();
+			out.println("<script>alert('결제를 취소 되었습니다.'); self.close();</script>");	 
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	      return "kakaopay_cancel";
 	  }
+
+	  @RequestMapping(value = "/main", method = RequestMethod.GET )
+		public ModelAndView userMain(@RequestParam(value="menu", defaultValue = "home") String menu) {
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("menu", menu);
+			mav.setViewName("main");
+			return mav;
+		}
 	
 }

@@ -36,7 +36,7 @@ body
 <script>
    $(document).ready(function() {
 // 	   $(location).attr('href', 'http://localhost:8081/shop_project/login');
-var login = '${login}';
+var login = '${login_failed}';
 if(login!=""){
 	 alert(login);
 	 login="";
@@ -64,13 +64,13 @@ if(login!=""){
    </script>
 </head>
 <body>
-<body onload="document.login2.user_id.focus();">
+<!-- <body onload="document.login2.user_id.focus();"> -->
 <table cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
 	<tr>
 		<td>
 			<table cellpadding="0" cellspacing="0" align="center" border="0" width="80%">
 				<!--<form name=login2 method=get action="/member/member_login_ps.html">-->
-				<form name=login2 method=post action='<%=request.getContextPath() + "/login" %>'>
+				<form name=login2 method=post action='<%=request.getContextPath() + "/user_login" %>'>
 				<tr>
 					<td align="center" height="50"></td>
 				</tr>
@@ -176,10 +176,8 @@ if(login!=""){
     <input type="button" value="카카오 로그아웃" onclick="location.href='/shop_project/kakao_logout'">
 <!--     </a> -->
     <input type="button" value="카카오 연동해제" onclick="location.href='/shop_project/kakao_unlink'">
-    <input type="button" value="카카오페이 테스트" onclick="location.href='/shop_project/kakao_pay'">
+    <input type="button" value="카카오페이 테스트" onclick="window.open('/shop_project/kakao_pay', 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550'); return false">
   </div>
   </c:if>
-		</div>
-</div>
 </body>
 </html>

@@ -218,7 +218,7 @@ public class KakaoLoginAPI {
 		            sb.append("&tax_free_amount=0");
 		            sb.append("&approval_url=http://localhost:8081/shop_project/kakao_pay_success");
 		            sb.append("&fail_url=https://localhost:8081/shop_project/fail");
-		            sb.append("&cancel_url=http://localhost:8081/shop_project/login");
+		            sb.append("&cancel_url=http://localhost:8081/shop_project/kakao_pay_cancel");
 		            bw.write(sb.toString());
 		            bw.flush();
 			        
