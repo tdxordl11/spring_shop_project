@@ -1102,7 +1102,7 @@ input::-moz-placeholder {
 											<a href="/rauction/g_list.html"><span
 												style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color: #ff7d00;">
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;경매 샵</span></a>
-											<a href="/community_main.html"><span
+											<a href="<%=contextpath %>/main?menu=community_main"><span
 												style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color: #393939;">
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티</span></a>
 											<a href="/etc_html/goods_use/goods_use_list.html"><span

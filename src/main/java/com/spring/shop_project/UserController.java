@@ -297,5 +297,19 @@ public class UserController {
 			mav.setViewName("main");
 			return mav;
 		}
+	  
+	  @RequestMapping(value = "/community_main", method = RequestMethod.GET )
+		public ModelAndView commuMain() {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("commu_main");
+			return mav;
+		}
+	  
+	  @RequestMapping(value = "/p_detail", method = RequestMethod.GET )
+		public ModelAndView cproduct_detail() {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("p_detail");
+			return mav;
+		}
 	
 }
