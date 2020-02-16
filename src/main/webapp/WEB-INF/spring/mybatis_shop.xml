@@ -21,7 +21,7 @@ class="org.mybatis.spring.SqlSessionFactoryBean" >
 	<property name="configLocation" 
 	value="classpath:/com/spring/shop_project/shop-config.xml"/>
 	<property name="mapperLocations" 
-	value="classpath:/com/spring/shop_project/*-mapping.xml"/> <!-- board-mapping.xml -->
+	value="classpath:/com/spring/*/*-mapping.xml"/> <!-- board-mapping.xml -->
 </bean>
 
 <!-- 3. mybatis SqlSession 타입 객체 생성 설정을

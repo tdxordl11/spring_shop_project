@@ -12,6 +12,7 @@
 	<typeAlias type="com.spring.shop_project.UserVO" alias="user" />
 	<typeAlias type="com.spring.shop_project.NoticeVO" alias="notice"/>
 	<typeAlias type="com.spring.shop_project.QnaVO" alias="qna"/>
+	<typeAlias type="com.spring.shop_project.ProductVO" alias="product"/>
 </typeAliases>
 
 

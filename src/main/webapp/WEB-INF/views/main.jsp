@@ -412,7 +412,7 @@ input::-moz-placeholder {
 								<tr>
 									<td width="1000">
 										<ul class='dd_menu'>
-											<li><a href="/etc_html/goods_use/goods_use_list.html"><span
+											<li><a href="<%=contextpath%>/main?menu=goods"><span
 												style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color: #393939;">
 													전체상품보기</span></a>
 						                    </li>
