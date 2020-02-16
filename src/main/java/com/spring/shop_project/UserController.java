@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -18,18 +19,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.shop_main.CartVO;
 import com.spring.shop_main.KakaoLoginAPI;
 import com.spring.shop_main.MailService;
 import com.spring.shop_main.NaverLoginAPI;
 
 
 @Controller
+@SessionAttributes({"cart"})
 public class UserController {
 	  
 	  @Autowired
@@ -66,14 +71,24 @@ public class UserController {
 	  @RequestMapping(value="/user_login", method = RequestMethod.POST)
 	  public String loginResult(HttpSession session, Model model, UserVO vo) {
 	    if(service.checkUser(vo)==1) {
-	    	System.out.println(vo.getUser_password());
-	    	session.setAttribute("user_id", vo.getUser_id());
+//	    	System.out.println(vo.getUser_password());
+	    	session.setAttribute("st_user_id", vo.getUser_id());
+	    	System.out.println("로그인 성공");
 	    	return "main";
-	    }else if(service.checkUser(vo)==0) {
-	    	System.out.println("로그인 안됨");
-	    	model.addAttribute("login_failed", "아이디 혹은 비밀번호를 확인해주세요.");
 	    }
-	    return "redirect:/main?menu=user_login";
+	    return "main";
+	  }
+	  
+	  @RequestMapping(value="userloginchk",  method = RequestMethod.POST, produces="application/json;charset=utf-8")
+		@ResponseBody
+		public String adminLoginCheck(UserVO vo) { 
+			return "{\"check\" : \"" + service.checkUser(vo)  + "\"}";
+		}
+	  
+	  @RequestMapping("/user_logout")
+	  public String invalidateSession(HttpSession session) {
+	    session.invalidate();
+	    return "redirect:/main";
 	  }
 	  
 	  @RequestMapping("/signup")
@@ -221,16 +236,8 @@ public class UserController {
 //			service.insertUser(userInfo);
 			return "main";
 	  }
-	  /**
-	   * ���� ��ȿȭ(�α׾ƿ�)
-	   * @param session
-	   * @return
-	   */
-	  @RequestMapping("/invalidate")
-	  public String invalidateSession(HttpSession session) {
-	    session.invalidate();
-	    return "redirect:/main";
-	  }
+	 
+	  
 	  
 	  @RequestMapping(value="/kakao_login")
 	  public String login(@RequestParam("code") String code, HttpSession session) throws ParseException {
@@ -290,7 +297,7 @@ public class UserController {
 	      return "kakaopay_cancel";
 	  }
 
-	  @RequestMapping(value = "/main", method = RequestMethod.GET )
+	  @RequestMapping(value = "/main", method={RequestMethod.GET,RequestMethod.POST} )
 		public ModelAndView userMain(@RequestParam(value="menu", defaultValue = "home") String menu) {
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("menu", menu);
@@ -306,10 +313,27 @@ public class UserController {
 		}
 	  
 	  @RequestMapping(value = "/p_detail", method = RequestMethod.GET )
-		public ModelAndView cproduct_detail() {
+		public ModelAndView product_detail() {
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("p_detail");
 			return mav;
+		}
+	  
+	  @RequestMapping(value = "/cart_order",  method = RequestMethod.GET )
+		public ModelAndView cart_order() {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("cart_order");
+			return mav;
+		}
+	  
+	  @RequestMapping(value = "/cart_order", method = RequestMethod.POST )
+		public String cart_order(@ModelAttribute CartVO vo, HttpSession session ) {
+		  session.setAttribute("o_info", vo.getProduct_name());
+		  session.setAttribute("o_info2", vo.getO_num());
+		  session.setAttribute("o_info3", vo.getOption());
+//		  cart.add(vo);
+		  
+			return "cart_order";
 		}
 	
 }

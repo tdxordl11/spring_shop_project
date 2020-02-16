@@ -36,31 +36,63 @@ body
 <script>
    $(document).ready(function() {
 // 	   $(location).attr('href', 'http://localhost:8081/shop_project/login');
-var login = '${login_failed}';
-if(login!=""){
-	 alert(login);
-	 login="";
-}
+
+	   $("#loginbtn").on("click",function() {		
+				$.ajax({
+					url : '<%=request.getContextPath() + "/userloginchk" %>',
+					data : {'user_id' : $("#user_id").val(), 'user_password' : $("#user_password").val() },
+					type : 'POST',
+					dataType : 'json',
+					cache: false,
+					beforeSend : function(xhr){
+						if($("#user_id").val()==""){
+						       alert('아이디를 입력해 주세요');
+						       $("#user_id").focus();
+						       xhr.abort();
+						       return false;
+						     }
+						else if($("#user_password").val()==""){
+						      alert('비밀번호를 입력해 주세요');
+						      $("#user_password").focus();
+						      xhr.abort();
+						     }
+					},
+					success : function(data) {
+							if(data.check == '0') {
+								alert("아이디 또는 비밀번호를 확인해주세요.")
+								$("#user_id").val("");
+								$("#user_password").val("");
+			} else {
+				$("#form").submit();
+			}
+					},
+					error:function(err) {
+						alert(err);
+					}
+				});
+			
+		});
+
    });
    
   
 </script>
 				 <script>
-   function chk_login(){
-     var ft=document.login2;
-     if(ft.user_id.value==""){
-       alert('아이디를 입력해 주세요');
-       ft.user_id.focus();
-       return false;
-     }
-     if(ft.user_password.value==""){
-      alert('비밀번호를 입력해 주세요');
-      ft.user_password.focus();
-      return false;
-     }
+//    function chk_login(){
+//      var ft=document.login2;
+//      if(ft.user_id.value==""){
+//        alert('아이디를 입력해 주세요');
+//        ft.user_id.focus();
+//        return false;
+//      }
+//      if(ft.user_password.value==""){
+//       alert('비밀번호를 입력해 주세요');
+//       ft.user_password.focus();
+//       return false;
+//      }
 
-     ft.submit();
-   }
+//      ft.submit();
+//    }
    </script>
 </head>
 <body>
@@ -70,24 +102,24 @@ if(login!=""){
 		<td>
 			<table cellpadding="0" cellspacing="0" align="center" border="0" width="80%">
 				<!--<form name=login2 method=get action="/member/member_login_ps.html">-->
-				<form name=login2 method=post action='<%=request.getContextPath() + "/user_login" %>'>
+				<form name=login2 id="form" method=post action='<%=request.getContextPath() + "/user_login" %>'>
 				<tr>
 					<td align="center" height="50"></td>
 				</tr>
 				<tr>
-					<td align="center"><input name="user_id" type="text" style="border-top: #cccccc 1px solid; border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid; max-width: 400px; width: 100%; height:50px; text-indent: 20;" placeholder="아이디"></td>
+					<td align="center"><input name="user_id" id="user_id" type="text" style="border-top: #cccccc 1px solid; border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid; max-width: 400px; width: 100%; height:50px; text-indent: 20;" placeholder="아이디"></td>
 				</tr>
 				<tr>
 					<td align="center" height="20"></td>
 				</tr>
 				<tr>
-					<td align="center"><input name="user_password" type="password" style="border-top: #cccccc 1px solid; border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid; max-width: 400px; width: 100%; height:50px; text-indent: 20;" placeholder="비밀번호" autocomplete="on"></td>
+					<td align="center"><input name="user_password" id="user_password" type="password" style="border-top: #cccccc 1px solid; border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid; max-width: 400px; width: 100%; height:50px; text-indent: 20;" placeholder="비밀번호" autocomplete="on"></td>
 				</tr>
 				<tr>
 					<td align="center" height="20"></td>
 				</tr>
 				<tr>
-					<td align="center" height="50"><button type="button" style="border-top: #3f3f3f 1px solid; border-bottom: #3f3f3f 1px solid; border-left: #3f3f3f 1px solid; border-right: #3f3f3f 1px solid; background: #3f3f3f; max-width: 400px; width: 100%; height:50px;" onclick="chk_login()" ;=""><span style="font-family: Noto Sans KR, sans-serif; font-weight: 400; font-size: 11pt; color: #fff;">로그인</span></button></td>
+					<td align="center" height="50"><button type="button" id="loginbtn" style="border-top: #3f3f3f 1px solid; border-bottom: #3f3f3f 1px solid; border-left: #3f3f3f 1px solid; border-right: #3f3f3f 1px solid; background: #3f3f3f; max-width: 400px; width: 100%; height:50px;"  ><span style="font-family: Noto Sans KR, sans-serif; font-weight: 400; font-size: 11pt; color: #fff;">로그인</span></button></td>
 				</tr>
 
 				<tr>
@@ -157,7 +189,12 @@ if(login!=""){
 <!--         </a> -->
 <!--   </div> -->
 <%--   </c:if> --%>
-  
+  <c:if test="${st_user_id ne null }">
+   ${st_user_id }로 연결되어있습니다
+   <script type="text/javascript">
+   window.location.href='http://localhost:8081/shop_project/main';
+   </script>
+  </c:if>
   <c:if test="${currentUser ne null}">
   <div>
     <h3>이 부분은 로그인한 사용자한테만 보임</h3>
@@ -166,7 +203,7 @@ if(login!=""){
     <a href="http://localhost:8081/shop_project/getProfile?accessToken=${currentAT}">Get User's Profile</a>
     <a href="http://localhost:8081/shop_project/refreshToken?refreshToken=${currentRT}">Refresh Token</a>
     <a href="http://localhost:8081/shop_project/deleteToken?accessToken=${currentAT}">Delete Token (연동해제)</a>
-    <a href="http://localhost:8081/shop_project/invalidate">로그아웃 (Invalidate Session)</a>
+    <a href="http://localhost:8081/shop_project/user_logout">로그아웃 (Invalidate Session)</a>
     </div>
     </c:if>
     <c:if test="${userId ne null }">

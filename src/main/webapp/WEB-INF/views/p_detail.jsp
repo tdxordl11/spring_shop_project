@@ -27,7 +27,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- AMP Analytics -->
-<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
 
 <!-- Google Tag Manager -->
 
@@ -128,23 +127,8 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126121931-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-126121931-1');
-</script>
 
 <!-- Event snippet for 전체 방문자 conversion page -->
-<script>
-  gtag('event', 'conversion', {
-      'send_to': 'AW-956692776/TOP_CI6Tg7QBEKjyl8gD',
-      'value': 1.0,
-      'currency': 'KRW'
-  });
-</script>
 
 
 
@@ -234,7 +218,7 @@ $(document).ready(function(){
     
     <!-- This demo works without jquery library. -->
 
-<!--     <script type="text/javascript" src="/js/jssor.slider.min.js"></script> -->
+     <script type="text/javascript" src="<%=respath%>js/jssor.slider.min.js"></script>
     <!-- use jssor.slider.debug.js instead for debug -->
     <script>
         jssor_1_slider_init = function() {
@@ -519,12 +503,12 @@ $(document).ready(function(){
 								
 
 								<!--form name=input_cart method=post action="/order/cart_view.html"-->
-								<form name=input_cart method=post action="/index_ps.html" target="index_ps">
+								<form name=input_cart method=post action="main?menu=cart_order" >
 									<input type=hidden name='mode' value="cart_add">
 									<input type=hidden name='card_add_mode' value="add">
 									<input type=hidden name='gid' value="aZ6SpQE1ND27E1ND27">
 									<input type=hidden name='cart_g_price' value="aaCanZWU">
-									<input type=hidden name='cart_g_name' value="ibavxoWA1C910Kz4gAI9R8FQYVCpZLCaMA1B920B7mGy1ajY27t5mdYWJhjrSUlgE1ND27E1ND27">
+									<input type=hidden name='product_name' value="ibavxoWA1C910Kz4gAI9R8FQYVCpZLCaMA1B920B7mGy1ajY27t5mdYWJhjrSUlgE1ND27E1ND27">
 									<input type=hidden name='link_val' value="">
 																			<tr>
 											<td height="100" bgcolor="#f4f4f4" colspan="3">
@@ -904,7 +888,7 @@ $(document).ready(function(){
 									<table cellpadding="0" cellspacing="0" align="center" border="0" align="center" width="400">
 										<tr>
 											<td>
-												<iframe width="380" height="214" src="https://www.youtube.com/embed/9uAcbjf6svs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!-- 												<iframe width="380" height="214" src="https://www.youtube.com/embed/9uAcbjf6svs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 											</td>
 										</tr>
 										<tr>
@@ -1168,14 +1152,14 @@ function votePopModi(review_no){
     <!-------------------------------top버튼 스크립트------------------------------>
     <script>
         /*Add class when scroll down*/
-        $(window).scroll(function(event){
-            var scroll = $(window).scrollTop();
-            if (scroll >= 100) {
-                $(".go-top").addClass("show");
-            } else {
-                $(".go-top").removeClass("show");
-            }
-        });
+//         $(window).scroll(function(event){
+//             var scroll = $(window).scrollTop();
+//             if (scroll >= 100) {
+//                 $(".go-top").addClass("show");
+//             } else {
+//                 $(".go-top").removeClass("show");
+//             }
+//         });
     </script>
     <!-------------------------------top버튼 스크립트------------------------------>
 

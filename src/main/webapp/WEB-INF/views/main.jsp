@@ -23,8 +23,6 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src='<%=respath%>js/js.js?<%=System.currentTimeMillis()%>'></script>
 <!-- AMP Analytics -->
-<script async custom-element="amp-analytics"
-	src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
 <script>
 	function helpmail() {
 		window.open("/etc_html/helpmail/help.html", "help_mail",
@@ -60,8 +58,8 @@
 </script>
 
 
-<form name="go_loginQQQQQQ"
-	action="<%=request.getContextPath() + "/login"%>" method="get"></form>
+<!-- <form name="go_loginQQQQQQ" -->
+<%-- 	action="<%=request.getContextPath() + "/login"%>" method="get"></form> --%>
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
 
 <script type="text/javascript">
@@ -74,6 +72,7 @@
 				nav.removeClass("float-menu");
 			}
 		});
+		
 	});
 </script>
 
@@ -384,12 +383,24 @@ input::-moz-placeholder {
 								width="1200"
 								style="background-repeat: no-repeat; background-position: 50% 50%; margin-top:-55px;">
 								<tr>
-									<td height="30" align="right"><a
-										href='<%=contextpath +"/main?menu=user_login"%>'><span
+									<td height="30" align="right">
+									 <c:choose>
+									  <c:when test="${st_user_id ne null }">
+									   <span
+											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
+											<b>${st_user_id }</b> 님 환영합니다.&nbsp;</span>
+									<a href='<%=contextpath +"/user_logout"%>'><span
+											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">로그아웃</span></a>
+									  </c:when>
+									  <c:otherwise>
+									<a href='<%=contextpath +"/main?menu=user_login"%>'><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">로그인</span></a>
 										<a href='<%=contextpath +"/main?menu=signup"%>'><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
-												I 회원가입</span></a> <a href="/order/cart_view.html"><span
+												I 회원가입</span></a> 
+									  </c:otherwise>
+									  </c:choose>
+												<a href="/order/cart_view.html"><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
 												I 장바구니</span></a> <a href="/order/delivery_search.html"><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
@@ -412,7 +423,7 @@ input::-moz-placeholder {
 								<tr>
 									<td width="1000">
 										<ul class='dd_menu'>
-											<li><a href="<%=contextpath%>/main?menu=goods"><span
+											<li><a href="/etc_html/goods_use/goods_use_list.html"><span
 												style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color: #393939;">
 													전체상품보기</span></a>
 						                    </li>
@@ -1150,7 +1161,7 @@ input::-moz-placeholder {
 								style="float: right; top: 0px; margin-right: 20px; z-index: 9; height: 40px;">
 								<a href="#top"><img src="<%=respath%>img/top.png" border="0"
 									width="30" height="auto" /></a> <a
-									href="/member/member_login.html"><img
+									href="<%=contextpath +"/main?menu=user_login"%>"><img
 									src="<%=respath%>img/login.png" border="0" width="30"
 									height="auto" /></a> <a href="/order/cart_view.html"><img
 									src="<%=respath%>img/cart.png" border="0" width="30"
@@ -1338,22 +1349,23 @@ a:hover {
 	<!-------------------------------top버튼 스크립트------------------------------>
 	<script>
 		/*Add class when scroll down*/
-		$(window).scroll(function(event) {
-			var scroll = $(window).scrollTop();
-			if (scroll >= 100) {
-				$(".go-top").addClass("show");
-			} else {
-				$(".go-top").removeClass("show");
-			}
-		});
-	</script>
+// 		$(window).scroll(function(event) {
+// 			var scroll = $(window).scrollTop();
+// 			if (scroll >= 100) {
+// 				$(".go-top").addClass("show");
+// 			} else {
+// 				$(".go-top").removeClass("show");
+// 			}
+// 		});
+<!-- 	</script> -->
 	<!-------------------------------top버튼 스크립트------------------------------>
 
 
-	<div class="main4">
 	<div class="container-main">
 	<jsp:include page='/${menu }' />
  	</div>
+ 	
+	<div class="main4">
 		<table cellpadding="0" cellspacing="0" border="0" align="center"
 			width="100%" height="200">
 			<tr>
@@ -1366,7 +1378,7 @@ a:hover {
 						<tr>
 							<td width="25%" height="150" align="center" valign="middle"><img
 								src="<%=respath%>img/call.jpg"
-								style="max-width: 150; width: 100%; height: auto;"></td>
+								style="max-width: 150; width: 50%; height: auto;"></td>
 							<td width="25%" height="150" align="center" valign="middle">
 								<p style="text-align: left">
 									<span
@@ -1382,7 +1394,7 @@ a:hover {
 							</td>
 							<td width="25%" height="150" align="center" valign="middle"><img
 								src="<%=respath%>img/account.jpg"
-								style="max-width: 150; width: 100%; height: auto;"></td>
+								style="max-width: 150; width: 50%; height: auto;"></td>
 							<td width="25%" height="150" align="center" valign="middle">
 								<p style="text-align: left">
 									<span
@@ -1486,8 +1498,6 @@ a:hover {
 				</td>
 			</tr>
 		</table>
-
-
 
 	</div>
 
