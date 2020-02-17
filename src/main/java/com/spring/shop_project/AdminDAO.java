@@ -79,4 +79,21 @@ public class AdminDAO {
 		return session.selectOne("shop.getadmindetail",user);
 	}
 	
+	//슈퍼관리자의 레벨인지 체크
+	public String authlevelchk(AdminVO vo) {
+		return session.selectOne("shop.authlevelchk", vo);
+	}
+	
+	// 관리자 레벨, 계정 활성화 여부 업데이트
+	public int adminUpdate(AdminVO vo) {
+		return session.update("shop.adminupdate",vo);
+	}
+	
+	// adminVO에서 레벨,권한 가져오기
+	public AdminVO adminUserAuthCheck(String id) {
+		return session.selectOne("shop.getalladmin", id);
+	}
+	
+	
+	
 }

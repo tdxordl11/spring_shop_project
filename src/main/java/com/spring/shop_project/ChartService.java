@@ -26,6 +26,12 @@ public interface ChartService {
 	// 오늘 총 판매량
 	public String todaytotalorder();
 	
+	// 이번 주 총매출
+	public String weektotalincome();
+	
+	//이번주 총 판매량
+	public String weektotalorder();
+	
 	// 이번달 판매량 top3
 	public List<OrderVO> monthtop3(String[] param);
 	

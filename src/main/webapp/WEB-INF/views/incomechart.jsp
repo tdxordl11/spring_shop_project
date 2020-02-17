@@ -1,17 +1,30 @@
 <%@page import="java.util.List"%>
+<%@page import="java.util.Calendar"%>
 <%@page import="com.spring.shop_project.OrderVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"  />
+
+<head>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
 <script>
 
+
+(function ($) {
 $(document).ready(function() {
+	$(window).resize(function(){
+		document.location.reload();
+	});
 	var chart_view_cnt = 0;
 	
 	if(chart_view_cnt == 0) {
@@ -140,7 +153,7 @@ $(document).ready(function() {
 		    changeMonth: true,
 		    changeYear: true,
 		    showOn: "button",
-		    buttonImage: "./images/calendar.gif",
+		    buttonImage: "https://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
 		    buttonImageOnly: true,
 		    showAnim:"slide",
 		    yearSuffix: '년'
@@ -151,6 +164,7 @@ $(document).ready(function() {
 		  });
 	
 });
+})(jQuery);
 </script>
 
 	<form autocomplete=off action="incomechart1" method="post">

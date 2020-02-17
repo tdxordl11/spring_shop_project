@@ -18,12 +18,12 @@
 	
 	<!-- 한달간 각 품목별 매출액 계산 -> 차트로 품목별 매출액 비율 파이차트로 그려줌 -->
 	<select id="piechart" resultType="order" parameterType="java.util.Map">
-		select to_char(order_date, 'MM') order_month, sum(order_price*order_balance) monthincomeperproduct, product_id
-		from shoporder
-		where to_char(order_date, 'MM') = #{month} and to_char(order_date, 'YYYY') = #{year}
-		group by to_char(order_date,'MM'), product_id
+		select to_char(order_date, 'MM') order_month, sum(order_price*order_balance) monthincomeperproduct, product_name
+		from shoporder s, product p
+		where s.product_id = p.product_id
+		and to_char(order_date, 'MM') = #{month} and to_char(order_date, 'YYYY') = #{year}
+		group by to_char(order_date,'MM'), s.product_id, product_name
 		order by monthincomeperproduct desc 
-	
 	</select>
 	
 	<!-- 현재월 기준의 기본 한달 총 매출액 구하기  -->
@@ -66,20 +66,40 @@
 	
 	<!-- 오늘 총 매출액 보여주기  -->
 	<select id="todaytotalincome" resultType="String">
-		select sum(order_price*order_balance) totalincome 
+		select sum(order_price*order_balance) todaytotalincome 
 		from shoporder
 		where order_date = to_char(sysdate,'YY/MM/DD')
 		group by order_date
 		order by order_date
 	</select>
 	
-	<!-- 오늘 총 판매량 보여주기 미정 -->
+	<!-- 오늘 총 판매량 보여주기 -->
 	<select id="todaytotalorder" resultType="String">
-		select sum(order_balance) totalorder
+		select sum(order_balance) todaytotalorder
 		from shoporder
 		where order_date = to_char(sysdate,'YY/MM/DD')
 		group by order_date
 		order by order_date
+	</select>
+	
+	<!-- 이번주 총 매출액 보여주기 -->
+	<select id="weektotalincome" resultType="String">
+	select sum(totalincome) from (
+		select sum(order_price*order_balance) totalincome
+		from shoporder
+		where order_date between to_char(sysdate-7,'YY/MM/DD') and to_char(sysdate,'YY/MM/DD')
+		group by order_date
+		order by order_date)
+	</select>
+	
+	<!-- 이번주 총 판매량 보여주기 -->
+	<select id="weektotalorder" resultType="String">
+	select sum(totalorder) from (
+		select sum(order_balance) totalorder
+		from shoporder
+		where order_date between to_char(sysdate-7,'YY/MM/DD') and to_char(sysdate,'YY/MM/DD')
+		group by order_date
+		order by order_date)
 	</select>
 	
 	<!-- 이번달 판매량 TOP3 상품 보여주기 -->
@@ -91,7 +111,6 @@
 		order by order_balance desc)
 		where rownum <=3 ]]>
 	</select>
-	
 	
 	
 	

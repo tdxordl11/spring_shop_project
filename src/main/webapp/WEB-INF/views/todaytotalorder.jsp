@@ -17,11 +17,18 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </script>
 <body>
+	
+	
 	<%
 		int origin = (Integer)request.getAttribute("todaytotalorder");
+		int origin2 = (Integer)request.getAttribute("weektotalorder");
 		DecimalFormat dc = new DecimalFormat("###,###,###,###");
 		String ch = dc.format(origin);
+		String ch2 = dc.format(origin2);
 	%>
-	<div><%=ch %>개</div>
+	<div class="text-xs font-weight-bold text-success text-uppercase mb-1">오늘 총 판매량</div>
+	<div><%=ch %>개</div><br>
+	<div class="text-xs font-weight-bold text-success text-uppercase mb-1">최근 7일간 총 판매량</div>
+	<div><%=ch2 %>개</div><br>
 </body>
 </html>

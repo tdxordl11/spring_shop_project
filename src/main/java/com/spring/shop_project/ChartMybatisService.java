@@ -46,10 +46,25 @@ public class ChartMybatisService implements ChartService {
 		return dao.todaytotalorder();
 	}
 
+	// 이번 주 총매출
+	@Override
+	public String weektotalincome() {
+		return dao.weektotalincome();
+	}
+
+	//이번주 총 판매량
+	@Override
+	public String weektotalorder() {
+		return dao.weektotalorder();
+	}
+	
+	// monthtop3
 	@Override
 	public List<OrderVO> monthtop3(String[] param) {
 		return dao.monthtop3(param);
 	}
+
+	
 	
 	
 	

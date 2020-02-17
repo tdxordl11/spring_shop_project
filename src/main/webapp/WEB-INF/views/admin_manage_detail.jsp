@@ -1,3 +1,6 @@
+<%@page import="com.spring.shop_project.AdminVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.spring.shop_project.SessionVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -48,6 +51,34 @@ $(document).ready(function () {
 				});
 				$("#qrcode").show( "fold", 1000 );
 			});
+	
+	
+<%-- $("input:radio[name=jb-radio]").click(function(){
+		 $.ajax({
+			 url: '<%=contextpath+ "/admin/admin_manage_update" %>',
+			 data: {'admin_active' : $("input[name=jb-radio]:checked").val()},
+			 type: 'POST',
+			 dataType:'json',
+			 success:function(data) {
+				 if($("input[name=jb-radio]:checked").val() == "1") {
+					 
+				 }
+			 },
+			 error:function(err) {
+				 alert(err);
+			 }
+		 }); // ajax end  
+    }); // function end
+	 --%>
+	
+    if(${admindetail.admin_active}=='1') {
+    	$("#active").attr("checked", true);
+    } else {
+    	$("#nonactive").attr("checked", true);
+    }
+	
+	
+	
 });
 
 		
@@ -99,7 +130,16 @@ $(document).ready(function () {
 		</div>
 		<div class="col mr-2">
 			<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">계정활성화 여부</div>
-			<input type="text" id="admin_active" name="admin_active" class="form-control" value="${admindetail.admin_active}"><br>
+			<!-- <input type="radio" id="admin_active" name="admin_active" class="form-control" value="${admindetail.admin_active}">-->
+			<div class="custom-control custom-radio">
+					<input type="radio" name="admin_active" id="active" class="custom-control-input" value="1">
+					<label class="custom-control-label" for="active">활성화</label>
+			</div>
+			<div class="custom-control custom-radio">
+					<input type="radio" name="admin_active" id="nonactive" class="custom-control-input" value="0">
+					<label class="custom-control-label" for="nonactive">비활성화</label>
+			</div><br>
+
 		</div>
 		<div style="text-align: center;">
 			<input type="submit" class="btn btn-primary" value="수정">

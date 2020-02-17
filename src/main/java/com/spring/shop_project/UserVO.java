@@ -2,7 +2,7 @@ package com.spring.shop_project;
 
 public class UserVO {
 String user_id, user_password, user_email, user_address, user_name, user_phone, user_token, user_joindate;
-int user_gread;
+int user_grade;
 
 public String getUser_id() {
 	return user_id;
@@ -52,11 +52,11 @@ public String getUser_joindate() {
 public void setUser_joindate(String user_joindate) {
 	this.user_joindate = user_joindate;
 }
-public int getUser_gread() {
-	return user_gread;
+public int getUser_grade() {
+	return user_grade;
 }
-public void setUser_gread(int user_gread) {
-	this.user_gread = user_gread;
+public void setUser_grade(int user_grade) {
+	this.user_grade = user_grade;
 }
 
 

@@ -51,4 +51,13 @@ public interface AdminService {
 	
 	//notice 수정
 	public int noticeUpdate(NoticeVO vo);
+	
+	//슈퍼관리자의 레벨인지 체크
+	public String authlevelchk(AdminVO vo);
+	
+	//관리자 레벨, 계정 활성화 여부 업데이트
+	public int adminUpdate(AdminVO vo);
+	
+	// adminVO에서 레벨,권한 가져오기
+	public AdminVO adminUserAuthCheck(String id);
 }

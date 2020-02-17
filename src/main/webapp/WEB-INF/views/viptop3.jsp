@@ -1,5 +1,6 @@
-<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.List"%>
 <%@page import="com.spring.shop_project.OrderVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,21 +14,28 @@
    crossorigin="anonymous">
 </script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+	
+		  
+	
+});
+</script>
 </head>
 <body>
+	<div>
+	<table>
+	<c:forEach items = "${viptop3}" var="vo">
+		<tr>
+			<td>TOP ${vo.rownum} 등</td>
+			<td>호구명 : ${vo.user_id }</td>
+			<%-- <td>${vo.totalincome } 원</td><br> --%>
+		</tr>
+	</c:forEach>
+	</table>
 	
-	<%
-		int origin = (Integer)request.getAttribute("todaytotalincome");
-		int origin2 = (Integer)request.getAttribute("weektotalincome");
-		
-		DecimalFormat dc = new DecimalFormat("###,###,###,###");
-		String ch = dc.format(origin);
-		String ch2 = dc.format(origin2);
-	%>
-	<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">오늘 총 매출액</div>
-	<div><%=ch %>원</div><br>
-	
-	<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">최근 7일간 총 매출액</div>
-	<div><%=ch2 %>원</div><br>
+	</div>
 </body>
 </html>

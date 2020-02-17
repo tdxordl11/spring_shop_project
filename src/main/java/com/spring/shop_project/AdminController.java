@@ -29,6 +29,14 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/admin/main", method = RequestMethod.POST )
+	public ModelAndView adminMainPost(@RequestParam(value="menu", defaultValue = "admin_chart") String menu) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("menu", menu);
+		mav.setViewName("admin_main");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET )
 	public ModelAndView adminLogin(@RequestParam(value="checked", defaultValue="0") int checked) {
 		ModelAndView mav = new ModelAndView();
@@ -53,9 +61,22 @@ public class AdminController {
 		} else {
 			SessionVO sessionVO = new SessionVO();
 			sessionVO.setId(vo.getAdmin_id());
-			//sessionVO.setAuthlevel(vo.getAdmin_authlevel());
-			session.setAttribute("session", sessionVO);
-			mav.setViewName("redirect:/admin/main");
+			
+			AdminVO chkvo = service.adminUserAuthCheck(vo.getAdmin_id());
+			
+			sessionVO.setAuthlevel(chkvo.getAdmin_authlevel());
+			sessionVO.setAdmin_active(chkvo.getAdmin_active());
+			
+			// 비활성화된 계정인 경우
+			if(chkvo.getAdmin_active()==0) {
+				mav.addObject("checked",3);
+				mav.setViewName("/admin_login");
+			} else {
+				session.setAttribute("session", sessionVO);
+				//mav.addObject("chkvo", chkvo );
+				mav.setViewName("redirect:/admin/main");
+				
+			}
 		} 
 		
 		return mav;
@@ -147,17 +168,40 @@ public class AdminController {
 
 		
 	//관리자 정보 업데이트
-	@RequestMapping("/admin/admin_manage_update")
-	public ModelAndView adminManageDetail(AdminVO vo) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping(value = "/admin/admin_manage_update" , method = RequestMethod.POST)
+	public void adminManageDetail(AdminVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 	    //AdminVO vo = service.adminGetDetail(user);
-	    mav.addObject("admindetail",vo);
-		mav.setViewName("admin_manage_detail");
-		return mav;
+		
+		SessionVO sessionVO = (SessionVO)session.getAttribute("session");
+		PrintWriter out;
+		
+		int level = Integer.parseInt(sessionVO.getAuthlevel());
+			//int level = Integer.parseInt(service.authlevelchk(vo));
+			if(level == 2) {
+				service.adminUpdate(vo);
+				response.setContentType("text/html; charset=UTF-8");
+				try {
+					out = response.getWriter();
+					out.println("<script>alert('수정 되었습니다'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
+					out.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+			 //실패시
+				response.setContentType("text/html; charset=UTF-8");
+				try {
+					out = response.getWriter();
+					out.println("<script>alert('권한이 없습니다.'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
+					out.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+		}
+	
 	}
-		
-		
-		
+	
 		
 	// 1:1 문의 관리
 	@RequestMapping("/admin/admin_qna")

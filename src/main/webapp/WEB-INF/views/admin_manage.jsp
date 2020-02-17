@@ -43,7 +43,15 @@
 							<td>${vo.admin_address }</td>
 							<td>${vo.admin_name }</td>
 							<td>${vo.admin_otpkey }</td>
-							<td>${vo.admin_active }</td>
+							<td>
+								<c:if test="${vo.admin_active == 1 }">
+									O
+								</c:if>
+								<c:if test="${vo.admin_active == 0 }">
+									X
+								</c:if>
+							
+							</td>
 	                    </tr>
                     </c:forEach>
                   </tbody>

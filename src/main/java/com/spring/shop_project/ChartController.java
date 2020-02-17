@@ -1,7 +1,8 @@
 package com.spring.shop_project;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,29 +27,12 @@ public class ChartController {
 		 return "incomechart";
 	 }
 	
-	 @RequestMapping(value="/admin/incomechart1" , method = RequestMethod.POST)
-	 @ResponseBody
-	 public List<OrderVO> postIncomeChart(
-			@RequestParam(value = "startdate") String startdate,
-			@RequestParam(value = "enddate") String enddate) { 
-		 	
-		 	String[] param = { startdate, enddate };
-
-			List<OrderVO> incomeperday = service.incomechart(param);
-
-			return incomeperday;
-
-	}
-	 
-	
-	 //private static String before3 = Integer.toString(cal.get(cal.MONTH)-3);
-	 //private static String today = Integer.toString(cal.get(Calendar.DAY_OF_YEAR));
 	 @RequestMapping(value="/admin/incomechart2" , method = RequestMethod.GET)
 	 @ResponseBody
 	 public List<OrderVO> getIncomeChart(
 			@RequestParam(value = "startdate") String startdate,
 			@RequestParam(value = "enddate") String enddate) { 
-		 //defaultValue = "2020/01/01"
+		 
 		 if(startdate == "" && enddate == "") {
 			 Date date = new Date();
 		     SimpleDateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
@@ -67,65 +51,93 @@ public class ChartController {
 			return incomeperday;
 	}
 	 
-	 // 날짜 검색해서 그 기간동안의 일별 매출액 그래프
-	 /*
-	@RequestMapping(value = "/incomechart", method = RequestMethod.POST)
-	public ModelAndView IncomeChart(@RequestParam(value = "startdate") String startdate,
-			@RequestParam(value = "enddate") String enddate) {
-		String[] param = { startdate, enddate };
+	 @RequestMapping(value="/admin/incomechart1" , method = RequestMethod.POST)
+	 @ResponseBody
+	 public List<OrderVO> postIncomeChart(
+			@RequestParam(value = "startdate") String startdate,
+			@RequestParam(value = "enddate") String enddate) { 
+		 	
+		 	String[] param = { startdate, enddate };
 
-		List<OrderVO> incomeperday = service.incomechart(param);
+			List<OrderVO> incomeperday = service.incomechart(param);
 
-		ModelAndView nav = new ModelAndView();
-		nav.addObject("incomeperday", incomeperday);
-		nav.setViewName("incomechart");
+			return incomeperday;
 
-		return nav;
-	} */
-	
-
-	// 월별 매출 점유율 놓은 상품 순서대로 파이 차트 get
-	@RequestMapping(value="/piechart", method = RequestMethod.GET)
-	public ModelAndView PieChartg(
-			@RequestParam(value="month",required = false, defaultValue = "13월")  String month, 
-			@RequestParam(value="year",required=false, defaultValue = "year") String year) {
+	}
+	 
+	// piechart ajax로 수정중 ////////////////////////////////////////////////
+	 @RequestMapping(value="/piechart" , method = RequestMethod.GET)
+	 public String PieChart() { 
+		 return "piechart";
+	 }
+	 
+	 @RequestMapping(value="/admin/piechart1" , method = RequestMethod.GET)
+	 @ResponseBody
+	 public List<OrderVO> getPieChart(
+			 @RequestParam(value="month",required = false, defaultValue = "13월")  String month, 
+				@RequestParam(value="year",required=false, defaultValue = "year") String year) {
+			
+		//url디코딩
+		try {
+			month = URLDecoder.decode(month, "UTF-8");
+			 year = URLDecoder.decode(year, "UTF-8"); 
+		} catch (UnsupportedEncodingException e) {
+			
+			e.printStackTrace();
+		} 
 		
-		month = month.split("월")[0];
 		
-		if(month.equals("13")) { // 현재 날짜
-			month = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
-			year = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR));
-		} else {
-			month = String.format("%02d", Integer.parseInt(month));
-			year = String.format("%02d", Integer.parseInt(year));
-		}
-		
-		/*if(month == null) {
-			int calmon = Calendar.getInstance().get(Calendar.MONTH);
-			if(calmon<10) {
-				month= "0"+calmon;
-			}else {
-				month= ""+calmon;
+		 
+			month = month.split("월")[0];
+			
+			if(month.equals("13")) { // 현재 날짜
+				month = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
+				year = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR));
+			} else {
+				month = String.format("%02d", Integer.parseInt(month));
+				year = String.format("%02d", Integer.parseInt(year));
 			}
 			
-			
-		}*/
-		String[] param3 = {month, year};
-		int monthtotal = service.getMonthTotal(param3);
-		ModelAndView nav = new ModelAndView();
-		
-		if(service.getShare(param3) == null) {
-			nav.setViewName("piechartfail");
-		} else {
+			String[] param3 = {month, year};
+			//int monthtotal = service.getMonthTotal(param3);
 			List<OrderVO> monthshare = service.getShare(param3);
+			return monthshare;
 			
-			nav.addObject("monthshare", monthshare);
-			nav.addObject("monthtotal", monthtotal);
-			nav.setViewName("piechart");
-		}
-		
-		return nav;
-	}
+	 }
+
+	 
+	// 월별 매출 점유율 놓은 상품 순서대로 파이 차트 get
+//	@RequestMapping(value="/piechart", method = RequestMethod.GET)
+//	public ModelAndView PieChartg(
+//			@RequestParam(value="month",required = false, defaultValue = "13월")  String month, 
+//			@RequestParam(value="year",required=false, defaultValue = "year") String year) {
+//		
+//		month = month.split("월")[0];
+//		
+//		if(month.equals("13")) { // 현재 날짜
+//			month = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
+//			year = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR));
+//		} else {
+//			month = String.format("%02d", Integer.parseInt(month));
+//			year = String.format("%02d", Integer.parseInt(year));
+//		}
+//		
+//		String[] param3 = {month, year};
+//		int monthtotal = service.getMonthTotal(param3);
+//		ModelAndView nav = new ModelAndView();
+//		
+//		if(service.getShare(param3) == null) {
+//			nav.setViewName("piechartfail");
+//		} else {
+//			List<OrderVO> monthshare = service.getShare(param3);
+//			
+//			nav.addObject("monthshare", monthshare);
+//			nav.addObject("monthtotal", monthtotal);
+//			nav.setViewName("piechart");
+//		}
+//		
+//		return nav;
+//	}
 	
 	
 	// 월별 매출 점유율 놓은 상품 순서대로 파이 차트 post
@@ -214,11 +226,21 @@ public class ChartController {
 	public ModelAndView todaytotalincome() {
 		
 		ModelAndView nav = new ModelAndView();
-		if(service.todaytotalincome() == null) {
-			nav.setViewName("todaytotalfail");
-		} else {
+		if(service.todaytotalincome() == null  && service.weektotalincome() == null) {
+			nav.setViewName("alltotalfail");
+		} else if(service.todaytotalincome() != null && service.weektotalincome() == null) {
 			int todaytotalincome = Integer.parseInt(service.todaytotalincome());
+			nav.addObject("todaytotalincome", todaytotalincome);
+			nav.setViewName("weekincomefail");
+		} else if(service.todaytotalincome() == null && service.weektotalincome() != null){
+			int weektotalincome = Integer.parseInt(service.weektotalincome());
+			nav.addObject("weektotalincome", weektotalincome);
+			nav.setViewName("todayincomefail");
+		}else {
+			int todaytotalincome = Integer.parseInt(service.todaytotalincome());
+			int weektotalincome = Integer.parseInt(service.weektotalincome());
 			 nav.addObject("todaytotalincome", todaytotalincome);
+			 nav.addObject("weektotalincome", weektotalincome );
 			 nav.setViewName("todaytotalincome");
 		}
 
@@ -230,11 +252,21 @@ public class ChartController {
 	public ModelAndView todaytotalorder() {
 		
 		ModelAndView nav = new ModelAndView();
-		if(service.todaytotalorder() == null) {
-			nav.setViewName("todaytotalfail");
-		} else {
+		if(service.todaytotalorder() == null  && service.weektotalorder() == null) {
+			nav.setViewName("alltotalfail");
+		} else if(service.todaytotalorder() != null && service.weektotalorder() == null) {
 			int todaytotalorder = Integer.parseInt(service.todaytotalorder());
 			nav.addObject("todaytotalorder", todaytotalorder);
+			nav.setViewName("weekorderfail");
+		} else if(service.todaytotalorder() == null && service.weektotalorder() != null){
+			int weektotalorder = Integer.parseInt(service.weektotalorder());
+			nav.addObject("weektotalorder", weektotalorder);
+			nav.setViewName("todayorderfail");
+		}else {
+			int todaytotalorder = Integer.parseInt(service.todaytotalorder());
+			int weektotalorder = Integer.parseInt(service.weektotalorder());
+			nav.addObject("todaytotalorder", todaytotalorder);
+			nav.addObject("weektotalorder", weektotalorder);
 			nav.setViewName("todaytotalorder");
 		}
 		 

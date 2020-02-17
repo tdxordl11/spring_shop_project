@@ -95,6 +95,27 @@ public class AdminServiceImpl implements AdminService {
 		return dao.adminGetDetail(user);
 	}
 
+	//슈퍼관리자의 레벨인지 체크
+	@Override
+	public String authlevelchk(AdminVO vo) {
+		return dao.authlevelchk(vo);
+	}
+	
+	// 관리자 레벨, 계정 활성화 여부 업데이트
+	@Override
+	public int adminUpdate(AdminVO vo) {
+		return dao.adminUpdate(vo);
+	}
+	
+	// adminVO에서 레벨,권한 가져오기
+	@Override
+	public AdminVO adminUserAuthCheck(String id) {
+		return dao.adminUserAuthCheck(id);
+	}
+
+	
+	
+	
 
 	
 }

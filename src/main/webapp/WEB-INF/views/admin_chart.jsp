@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
  <div class="container-fluid">
 
           <!-- Page Heading -->
@@ -18,7 +19,6 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">오늘 총 매출액</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"><c:import url="/todaytotalincome"/></div>
                     </div>
                     <div class="col-auto">
@@ -35,7 +35,6 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">오늘 총 판매량</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"><c:import url="/todaytotalorder"/></div>
                     </div>
                     <div class="col-auto">
@@ -116,9 +115,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                  <div><c:import url="/admin/incomechart"/></div>
-                    <canvas id="myAreaChart">
-                    </canvas>
+               		<c:import url="/admin/incomechart"/>
                   </div>
                 </div>
               </div>

@@ -1,3 +1,4 @@
+<%@page import="com.spring.shop_project.SessionVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -55,8 +56,13 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">계정관리 상세</h6>
-            <a class="collapse-item" href='<%=contextpath +"/admin/main?menu=admin_manage" %>'>관리자 계정관리</a>
-            <a class="collapse-item" href="cards.html">사용자 계정 관리</a>
+            <%-- <c:if test="${chkvo.admin_authlevel==2 }"> --%>
+            <%-- <% SessionVO sessionVO = (SessionVO)session.getAttribute("session");%> --%>
+            <c:if test="${session.authlevel==2 }">
+	            <a class="collapse-item" href='<%=contextpath +"/admin/main?menu=admin_manage" %>'>관리자 계정관리</a>
+            </c:if>
+            <%-- </c:if> --%>
+            <a class="collapse-item" href='<%=contextpath +"/admin/main?menu=user_manage" %>'>사용자 계정관리</a>
           </div>
         </div>
       </li>

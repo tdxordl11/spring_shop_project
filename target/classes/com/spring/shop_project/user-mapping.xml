@@ -3,19 +3,72 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 
-	<select id="checkuser" resultType="int" parameterType="user">
-select count(*) from shopuser where user_id = #{user_id} and user_password = #{user_password}
-</select>
+	<select id="checkuser" resultType="String" parameterType="user">
+		select user_password from shopuser where user_id=#{user_id}
+	</select>
 
-<select id="useridcheck" parameterType="String" resultType="String">
-		select count(*) from shopuser where user_id = #{user_id}
+	<!-- 사용자 list 보여주기  -->
+	<select id="usergetlist" resultType="user">
+		select * from shopuser
 	</select>
 	
-	<insert id="usersignup" parameterType="user">
-		insert into shopuser(user_id, user_password, user_email, user_address, user_name, user_joindate, user_phone) values ( #{user_id}, #{user_password}, #{user_email}, #{user_address}, #{user_name}, sysdate, #{user_phone}  )
-	</insert>
+	<!-- 사용자 detail -->
+	<select id="getuserdetail" resultType="user" parameterType="String">
+		select * from shopuser where user_id = #{user_id}
+	</select>
+	
+	<!-- 사용자 detail 수정 얜 또 왜 안돼냐!!!!!!!!!!!!!!!!!!-->
+	<update id="userupdate" parameterType="user">
+		update shopuser
+		set user_email = #{user_email}, user_address = #{user_address},
+		user_name = #{user_name}, user_phone = #{user_phone}, user_grade=#{user_grade}
+		where user_id = #{user_id}
+	</update>
+	
+	<!-- 사용자 계정 삭제버튼 부모테이블이라 자식새끼들도 삭제해야함... siballlllllllllllll-->
+	<delete id="userdelete" parameterType="String">
+		delete from shopuser where user_id = #{user_id}
+	</delete>
+	
+	<!-- cs, review, shoporder, group_purchase, auction, discount 테이블도 삭제해야  -->
+	<delete id="csdelete" parameterType="String">
+		delete from cs where user_id = #{user_id}
+	</delete>
+	
+	<delete id="reviewdelete" parameterType="String">
+		delete from review where user_id = #{user_id}
+	</delete>
+	
+	<delete id="shoporderdelete" parameterType="String">
+		delete from shoporder where user_id = #{user_id}
+	</delete>
+	
+	<delete id="grouppurchasedelete" parameterType="String">
+		delete from group_purchase where user_id = #{user_id}
+	</delete>
+	
+	<delete id="auctiondelete" parameterType="String">
+		delete from auction where user_id = #{user_id}
+	</delete>
+	
+	<delete id="discountdelete" parameterType="String">
+		delete from discount where user_id = #{user_id}
+	</delete>
+	
+	<!-- 역대급 호구 TOP3 VIP -->
+	<select id="vipgrade" resultType="order" parameterType="order">
+		<![CDATA[select rownum, user_id, totalincome from
+		(select user_id, sum(order_price*order_balance) totalincome
+		from shoporder
+		group by user_id
+		order by totalincome desc)
+		where rownum <=100]]>
+	</select>
+	
+
 	
 </mapper>
+
 
 		
 

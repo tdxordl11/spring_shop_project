@@ -4,6 +4,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String contextpath = request.getContextPath();
+%>
+<jsp:useBean id="nowdate" class="java.util.Date"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,45 +22,114 @@
 
 
 $(document).ready(function() {
+	var chart_view_cnt = 0;
 	var year;
 	var month;
-	var str;
+	var gumun ="";
+	var str = "";
 	
-	 /* if(month == undefined) {
-		var today = new Date();
-		var month = today.getMonth()+1; */
+	if(chart_view_cnt == 0) {
+		$.ajax({
+			url:'<%=contextpath%>/admin/piechart1',
+			data:{'month' : '13월', 'year' : $("#year option:selected").val()}, 
+			type:'get',
+			dataType:'json',
+			success:function(vo_data){
+
+				// 구글 차트
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+	
+			    function drawChart() {
 		
-	/* 	$.ajax({
-			url:'piechart',
-			data:{ 'month' : $("#month option:selected").val() } ,
-			type:'get'    ,
- 			datatype:'json'   ,
-			success:function(data){
-				drawChart();
-				//month=1;
+						for(var i=0;i<vo_data.length;i++) {
+							str += "['" +vo_data[i].product_name +"',"+ vo_data[i].monthincomeperproduct+"]";
+							if(i!=vo_data.length-1) {
+								str += ",";
+							}
+						}
+						  //alert(str);
+						  /* var data = google.visualization.arrayToDataTable([ ['product_name' , 'monthincomeperproduct'],
+								eval(str)
+					        ]);  */
+						  
+						var data = eval("google.visualization.arrayToDataTable([ ['product_name' , 'monthincomeperproduct']," + str + " ]);");
+
+					// 차트 옵션부분
+			      if( <%= "'"+request.getParameter("month")+"'" %> == null || <%= "'"+request.getParameter("month")+"'" %> == 'null' ) {
+			 			str2 = new Date().getMonth()+1 +' 월' ;
+			 		} else {
+			 			str2 =  <%= "'"+request.getParameter("month")+"'" %> ;
+			 		}
+			      
+				      var options = {
+				        title: '[ ' +str2+ ' 인기 상품의 매출 비율 ]' ,
+				        is3D: true,
+				        sliceVisibilityThreshold: .05 // 20% 이하는 기타로 묶어주는 용도
+				      };
+				
+				      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+				
+				      chart.draw(data, options);
+					  chart_view_cnt++;
+					  str="";
+			    }
+				
 			},
 			error: function(err) {
 				alert(err);
 			}
-			
-		}); */ // ajax end
+				
+		}); // ajax end
 		
-	//}  
+	}
+	
 	
 	//change
 	$("#year").change(function(){
 		$("#month").change(function(){
 			var month = $("#month option:selected").val();
 			var year = $("#year option:selected").val();
-			location.replace("/shop_project/piechart?month="+month+"&year="+year);
 			
 			$.ajax({
-				url:'piechart',
+				url:'<%=contextpath%>/admin/piechart1',
 				data:{ 'month' : $("#month option:selected").val(), 'year' : $("#year option:selected").val()} ,
 				type:'get'    ,
 	 			datatype:'json'   ,
-				success:function(){
-					drawChart();
+				success:function(vo_data){
+					//alert(vo_data);
+					// 구글 차트
+					google.charts.load('current', {'packages':['corechart']});
+					google.charts.setOnLoadCallback(drawChart);
+
+				    function drawChart() {
+			
+							for(var i=0;i<vo_data.length;i++) {
+								str += "['" +vo_data[i].product_name +"',"+ vo_data[i].monthincomeperproduct+"]";
+								if(i!=vo_data.length-1) {
+									str += ",";
+								}
+							}
+							var data = eval("google.visualization.arrayToDataTable([ ['product_name' , 'monthincomeperproduct']," + str + " ]);");
+
+						// 차트 옵션부분
+				      if( <%= "'"+request.getParameter("month")+"'" %> == null || <%= "'"+request.getParameter("month")+"'" %> == 'null' ) {
+				 			str2 = new Date().getMonth()+1 +' 월' ;
+				 		} else {
+				 			str2 =  <%= "'"+request.getParameter("month")+"'" %> ;
+				 		}
+				      
+					      var options = {
+					        title: '[ ' +str2+ ' 인기 상품의 매출 비율 ]' ,
+					        is3D: true,
+					        sliceVisibilityThreshold: .05 // 20% 이하는 기타로 묶어주는 용도
+					      };
+					
+					      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+					
+					      chart.draw(data, options);
+					      str="";
+				    }
 				},
 				error: function(err) {
 					alert(err);
@@ -68,54 +141,7 @@ $(document).ready(function() {
 		
 	});//  year change 함수 end
 	
-	
-	
-	//구글 파이 차트
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawChart);
-	
-	
-    function drawChart() {
-
-      var data = google.visualization.arrayToDataTable([
-    	  
-    	  <%
-			List<OrderVO> list =  (List<OrderVO>)request.getAttribute("monthshare");
-		  	int chk = 0;
-		  	
-		  	out.print("['product_id' , 'Monthincomeperproduct'] ,");
-			for(OrderVO vo : list) {
-			  	
-				out.print("['" + vo.getProduct_id() + "', "  + vo.getMonthincomeperproduct()+ "]");
-
-				if(chk!=list.size()-1) {
-					out.print(",");
-				} 
-				chk++;
-				
-			}  
-		%>
-		
-      ]);
-
-      if( <%= "'"+request.getParameter("month")+"'" %> == null || <%= "'"+request.getParameter("month")+"'" %> == 'null' ) {
- 			str = new Date().getMonth()+1 +' 월' ;
- 		} else {
- 			str =  <%= "'"+request.getParameter("month")+"'" %> ;
- 		}
-      
-	      var options = {
-	        title: '[ ' +str+ ' 인기 상품의 매출 비율 ]' ,
-	        is3D: true,
-	        sliceVisibilityThreshold: .05 // 20% 이하는 기타로 묶어주는 용도
-	      };
-	
-	      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-	
-	      chart.draw(data, options);
-    }
 		  
-	
 });
 </script>
 </head>
@@ -130,6 +156,9 @@ $(document).ready(function() {
 </select> --%>
 <select id=year name=year>
 	<option selected>년도선택</option>
+	<option>2016</option>
+	<option>2017</option>
+	<option>2018</option>
 	<option>2019</option>
 	<option>2020</option>
 </select>

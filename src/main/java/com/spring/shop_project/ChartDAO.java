@@ -60,6 +60,17 @@ public class ChartDAO {
 		return session.selectOne("chart.todaytotalorder");
 	}
 	
+	// 이번 주 총매출
+	public String weektotalincome() {
+		return session.selectOne("chart.weektotalincome");
+	}
+	
+	//이번주 총 판매량
+	public String weektotalorder() {
+		return session.selectOne("chart.weektotalorder");
+	}
+	
+	
 	// 이번달 판매량 top3
 	public List<OrderVO> monthtop3(String[] param) {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -67,4 +78,7 @@ public class ChartDAO {
 		map.put("year", param[1]);
 		return session.selectList("chart.monthtop3", map);
 	}
+	
+	
+	
 }
