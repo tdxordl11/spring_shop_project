@@ -3,6 +3,7 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <% 
 	String contextpath = request.getContextPath();
 	String respath = request.getContextPath() +"/resources/"; 
@@ -12,12 +13,40 @@
 </c:forEach>
 --%>
 <!-- 무한 스크롤 스크립트 start -->
- <script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
  var count = 0;
-$(document).ready(function(){
+$(document).ready(function($){
     start.init();
+    
+    $(".cart_add").on("click", function(e){
+    	e.preventDefault();
+    	var gid = $(this).attr("value");
+    	alert("나와라 시발");
+    	
+    	if($.cookie('product') != null ) {
+    		if($.cookie('product').indexOf( gid ) != -1) {
+    			alert("이미 장바구니에 등록되어 있음");
+    		} else {
+            	$.cookie('product', $.cookie('product')+","+gid+":1", { expires: 7 , path: '/' });
+            	alert("장바구니에 저장되었습니다.");
+    		}
+
+    	} else {
+        	$.cookie('product', gid+":1", { expires: 7 , path: '/' });
+        	alert("장바구니에 저장되었습니다.");
+    	}
+
+    	//쿠키 읽기
+    	//alert($.cookie('product_id'));
+    	//alert($.cookie('product_balance'));
+    	
+
+    });
 });
 var sort = '<%=request.getParameter("sort")%>';
+var ts_key = '<%=request.getParameter("ts_key")%>';
 var start = {
         param : {
             curPage : 1,
@@ -45,7 +74,7 @@ var start = {
         testAjax : function() {
             $.ajax({
                 type     : 'get',
-                url      : 'goodsScroll?curPage='+start.param.curPage+'&pageListSize='+start.param.pageListSize+'&sort='+sort,
+                url      : 'goodsScroll?curPage='+start.param.curPage+'&pageListSize='+start.param.pageListSize+'&sort='+sort+"&ts_key="+ts_key,
                 //data     : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 갑니다.
                 dataType : 'json',
                 contentType: "application/json",
@@ -61,7 +90,7 @@ var start = {
             function successCallback(goodslist) {
    				//alert("성공 = start.param.curPage:" + start.param.curPage);
    				//alert(goodslist[0].product_name);
-   				for(var i=0; i<goodslist.length; i++) {
+   				for(var i=0; i<goodslist.length/4; i++) {
             		$("#repeat").append("<tbody>"+
             				"<td width='418' valign='top'>"+
             				"<table cellpadding='0' cellspacing='0' border='0' align='center' width='100%' style='max-width:418px;' bgcolor='f2f2f2'>"+
@@ -221,7 +250,7 @@ var start = {
 		    				"		     <br><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 8pt; color: #000;'>"+
 		    				"			 [청음가능]</span>"+
 		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 500; color: #000;'><br><br>"+
-		    				"				<b></b>"+goodslist[3].product_price+"원</b>"+
+		    				"				<b></b>"+goodslist[i*4+3].product_price+"원</b>"+
 		    				"				</span>				"+		
 		    				"				</p>"+
 		    				"						</td>"+
@@ -274,19 +303,24 @@ var start = {
 				<tr>
 					<td height="50"></td>
 				</tr>
-				<tr>
-					<td width="40%" align="left">
-					<span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 10pt; color:#000;">　　·전체보기</span></a>
-					</td>
-					<td width="60%" align="right">
-<a href='<%=contextpath +"/main?menu=goods&sort=toprelease" %>'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·최근 등록 순　　</span></a>
-<a href='<%=contextpath +"/main?menu=goods&sort=topprice" %>'  ><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·가격높은 순　　</span></a>
-<a href='<%=contextpath +"/main?menu=goods&sort=underprice" %>' ><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·가격낮은 순　　</span></a>
-<a href='<%=contextpath +"/main?menu=goods&sort=topsell" %>'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·인기순　　</span></a>
-<%-- <a href='<%=contextpath +"/main?menu=goods" %>'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·멤버십 할인상품</span> --%></a>
-
-
-					</td>
+				<tr>	
+				<!--  상품 없을 시 표시 -->
+					<c:if test="${fn:length(goodslist) == 0 }">
+						<td><span style="margin-left:150px;font-size: 20px"><b><%=request.getParameter("ts_key") %>에 대한 검색결과가 없습니다</b></span><br><br><br></td>
+					</c:if>
+					<c:if test="${fn:length(goodslist) != 0 }">
+						<td width="40%" align="left">
+						<span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 10pt; color:#000;">　　·전체보기</span></a>
+						</td>
+						<td width="60%" align="right">
+						          <!-- 검색 후  정렬 : 추가 구현 필요 ( 현재 검색은 goodsFind에서 처리 함 ) -->
+						<a href='<%=contextpath +"/main?menu=goods&sort=toprelease" %>'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·최근 등록 순　　</span></a>
+						<a href='<%=contextpath +"/main?menu=goods&sort=topprice" %>'  ><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·가격높은 순　　</span></a>
+						<a href='<%=contextpath +"/main?menu=goods&sort=underprice" %>' ><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·가격낮은 순　　</span></a>
+						<a href='<%=contextpath +"/main?menu=goods&sort=topsell" %>'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·인기순　　</span></a>
+						<%-- <a href='<%=contextpath +"/main?menu=goods" %>'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　·멤버십 할인상품</span> --%></a>
+						</td>
+					</c:if>					
 				</tr>
 			</table>
 		</td>
@@ -301,18 +335,17 @@ var start = {
 <div class="main4">
 	<table cellpadding="0" cellspacing="0" border="0" align="center" width="95%" id="repeat">
 	<tr> <!-- 4번째 부터 닫기 -->
-	
 	<!--  반복 시작 -->
 <c:forEach items="${goodslist }" var="vo" varStatus="status">
 			<td width="418" valign="top">
 
 
 <table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="max-width:418px;" bgcolor="f2f2f2">
-	<form method=post action="/order/cart_view.html">
-	<input type=hidden name='cart_mode' value="add">
+	<!--<form method=post action="/order/cart_view.html">
+ 	<input type=hidden name='cart_mode' value="add">
 	<input type=hidden name='gid' value="aZyRowE1ND27E1ND27">
 	<input type=hidden name='cart_g_price' value="a5uanZWU">
-	<input type=hidden name='cart_g_name' value="d7ylsrA1B920pj8cr8ech912A1B920jR1UKV0rHeA1C910rVhc1LTEdRYwzHecW8imBlbLT0dXhpFsE1ND27">
+	<input type=hidden name='cart_g_name' value="d7ylsrA1B920pj8cr8ech912A1B920jR1UKV0rHeA1C910rVhc1LTEdRYwzHecW8imBlbLT0dXhpFsE1ND27"> -->
 
 	<!-- <input type=hidden name='link_val' value=""> -->
 	<input type=hidden name='link_val' value="http://">
@@ -345,7 +378,7 @@ var start = {
 		</tr>
 			
 <tr>
-			<td align="center" height="80" valign="middle" colspan="3"><a href='/goods/g_detail.html?gid=3506'><img src='<%=respath %>/img/cart.png' width="50" height="auto" border="0" alt='바로구매'></a></td>
+			<td align="center" height="80" valign="middle" colspan="3"><a class='cart_add' value="${vo.product_id }" href=""><img src='<%=respath %>/img/cart.png' width="50" height="auto" border="0" alt='바로구매'></a></td>
 		</tr>
 
 		<tr>
@@ -354,7 +387,7 @@ var start = {
 		<tr>
 			<td height="40" bgcolor="ffffff" colspan="3"></td>
 		</tr>
-	</form>
+<!-- 	</form> -->
 </table>
 
 

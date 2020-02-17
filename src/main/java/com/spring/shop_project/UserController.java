@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.shop_main.CartVO;
+/*import com.spring.shop_main.CartVO;*/
 import com.spring.shop_main.KakaoLoginAPI;
 import com.spring.shop_main.MailService;
 import com.spring.shop_main.NaverLoginAPI;
@@ -326,14 +326,14 @@ public class UserController {
 			return mav;
 		}
 	  
-	  @RequestMapping(value = "/cart_order", method = RequestMethod.POST )
-		public String cart_order(@ModelAttribute CartVO vo, HttpSession session ) {
-		  session.setAttribute("o_info", vo.getProduct_name());
-		  session.setAttribute("o_info2", vo.getO_num());
-		  session.setAttribute("o_info3", vo.getOption());
-//		  cart.add(vo);
-		  
-			return "cart_order";
-		}
+	/*
+	 * @RequestMapping(value = "/cart_order", method = RequestMethod.POST ) public
+	 * String cart_order(@ModelAttribute CartVO vo, HttpSession session ) {
+	 * session.setAttribute("o_info", vo.getProduct_name());
+	 * session.setAttribute("o_info2", vo.getO_num());
+	 * session.setAttribute("o_info3", vo.getOption()); // cart.add(vo);
+	 * 
+	 * return "cart_order"; }
+	 */
 	
 }

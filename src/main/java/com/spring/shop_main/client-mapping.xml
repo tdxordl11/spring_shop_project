@@ -12,7 +12,7 @@
 	<select id="getgoodslistallsort" resultType="product" parameterType="Map">
 	    select * from (
 			select rownum r, product_detail, TO_CHAR(product_price, '999,999,999,999,999') product_price , product_balance, product_sellcount, product_category, product_brand, product_name, product_id, REGEXP_SUBSTR(product_image, '[^,]+',1,1) product_image, product_release, sales_persent, sales_date
-			from (select * from product  
+			from (select * from product 
 				<trim prefix="ORDER BY">
 	                        <if test="orderKind == 'topprice'"> product_price desc </if>
 	                        <if test="orderKind == 'underprice'"> product_price asc </if>
@@ -22,10 +22,33 @@
 				)
 			)
 		where r between (#{curPage}-1)*#{pageListSize}+1 and #{curPage}*#{pageListSize}
-		
-		
 	</select>
 	
+    <select id="getgoodslistfind" resultType="product" parameterType="Map">
+		select r, product_detail, TO_CHAR(product_price, '999,999,999,999,999') product_price , product_balance, product_sellcount, product_category, product_brand, product_name, product_id, REGEXP_SUBSTR(product_image, '[^,]+',1,1) product_image, product_release, sales_persent, sales_date 
+        from (select rownum r, p.* from product p where UPPER(product_name) like UPPER('%'||#{ts_key}||'%'))
+		where r between (#{curPage}-1)*#{pageListSize}+1 and #{curPage}*#{pageListSize}
+	</select>
+	
+	<select id="getgoodslistfindsort" resultType="product" parameterType="Map">
+	    select * from (
+			select rownum r, product_detail, TO_CHAR(product_price, '999,999,999,999,999') product_price , product_balance, product_sellcount, product_category, product_brand, product_name, product_id, REGEXP_SUBSTR(product_image, '[^,]+',1,1) product_image, product_release, sales_persent, sales_date
+			from (select * from product where UPPER(product_name) like UPPER('%'||#{ts_key}||'%') 
+				<trim prefix="ORDER BY">
+	                        <if test="orderKind == 'topprice'"> product_price desc </if>
+	                        <if test="orderKind == 'underprice'"> product_price asc </if>
+	                        <if test="orderKind == 'toprelease'">  product_release DESC </if>   
+	                        <if test="orderKind == 'topsell'">  product_sellcount DESC </if>                          
+	                    </trim>
+				)
+			)
+		where r between (#{curPage}-1)*#{pageListSize}+1 and #{curPage}*#{pageListSize}
+	</select>
+		
+		
+    <select id="getcartlist" resultType="product" parameterType="String">
+    	select * from product where product_id = TRIM(#{name})
+    </select>
 </mapper>
 
 

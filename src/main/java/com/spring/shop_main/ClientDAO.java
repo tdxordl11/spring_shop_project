@@ -31,6 +31,30 @@ public class ClientDAO {
 		
 		return vo;
 	}
+
+	public List<ProductVO> getGoodsFindListSort(String curPage, String pageListSize, String sort, String ts_key) {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("curPage", curPage);
+		condition.put("pageListSize", pageListSize);
+		condition.put("orderKind" , sort );
+		condition.put("ts_key", ts_key);
+		List<ProductVO> vo = session.selectList("client.getgoodslistfindsort", condition);
+		return vo;
+	}
+
+	public List<ProductVO> getGoodsFindList(String curPage, String pageListSize, String ts_key) {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("curPage", curPage);
+		condition.put("pageListSize", pageListSize);
+		condition.put("ts_key" , ts_key );
+		List<ProductVO> vo = session.selectList("client.getgoodslistfind", condition);
+		
+		return vo;
+	}
+
+	public ProductVO getCartList(String name) {
+		return session.selectOne("client.getcartlist", name);
+	}
 	
 	
 }

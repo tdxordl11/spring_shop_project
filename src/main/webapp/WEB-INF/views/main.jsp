@@ -63,7 +63,11 @@
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
 
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function($) {
+		var cookie = $.cookie('product');
+		var carturl = "<%=contextpath %>/main?menu=cart_view&product_list="+cookie;
+		$("#cart").attr("href", carturl);
+		
 		var nav = $('.menuWrap');
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > 250) {
@@ -85,6 +89,16 @@
 		cate_div102.style.display = "none";
 		cate_div103.style.display = "block";
 	}
+</script>
+
+<script>
+$(document).ready(function() {
+	$("#search_total").submit( function(event) {
+		event.preventDefault();
+		location.href='<%=contextpath%>/main?menu=goodsfind&ts_key='+$('#ts_key').val();
+		//alert(test);
+	});
+});
 </script>
 
 <style>
@@ -295,7 +309,7 @@ input::-moz-placeholder {
 }
 </style>
 
-					<style>
+<style>
 #blog-header-container {
 	position: fixed;
 	top: 0px;
@@ -400,7 +414,7 @@ input::-moz-placeholder {
 												I 회원가입</span></a> 
 									  </c:otherwise>
 									  </c:choose>
-												<a href="/order/cart_view.html"><span
+									  			<a id='cart' href=""><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
 												I 장바구니</span></a> <a href="/order/delivery_search.html"><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
@@ -423,7 +437,7 @@ input::-moz-placeholder {
 								<tr>
 									<td width="1000">
 										<ul class='dd_menu'>
-											<li><a href="/etc_html/goods_use/goods_use_list.html"><span
+											<li><a href='<%=contextpath%>/main?menu=goods'><span
 												style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color: #393939;">
 													전체상품보기</span></a>
 						                    </li>
@@ -1125,22 +1139,18 @@ input::-moz-placeholder {
 										<!------------------검색바------------------------------->
 										<div class="main4">
 											<div class="menu-icon2" style="display: none;">
-												<table bgcolor="#ffffff" width="200" height="40"
-													align="right">
-													<form name=search_total method=get
-														action="/goods/g_list_search.html"
-														onSubmit="return s_total_chk();">
+											<form id=search_total name=search_total method=get action="">
+												<table bgcolor="#ffffff" width="200" height="40" align="right">
 														<tr>
-															<td align="right"><img
-																src="<%=respath%>img/glass.png" width="20" height="15"><span
-																style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt;"><input
-																	id="ts_key" name="ts_key" type="text"
-																	style="BORDER-TOP: #FFFFFF 1px solid; BORDER-BOTTOM: #000000 2px solid; BORDER-LEFT: #FFFFFF 1px solid; BORDER-RIGHT: #FFFFFF 1px solid; max-width: 158px; width: 158px; height: 30px; text-indent: 20;"
-																	placeholder="검색"></span></td>
+															<td align="right">
+															<img src="<%=respath%>img/glass.png" width="20" height="15">
+															<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt;">
+																<input id="ts_key" name="ts_key" type="text" style="BORDER-TOP: #FFFFFF 1px solid; BORDER-BOTTOM: #000000 2px solid; BORDER-LEFT: #FFFFFF 1px solid; BORDER-RIGHT: #FFFFFF 1px solid; max-width: 158px; width: 158px; height: 30px; text-indent: 20;"placeholder="검색">
+															</span>
 															</td>
 														</tr>
-													</form>
 												</table>
+												</form>
 											</div>
 										</div> <!------------------검색바------------------------------->
 									</td>
@@ -1357,7 +1367,7 @@ a:hover {
 // 				$(".go-top").removeClass("show");
 // 			}
 // 		});
-<!-- 	</script> -->
+	</script> 
 	<!-------------------------------top버튼 스크립트------------------------------>
 
 

@@ -20,12 +20,24 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	public List<ProductVO> getGoodsListcur(String curPage, String pageListSize) {
+	public List<ProductVO> getGoodsList(String curPage, String pageListSize) {
 		return dao.getGoodsList(curPage,pageListSize);
 	}
 
-	public Object getGoodsList(String curPage, String pageListSize) {
-		return dao.getGoodsList(curPage, pageListSize);
+
+	@Override
+	public List<ProductVO> getGoodsFindListSort(String curPage, String pageListSize, String sort, String ts_key) {
+		return dao.getGoodsFindListSort(curPage, pageListSize, sort, ts_key);
+	}
+
+	@Override
+	public List<ProductVO> getGoodsFindList(String curPage, String pageListSize, String ts_key) {
+		return dao.getGoodsFindList(curPage, pageListSize, ts_key);
+	}
+
+	@Override
+	public ProductVO getCartList(String name) {
+		return dao.getCartList(name);
 	}
 
 }
