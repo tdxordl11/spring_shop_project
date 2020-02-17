@@ -67,7 +67,7 @@ public class AdminController {
 			sessionVO.setAuthlevel(chkvo.getAdmin_authlevel());
 			sessionVO.setAdmin_active(chkvo.getAdmin_active());
 			
-			// ºñÈ°¼ºÈ­µÈ °èÁ¤ÀÎ °æ¿ì
+			// ï¿½ï¿½È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if(chkvo.getAdmin_active()==0) {
 				mav.addObject("checked",3);
 				mav.setViewName("/admin_login");
@@ -107,9 +107,9 @@ public class AdminController {
 		int chk = service.adminSignUp(vo);
 		
 		if ( chk == 1 ) {
-			System.out.println("Á¤»ó µî·ÏµÊ"); 
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½"); 
 		} else {
-			System.out.println("µî·Ï ¿¡·¯");
+			System.out.println("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		}
 		
 		mav.addObject("checked", chk);
@@ -136,7 +136,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/adminidcheck",  method = RequestMethod.GET, produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String adminIdCheck(String admin_id) { // json ÇüÅÂ·Î ¹Þ¾Æ¾ßÇÔ
+	public String adminIdCheck(String admin_id) { // json ï¿½ï¿½ï¿½Â·ï¿½ ï¿½Þ¾Æ¾ï¿½ï¿½ï¿½
 		return "{\"check\" : \"" + service.adminIdCheck(admin_id)  + "\"}";
 	}
 	
@@ -147,7 +147,7 @@ public class AdminController {
 	}
 	
 	
-	//°ü¸®ÀÚ °ü¸®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/admin/admin_manage")
 	public ModelAndView adminManage() {
 		ModelAndView mav = new ModelAndView();
@@ -156,7 +156,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	//°ü¸®ÀÚ µðÅ×ÀÏ 
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	@RequestMapping("/admin/admin_manage_detail")
 	public ModelAndView adminManageDetail(@RequestParam(value = "user") String user) {
 		ModelAndView mav = new ModelAndView();
@@ -167,7 +167,7 @@ public class AdminController {
 	}
 
 		
-	//°ü¸®ÀÚ Á¤º¸ ¾÷µ¥ÀÌÆ®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	@RequestMapping(value = "/admin/admin_manage_update" , method = RequestMethod.POST)
 	public void adminManageDetail(AdminVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 	    //AdminVO vo = service.adminGetDetail(user);
@@ -182,17 +182,17 @@ public class AdminController {
 				response.setContentType("text/html; charset=UTF-8");
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('¼öÁ¤ µÇ¾ú½À´Ï´Ù'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
+					out.println("<script>alert('ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
 					out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			} else {
-			 //½ÇÆÐ½Ã
+			 //ï¿½ï¿½ï¿½Ð½ï¿½
 				response.setContentType("text/html; charset=UTF-8");
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
+					out.println("<script>alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
 					out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -203,7 +203,7 @@ public class AdminController {
 	}
 	
 		
-	// 1:1 ¹®ÀÇ °ü¸®
+	// 1:1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/admin/admin_qna")
 	public ModelAndView qnaManage() {
 		ModelAndView mav = new ModelAndView();
@@ -212,7 +212,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	// 1:1¹®ÀÇ »ó¼¼
+	// 1:1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	@RequestMapping("/admin/admin_qna_detail")
 	public ModelAndView qnaaManageDetail(@RequestParam(value = "cs_seq") int seq) {
 		ModelAndView mav = new ModelAndView();
@@ -221,7 +221,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	// 1:1¹®ÀÇ ´äº¯´Þ±â
+	// 1:1ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½Þ±ï¿½
 	@RequestMapping("/admin/admin_qna_update")
 	public void qnaManageUpdate(QnaVO vo, HttpServletRequest request, HttpServletResponse response) {
 		PrintWriter out;
@@ -229,9 +229,9 @@ public class AdminController {
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			int chk = service.qnaUpdate(vo);
-			if(chk == 1) { // Á¤»ó ¾÷µ¥ÀÌÆ®
+			if(chk == 1) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 				out = response.getWriter();
-				out.println("<script>alert('´äº¯ÀÌ µî·Ï µÇ¾ú½À´Ï´Ù'); opener.location.reload();window.close();</script>");	 
+				out.println("<script>alert('ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½'); opener.location.reload();window.close();</script>");	 
 				out.flush();
 			}
 		} catch (IOException e) {
@@ -240,7 +240,7 @@ public class AdminController {
 
 	}
 
-	// ÀÌ¿ëÈÄ±â °ü¸®
+	// ï¿½Ì¿ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/admin/admin_review")
 	public ModelAndView reviewManage() {
 		ModelAndView mav = new ModelAndView();
@@ -249,7 +249,7 @@ public class AdminController {
 		return mav;
 	}
 
-	// ÀÌ¿ëÈÄ±â µðÅ×ÀÏ admin_review_detail
+	// ï¿½Ì¿ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ admin_review_detail
 	@RequestMapping(value = "/admin/admin_review_detail", method = RequestMethod.GET)
 	public ModelAndView reviewManageDetail(@RequestParam(value = "review_seq") int seq) {
 		ModelAndView mav = new ModelAndView();
@@ -258,17 +258,17 @@ public class AdminController {
 		return mav;
 	}
 
-	// °øÁö»çÇ× °ü¸®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/admin/admin_notice")
 	public ModelAndView noticeManage() {
-		//write, update ½Ã refresh µÇµµ·Ï....
+		//write, update ï¿½ï¿½ refresh ï¿½Çµï¿½ï¿½ï¿½....
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("noticelist", service.noticeGetList());
 		mav.setViewName("admin_notice");
 		return mav;
 	}
 
-	// °øÁö»çÇ× µðÅ×ÀÏ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/admin/admin_notice_detail", method = RequestMethod.GET)
 	public ModelAndView noticeManageDetail(@RequestParam(value = "notice_seq") int seq) {
 		ModelAndView mav = new ModelAndView();
@@ -277,68 +277,68 @@ public class AdminController {
 		return mav;
 	}
 	
-	//°øÁö»çÇ× ÀÛ¼º view
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ view
 	@RequestMapping(value = "/admin/admin_notice_write", method = RequestMethod.GET)
 	public String noticeWriteView() {
 		return "admin_notice_write";
 	}
 	
-	// °øÁö»çÇ× ÀÛ¼º
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½
 	@RequestMapping(value = "/admin/admin_notice_write", method = RequestMethod.POST)
 	public void noticeWrite(NoticeVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 	
 		NoticeVO ntvo = vo;
-		//¼¼¼Ç¿¡¼­ ÀÛ¼ºÀÚ¸í °¡Á®¿È
+		//ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		SessionVO sessionVO = (SessionVO)session.getAttribute("session");
 		ntvo.setAdmin_id(sessionVO.getId());
 		
-		int chk = service.noticeWrite(vo); // 1: Á¤»óµî·Ï 	
+		int chk = service.noticeWrite(vo); // 1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 	
 		PrintWriter out;
 		if(chk==1){
-			//¼º°ø ½Ã
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			response.setContentType("text/html; charset=UTF-8");
 			try {
 				out = response.getWriter();
-				out.println("<script>alert('µî·Ï µÇ¾ú½À´Ï´Ù'); opener.location.reload();window.close();</script>");	 
+				out.println("<script>alert('ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½'); opener.location.reload();window.close();</script>");	 
 				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
         } else {
-        	//½ÇÆÐ ½Ã
+        	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         }
 	}
 	
-	// °øÁö»çÇ× ¼öÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		@RequestMapping(value = "/admin/admin_notice_update", method = RequestMethod.POST)
 		public void noticeUpdate(NoticeVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 	
-			//¼¼¼Ç¿¡¼­ ÀÛ¼ºÀÚ¸í °¡Á®¿È
+			//ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			SessionVO sessionVO = (SessionVO)session.getAttribute("session");
 			PrintWriter out;
 			if(sessionVO.getId().equals(vo.getAdmin_id())){
-				//ÀÛ¼ºÀÚ¿Í ¼öÁ¤ÀÚ°¡ ÀÏÄ¡ÇÏ´Â °æ¿ì
+				//ï¿½Û¼ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 				try {
 					response.setContentType("text/html; charset=UTF-8");
 					int chk = service.noticeUpdate(vo);
-					if(chk == 1) { // Á¤»ó ¾÷µ¥ÀÌÆ®
+					if(chk == 1) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 						out = response.getWriter();
-						out.println("<script>alert('¼öÁ¤ µÇ¾ú½À´Ï´Ù'); opener.location.reload();window.close();</script>");	 
+						out.println("<script>alert('ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½'); opener.location.reload();window.close();</script>");	 
 						out.flush();
 					} else {
-						//½ÇÆÐ½Ã
+						//ï¿½ï¿½ï¿½Ð½ï¿½
 					}
 					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 	        } else {
-	        	//ÀÛ¼ºÀÚ¿Í ¼öÁ¤ÀÚ°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â °æ¿ì
+	        	//ï¿½Û¼ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½
 	        	response.setContentType("text/html; charset=UTF-8");
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('Å¸ »ç¿ëÀÚÀÇ °Ô½Ã¹°Àº ¼öÁ¤ÀÌ ºÒ°¡ÇÕ´Ï´Ù.'); self.close();</script>");	 
+					out.println("<script>alert('Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½Õ´Ï´ï¿½.'); self.close();</script>");	 
 					out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -348,7 +348,7 @@ public class AdminController {
 
 	
 	
-	// ÄíÆù °ü¸® ( ¹ÌÁ¤ )
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ï¿½ï¿½ )
 	@RequestMapping("/admin/admin_discount")
 	public ModelAndView discountManage() {
 		ModelAndView mav = new ModelAndView();
@@ -357,12 +357,23 @@ public class AdminController {
 		return mav;
 	}
 	
-	// Åë°è
+	// ï¿½ï¿½ï¿½
 		@RequestMapping(value = "/admin/admin_chart", method = RequestMethod.GET)
 		public ModelAndView chart_view() {
 			ModelAndView mav = new ModelAndView();
 			//mav.addObject("noticedetail", service.getNoticeDetail(seq));
 			mav.setViewName("admin_chart");
+			return mav;
+		}
+		
+		@RequestMapping("/admin/admin_orderlist")
+		public ModelAndView orderList(@RequestParam(value="pagenum", required = false, defaultValue="1") int pagenum) {
+			ModelAndView mav = new ModelAndView();
+			int param[] = new int[2]; 
+			param[0] = ((pagenum-1) * 10) + 1;
+			param[1] = pagenum * 10;
+			mav.addObject("orderlist", service.pagingOrder(param));
+			mav.setViewName("admin_orderlist");
 			return mav;
 		}
 

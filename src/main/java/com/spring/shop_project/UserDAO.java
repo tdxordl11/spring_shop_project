@@ -12,69 +12,72 @@ public class UserDAO {
 	SqlSession session;
 	
 	public int checkUser(UserVO vo){
-		int check = 0;
-//		System.out.println(session.selectOne("user.checkuser", vo));
-				if(session.selectOne("user.checkuser", vo) ==null) {
-					check = 0;
-				} else if(session.selectOne("user.checkuser", vo).equals(vo.getUser_password())) {
-					check = 1;
-				} else {
-					check = 2;
-				}
-		return check;
+
+		return session.selectOne("user.checkuser", vo);
+				
 	}
 	
-	// »ç¿ëÀÚ list º¸¿©ÁÖ±â
-	public List<UserVO> userGetList() {
-		return session.selectList("user.usergetlist");
+	public String userIdCheck(String id) {
+		String chk = session.selectOne("user.useridcheck", id); 
+		return chk;
 	}
 	
-	// »ç¿ëÀÚ detail
-	public UserVO userGetDetail(String user) {
-		return session.selectOne("user.getuserdetail",user);
+	public int userSignUp(UserVO vo) {
+		return session.insert("user.usersignup", vo);
 	}
 	
-	// »ç¿ëÀÚ detail ¼öÁ¤
-	public int userUpdate(UserVO vo) {
-		 return session.update("user.userupdate",vo);
+	public int apiIdCheck(String id) {
+		int chk = session.selectOne("user.apiidcheck", id); 
+		return chk;
 	}
-	
-	// »ç¿ëÀÚ °èÁ¤ »èÁ¦
-	public void userDelete(String user) {
-		session.delete("user.userdelete", user);
-	}
-	
-	//cs, review, shoporder, group_purchase, auction, discount Å×ÀÌºíµµ »èÁ¦ÇØ¾ß 
-	public void csDelete(String user) {
-		session.delete("user.csdelete",user);
-	}
-	
-	public void reviewDelete(String user) {
-		session.delete("user.reviewdelete",user);
-	}
-	
-	public void shoporderDelete(String user) {
-		session.delete("user.shoporderdelete",user);
-	}
-	
-	public void grouppurchaseDelete(String user) {
-		session.delete("user.grouppurchasedelete",user);
-	}
-	
-	public void auctionDelete(String user) {
-		session.delete("user.auctiondelete",user);
-	}
-	
-	public void discountDelete(String user) {
-		session.delete("user.discountdelete",user);
-	}
-	
-	// vip grade
-	public List<OrderVO> vipgrade() {
-		return session.selectList("user.vipgrade");
-	}
-	
-	
-	
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ list ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+		public List<UserVO> userGetList() {
+			return session.selectList("user.usergetlist");
+		}
+		
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ detail
+		public UserVO userGetDetail(String user) {
+			return session.selectOne("user.getuserdetail",user);
+		}
+		
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ detail ï¿½ï¿½ï¿½ï¿½
+		public int userUpdate(UserVO vo) {
+			 return session.update("user.userupdate",vo);
+		}
+		
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		public void userDelete(String user) {
+			session.delete("user.userdelete", user);
+		}
+		
+		//cs, review, shoporder, group_purchase, auction, discount ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ 
+		public void csDelete(String user) {
+			session.delete("user.csdelete",user);
+		}
+		
+		public void reviewDelete(String user) {
+			session.delete("user.reviewdelete",user);
+		}
+		
+		public void shoporderDelete(String user) {
+			session.delete("user.shoporderdelete",user);
+		}
+		
+		public void grouppurchaseDelete(String user) {
+			session.delete("user.grouppurchasedelete",user);
+		}
+		
+		public void auctionDelete(String user) {
+			session.delete("user.auctiondelete",user);
+		}
+		
+		public void discountDelete(String user) {
+			session.delete("user.discountdelete",user);
+		}
+		
+		// vip grade
+		public List<OrderVO> vipgrade() {
+			return session.selectList("user.vipgrade");
+		}
 	
 }

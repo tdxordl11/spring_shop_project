@@ -113,17 +113,21 @@ public class KakaoLoginAPI {
 	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 	        
+	        String kakaoId = element.getAsJsonObject().get("id").getAsString();
 	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 	        String email = "";
+	        
 	        try {
 				
 	        	email = kakao_account.getAsJsonObject().get("email").getAsString();
 			} catch (Exception e) {
-				System.out.println("email�씠 �뾾�뒿�땲�떎.");
+				System.out.println("email없음.");
 			}
+	        
 
 	        userInfo.put("nickname", nickname);
 	        userInfo.put("email", email);
+	        userInfo.put("kakaoId", kakaoId);
 	        br.close();
 	    } catch (IOException e) {
 	        // TODO Auto-generated catch block
@@ -190,7 +194,7 @@ public class KakaoLoginAPI {
 
 	 }
 	 
-	 public String getReadyPay (String access_Token) {
+	 public String getReadyPay () {
 //		    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
 			    String result = "";
 			    String next_redirect_url = "";
@@ -202,7 +206,7 @@ public class KakaoLoginAPI {
 			        conn.setDoOutput(true);
 			        
 			        //    요청에 필요한 Header에 포함될 내용
-			        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+			        conn.setRequestProperty("Authorization", "KakaoAK " +  "e077b7dea751e18b8fdafb6ff3ad12b5");
 			        conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 			        
 			        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
@@ -249,7 +253,7 @@ public class KakaoLoginAPI {
 			    return next_redirect_url;
 		    }
 	 
-	 public String getReadyPaySucess (String access_Token, String pg_token) {
+	 public String getReadyPaySucess (String pg_token) {
 		    String result = "";
 //		    String pg_token = "";
 		    String reqURL = "https://kapi.kakao.com/v1/payment/approve";
@@ -260,7 +264,7 @@ public class KakaoLoginAPI {
 		        conn.setDoOutput(true);
 		        
 		        //    요청에 필요한 Header에 포함될 내용
-		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+		        conn.setRequestProperty("Authorization", "KakaoAK " +  "e077b7dea751e18b8fdafb6ff3ad12b5");
 		        conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		        
 		        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));

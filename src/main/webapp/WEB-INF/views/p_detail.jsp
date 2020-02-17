@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 
 <%
@@ -11,7 +12,7 @@
 <html>
 <head>
 
-<title>SONY [소니] 블루투스 헤드폰 (WH-1000XM3)</title>
+<title>?</title>
 <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
 <meta name="description" content="프리미엄 헤드폰 이어폰 전문 쇼핑몰,전시품,개봉품,기호기전,커뮤니티,역경매">
 <meta property="og:type" content="website">
@@ -422,13 +423,14 @@ $(document).ready(function(){
 			<td width="500" valign="top">
 				<table cellpadding="0" cellspacing="0" border="0" align="center" width="500">
 					<tr>
-						<td align="left" style="padding-top: 10px;"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 400; font-size: 20pt; color:#939393;">SONY</span>
-							<span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 20pt; color:#000;"><br>[소니] 블루투스 헤드폰 (WH-1000XM3)</span>
+						<td align="left" style="padding-top: 10px;"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 400; font-size: 20pt; color:#939393;"></span>
+							<span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 20pt; color:#000;"><br>${p_info.product_brand } ${p_info.product_category } (${p_info.product_name })</span>
 
-															<br><img src="<%=respath %>img/goods/pakage_gift.gif" width="6" height="8" border="0"><font class="text14" color="#c25943"> 소니 정품등록 이벤트</font>
+<%-- 															<br><img src="<%=respath %>img/goods/pakage_gift.gif" width="6" height="8" border="0"><font class="text14" color="#c25943"> 소니 정품등록 이벤트</font> --%>
 							
 
-							 <img src='<%=respath %>img/goods/goods_exhibit.gif' align=absmiddle border=0></a>																												 <a href="/board/old_goods/g_detail2.html?no=2453"><img src='<%=respath %>img/goods/icon_sale.jpg'  align=absmiddle border=0></a>
+							 <img src='<%=respath %>img/goods/goods_exhibit.gif' align=absmiddle border=0></a>																												 
+<%-- 							 <a href="/board/old_goods/g_detail2.html?no=2453"><img src='<%=respath %>img/goods/icon_sale.jpg'  align=absmiddle border=0></a> --%>
 						</td>
 					</tr>
 					<tr>
@@ -453,7 +455,7 @@ $(document).ready(function(){
 												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">소비자가격</span>
 											</td>
 											<td width="350" align="left" colspan="2">
-												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#939393;">499,000 원</span>
+												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#939393;">${p_info.product_price } 원</span>
 											</td>
 										</tr>
 									
@@ -462,7 +464,7 @@ $(document).ready(function(){
 												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">판매가격</span>
 											</td>
 											<td width="150" align="left">
-												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#939393;">399,000 원</span>
+												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#939393;">${p_info.product_price } 원</span>
 											</td>
 											<td width="200" align="left"><a href="#" onclick="javascript:window.open('<%=contextpath%>/images/index/banner_NaSeI901.jpg','open','width=600,height=655,top=10,left=10,scrollbars=no')"><img src="<%=respath %>img/goods/cardinfo.jpg" border="0" alt="무이자할부안내" /></a></td>
 										</tr>
@@ -485,8 +487,8 @@ $(document).ready(function(){
 									<td width="150" align="left">
 										<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">제조사</span>
 									</td>
-									<td width="150" align="left">
-										<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">SONY</span>
+									<td width="150" align="left"><c:set var = "brand" value = "${p_info.product_brand}"/> <c:set var = "legnth" value = "${fn:length(brand)}"/><c:set var = "brands" value = "${fn:substring(brand, 1, legnth-1)} " />
+										<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">${brands }</span>
 									</td>
 									<td width="200" align="left">
 																			</td>
@@ -495,7 +497,7 @@ $(document).ready(function(){
 									<td width="150" align="left" height="50">
 										<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">상품문의</span>
 									</td>
-									<td width="350" align="left" colspan="2"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">02-3446-7391 ㅣ <a href="javascript:helpmail_goods()">help@schezade.co.kr</a></span></td>
+									<td width="350" align="left" colspan="2"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">00-0000-0000 ㅣ <a href="javascript:helpmail_goods()">help@stshop.co.kr</a></span></td>
 								</tr>
 								<tr>
 									<td height="10"></td>
@@ -504,11 +506,11 @@ $(document).ready(function(){
 
 								<!--form name=input_cart method=post action="/order/cart_view.html"-->
 								<form name=input_cart method=post action="main?menu=cart_order" >
-									<input type=hidden name='mode' value="cart_add">
+<!-- 									<input type=hidden name='mode' value="cart_add"> -->
 									<input type=hidden name='card_add_mode' value="add">
-									<input type=hidden name='gid' value="aZ6SpQE1ND27E1ND27">
-									<input type=hidden name='cart_g_price' value="aaCanZWU">
-									<input type=hidden name='product_name' value="ibavxoWA1C910Kz4gAI9R8FQYVCpZLCaMA1B920B7mGy1ajY27t5mdYWJhjrSUlgE1ND27E1ND27">
+									<input type=hidden name='gid' value="${p_info.product_id }">
+									<input type=hidden name='cart_g_price' value="${p_info.product_price }">
+									<input type=hidden name='product_name' value="${p_info.product_name }">
 									<input type=hidden name='link_val' value="">
 																			<tr>
 											<td height="100" bgcolor="#f4f4f4" colspan="3">
@@ -518,14 +520,14 @@ $(document).ready(function(){
 																												<tr>
 																<td width="20"></td>
 																<td width="130" align="left" height="40">
-																	<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">·옵션</span>
+<!-- 																	<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">·옵션</span> -->
 																</td>
 																<td width="330" align="left" colspan="2">
-																	<select name="option"
-																			style="BORDER: #ebebeb 1px solid; text-align:center; max-width: 350px; width: 100%; height:25px; text-indent: 10;"
-																			placeholder="옵션 선택">
-																		<option value=''>옵션을 선택하세요</option>
-																		<option value="18959" >블랙</option><option value="18960" >실버</option>																</td>
+<!-- 																	<select name="option" -->
+<!-- 																			style="BORDER: #ebebeb 1px solid; text-align:center; max-width: 350px; width: 100%; height:25px; text-indent: 10;" -->
+<!-- 																			placeholder="옵션 선택"> -->
+<!-- 																		<option value=''>옵션을 선택하세요</option> -->
+<!-- 																		<option value="18959" >블랙</option><option value="18960" >실버</option>																</td> -->
 																<td width="20"></td>
 															</tr>
 																													
@@ -607,10 +609,10 @@ $(document).ready(function(){
 
 														function g_detail_cart_add_pc(card_add_mode) {
 															var f = document.input_cart;
-																														if (f.option.options[0].selected == true) {
-																alert('옵션을 선택해 주세요');
-																return;
-															}
+// 																														if (f.option.options[0].selected == true) {
+// 																alert('옵션을 선택해 주세요');
+// 																return;
+// 															}
 															
 															
 															f.card_add_mode.value = card_add_mode;
@@ -632,7 +634,7 @@ $(document).ready(function(){
 																			 onmouseover="img_ch_qty(this,'<%=respath %>img/goods/minus.jpg');"
 																			 onmouseout="img_ch_qty(this,'<%=respath %>img/goods/minus.jpg');"></td>
 																	<td width=50>
-																		<input type=hidden name="o_num">
+																		<input type=hidden name="o_num" value="1">
 																		<input type='text' name='num' value='1'
 																			   style='BORDER-LEFT: #fff 1px solid; BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #ebebeb 1px solid; BORDER-BOTTOM: #ebebeb 1px solid; text-align:center; color: #d2d0d0; HEIGHT: 25px; WIDTH: 80px'
 																			   maxlength='4' onchange="ck_val2()">
@@ -647,13 +649,12 @@ $(document).ready(function(){
 														<td width="20"></td>
 													</tr>
 
-
 												</table>
 											</td>
 										</tr>
 										<tr>
 											<td height="133" colspan="3" align="right">
-												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 30pt; color:#000;">399,000</span>
+												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 30pt; color:#000;">${p_info.product_price }</span>
 												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;">원</span>
 											</td>
 										</tr>
@@ -819,36 +820,36 @@ $(document).ready(function(){
 							</td>
 						</tr>
 					</table>
-					<table width="1920" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="fbfbfb">
-						<tr>
-							<td>
-								<table width="500" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="fbfbfb">
-									<tr>
-										<td height="20" colspan="2"></td>
-									</tr>
-									<tr>
-										<td height="50" colspan="2" align="center"><p style="line-height: 1.8"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 17pt; color:#000;">상품정보 고시</span></p></td>
-									</tr>
-									<tr>
-										<td width="40"></td>
-										<td valign="top" >
-											<p style="line-height: 2.0"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">1. 품명 및 모델명: WH-1000XM3<br />
-2. 전기용품 안전인증 필 유무: R-CMI-SOK-WH-1000XM3<br />
-3. 동일모델의 출시년월: 2018년 09월<br />
-4. 수입원: 소니코리아<br />
-5. 제조사: Sony Corporation<br />
-6. 제조국: 말레이시아<br />
-7. 품질보증기준: 1년 보증<br />
-8. A/S 책임자와 전화번호: 소니코리아 고객센터 / 1588-0911</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td height="20" colspan="2"></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
+<!-- 					<table width="1920" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="fbfbfb"> -->
+<!-- 						<tr> -->
+<!-- 							<td> -->
+<!-- 								<table width="500" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="fbfbfb"> -->
+<!-- 									<tr> -->
+<!-- 										<td height="20" colspan="2"></td> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td height="50" colspan="2" align="center"><p style="line-height: 1.8"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 17pt; color:#000;">상품정보 고시</span></p></td> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td width="40"></td> -->
+<!-- 										<td valign="top" > -->
+<!-- 											<p style="line-height: 2.0"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">1. 품명 및 모델명: WH-1000XM3<br /> -->
+<!-- 2. 전기용품 안전인증 필 유무: R-CMI-SOK-WH-1000XM3<br /> -->
+<!-- 3. 동일모델의 출시년월: 2018년 09월<br /> -->
+<!-- 4. 수입원: 소니코리아<br /> -->
+<!-- 5. 제조사: Sony Corporation<br /> -->
+<!-- 6. 제조국: 말레이시아<br /> -->
+<!-- 7. 품질보증기준: 1년 보증<br /> -->
+<!-- 8. A/S 책임자와 전화번호: 소니코리아 고객센터 / 1588-0911</span></p> -->
+<!-- 										</td> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td height="20" colspan="2"></td> -->
+<!-- 									</tr> -->
+<!-- 								</table> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
 				
 
 			</td>

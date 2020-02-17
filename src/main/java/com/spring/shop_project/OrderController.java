@@ -51,16 +51,7 @@ public class OrderController {
 	}
 	
 	
-	@RequestMapping("/admin/admin_orderlist")
-	public ModelAndView orderList(@RequestParam(value="pagenum", required = false, defaultValue="1") int pagenum) {
-		ModelAndView mav = new ModelAndView();
-		int param[] = new int[2]; 
-		param[0] = ((pagenum-1) * 10) + 1;
-		param[1] = pagenum * 10;
-		mav.addObject("orderlist", service.pagingOrder(param));
-		mav.setViewName("admin_orderlist");
-		return mav;
-	}
+	
 	
 //	@RequestMapping("/admin/admin_orderlist")
 //	public String toOrderList() {

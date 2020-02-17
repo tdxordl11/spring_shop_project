@@ -94,28 +94,30 @@ public class AdminServiceImpl implements AdminService {
 	public AdminVO adminGetDetail(String user) {
 		return dao.adminGetDetail(user);
 	}
+	
+	//ìŠˆí¼ê´€ë¦¬ìì˜ ë ˆë²¨ì¸ì§€ ì²´í¬
+		@Override
+		public String authlevelchk(AdminVO vo) {
+			return dao.authlevelchk(vo);
+		}
+	
+	// ê´€ë¦¬ì ë ˆë²¨, ê³„ì • í™œì„±í™” ì—¬ë¶€ ì—…ë°ì´íŠ¸
+		@Override
+		public int adminUpdate(AdminVO vo) {
+			return dao.adminUpdate(vo);
+		}
+	
+	// adminVOì—ì„œ ë ˆë²¨,ê¶Œí•œ ê°€ì ¸ì˜¤ê¸°
+		@Override
+		public AdminVO adminUserAuthCheck(String id) {
+			return dao.adminUserAuthCheck(id);
+		}
+	
+	@Override
+	public List<OrderVO> pagingOrder(int[] pagenum) {
+		return dao.pagingOrder(pagenum);
+	}
 
-	//½´ÆÛ°ü¸®ÀÚÀÇ ·¹º§ÀÎÁö Ã¼Å©
-	@Override
-	public String authlevelchk(AdminVO vo) {
-		return dao.authlevelchk(vo);
-	}
-	
-	// °ü¸®ÀÚ ·¹º§, °èÁ¤ È°¼ºÈ­ ¿©ºÎ ¾÷µ¥ÀÌÆ®
-	@Override
-	public int adminUpdate(AdminVO vo) {
-		return dao.adminUpdate(vo);
-	}
-	
-	// adminVO¿¡¼­ ·¹º§,±ÇÇÑ °¡Á®¿À±â
-	@Override
-	public AdminVO adminUserAuthCheck(String id) {
-		return dao.adminUserAuthCheck(id);
-	}
-
-	
-	
-	
 
 	
 }

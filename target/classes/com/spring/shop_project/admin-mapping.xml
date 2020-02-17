@@ -26,6 +26,14 @@
 	<select id="getadmindetail" resultType="admin" parameterType="String">
 		select * from admin where admin_id = #{admin_id}
 	</select>
+	
+	<select id="orderpaging" resultType="order" >
+	select order_seq, order_id, order_payment, product_name, a.product_id, user_id, order_date, order_price, order_balance, order_invoice, shipment_address, shipment_zipcode 
+	from (select rownum r, order_seq, order_id, order_payment, product_id, user_id, order_date, order_price, order_balance, order_invoice, shipment_address, shipment_zipcode
+		from (select * from shoporder order by order_id desc)
+	) a, product p
+	where a.product_id = p.product_id
+ </select>
 </mapper>
 
 		

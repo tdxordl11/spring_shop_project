@@ -101,7 +101,7 @@ var start = {
             				"		</tr>"+
             				"		<tr>"+
             				"			<td width='10'></td>"+
-            				"			<td align='center'><a href='/goods/g_detail.html?gid=3506'><img src='http://www.schezade.co.kr/"+goodslist[i*4].product_image+"' width='100%' height='100%' style='max-width: 400px; max-height: 400px;' border='0' /></a></td>"+
+            				"			<td align='center'><a href='/shop_project/main?menu=p_detail?gid="+goodslist[i*4].product_id+"'><img src='http://www.schezade.co.kr/"+goodslist[i*4].product_image+"' width='100%' height='100%' style='max-width: 400px; max-height: 400px;' border='0' /></a></td>"+
             				"			<td width='10'></td>"+
             				"		</tr>"+
             				"		<tr>"+
@@ -146,7 +146,7 @@ var start = {
 		    				"		</tr>"+
 		    				"		<tr>"+
 		    				"			<td width='10'></td>"+
-		    				"			<td align='center'><a href='/goods/g_detail.html?gid=3506'><img src='http://www.schezade.co.kr/"+goodslist[i*4+1].product_image+"' width='100%' height='100%' style='max-width: 400px; max-height: 400px;' border='0' /></a></td>"+
+		    				"			<td align='center'><a href='/shop_project/main?menu=p_detail?gid="+goodslist[i*4+1].product_id+"'><img src='http://www.schezade.co.kr/"+goodslist[i*4+1].product_image+"' width='100%' height='100%' style='max-width: 400px; max-height: 400px;' border='0' /></a></td>"+
 		    				"			<td width='10'></td>"+
 		    				"		</tr>"+
 		    				"		<tr>"+
@@ -191,7 +191,7 @@ var start = {
 		    				"		</tr>"+
 		    				"		<tr>"+
 		    				"			<td width='10'></td>"+
-		    				"			<td align='center'><a href='/goods/g_detail.html?gid=3506'><img src='http://www.schezade.co.kr/"+goodslist[i*4+2].product_image+"' width='100%' height='100%' style='max-width: 400px; max-height: 400px;' border='0' /></a></td>"+
+		    				"			<td align='center'><a href='/shop_project/main?menu=p_detail?gid="+goodslist[i*4+2].product_id+"'><img src='http://www.schezade.co.kr/"+goodslist[i*4+2].product_image+"' width='100%' height='100%' style='max-width: 400px; max-height: 400px;' border='0' /></a></td>"+
 		    				"			<td width='10'></td>"+
 		    				"		</tr>"+
 		    				"		<tr>"+
@@ -237,7 +237,7 @@ var start = {
 		    				"		</tr>"+
 		    				"		<tr>"+
 		    				"			<td width='10'></td>"+
-		    				"			<td align='center'><a href='/goods/g_detail.html?gid=3506'><img src='http://www.schezade.co.kr/"+goodslist[i*4+3].product_image+"' width='100%' height='100%' style='max-width: 400px; max-height: 400px;' border='0' /></a></td>"+
+		    				"			<td align='center'><a href='/shop_project/main?menu=p_detail?gid="+goodslist[i*4+3].product_id+"'><img src='http://www.schezade.co.kr/"+goodslist[i*4+3].product_image+"' width='100%' height='100%' style='max-width: 400px; max-height: 400px;' border='0' /></a></td>"+
 		    				"			<td width='10'></td>"+
 		    				"		</tr>"+
 		    				"		<tr>"+
@@ -354,7 +354,7 @@ var start = {
 		</tr>
 		<tr>
 			<td width="10"></td>
-			<td align="center"><a href="/goods/g_detail.html?gid=3506"><img src='http://www.schezade.co.kr/${vo.product_image}' width="100%" height="100%" style="max-width: 400px; max-height: 400px;" border="0" /></a></td>
+			<td align="center"><a href='/shop_project/main?menu=p_detail?gid=${vo.product_id }'><img src='http://www.schezade.co.kr/${vo.product_image}' width="100%" height="100%" style="max-width: 400px; max-height: 400px;" border="0" /></a></td>
 			<td width="10"></td>
 		</tr>
 		<tr>

@@ -3,8 +3,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 
-	<select id="checkuser" resultType="String" parameterType="user">
-		select user_password from shopuser where user_id=#{user_id}
+	<select id="checkuser" resultType="int" parameterType="user">
+select count(*) from shopuser where user_id = #{user_id} and user_password = #{user_password}
+</select>
+	
+	<insert id="usersignup" parameterType="user">
+		insert into shopuser(user_id, user_password, user_email, user_address, user_name, user_joindate, user_phone) values ( #{user_id}, #{user_password}, #{user_email}, #{user_address}, #{user_name}, sysdate, #{user_phone}  )
+	</insert>
+
+<!-- 	회원 중복 확인 -->
+	<select id="useridcheck" parameterType="String" resultType="String">
+		select count(*) from shopuser where user_id = #{user_id}
+	</select>
+
+<!-- 	api 체크용  -->
+	<select id="apiidcheck" parameterType="String" resultType="int">
+		select count(*) from shopuser where user_token = #{user_token}
 	</select>
 
 	<!-- 사용자 list 보여주기  -->
@@ -12,10 +26,12 @@
 		select * from shopuser
 	</select>
 	
+	
 	<!-- 사용자 detail -->
 	<select id="getuserdetail" resultType="user" parameterType="String">
 		select * from shopuser where user_id = #{user_id}
 	</select>
+	
 	
 	<!-- 사용자 detail 수정 얜 또 왜 안돼냐!!!!!!!!!!!!!!!!!!-->
 	<update id="userupdate" parameterType="user">

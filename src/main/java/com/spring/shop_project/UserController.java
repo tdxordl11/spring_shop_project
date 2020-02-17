@@ -27,14 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-/*import com.spring.shop_main.CartVO;*/
+//import com.spring.shop_main.CartVO;
 import com.spring.shop_main.KakaoLoginAPI;
 import com.spring.shop_main.MailService;
 import com.spring.shop_main.NaverLoginAPI;
 
 
 @Controller
-@SessionAttributes({"cart"})
 public class UserController {
 	  
 	  @Autowired
@@ -245,11 +244,18 @@ public class UserController {
 		  System.out.println("controller access_token : " + access_Token);
 		  HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
 		    System.out.println("login Controller : " + userInfo);
-	      
+		    session.setAttribute("kakaoId", userInfo.get("kakaoId"));
+		    System.out.println("카카오 아이디 = " + userInfo.get("kakaoId"));
+		    int check = service.apiIdCheck((String) userInfo.get("kakaoId"));
+		    System.out.println(check);
+		    if(check == 1) {
+		    	session.setAttribute("cktoken", check);
+		    }
 		   //    Ŭ���̾�Ʈ�� �̸����� ������ �� ���ǿ� �ش� �̸��ϰ� ��ū ���
 		    if (userInfo.get("email") != null) {
-		        session.setAttribute("userId", userInfo.get("email"));
+		        session.setAttribute("useremail", userInfo.get("email"));
 		        session.setAttribute("access_Token", access_Token);
+		        System.out.println("카카오 이메일 = " + userInfo.get("email"));
 		    }
 	      return "test-naver-callback";
 	  }
@@ -258,7 +264,9 @@ public class UserController {
 	  public String logout(HttpSession session) {
 	      kakao.kakaoLogout((String)session.getAttribute("access_Token"));
 	      session.removeAttribute("access_Token");
-	      session.removeAttribute("userId");
+	      session.removeAttribute("kakaoId");
+	      session.removeAttribute("cktoken");
+	      session.removeAttribute("useremail");
 	      return "redirect:/main";
 	  }
 	  
@@ -266,20 +274,22 @@ public class UserController {
 	  public String unlink(HttpSession session) {
 	      kakao.kakaoUnlink((String)session.getAttribute("access_Token"));
 	      session.removeAttribute("access_Token");
-	      session.removeAttribute("userId");
+	      session.removeAttribute("kakaoId");
+	      session.removeAttribute("useremail");
+	      session.removeAttribute("cktoken");
 	      return "redirect:/main";
 	  }
 	  
 	  @RequestMapping(value="/kakao_pay")
 	  public String readypay(HttpSession session, Model model) {
-	      String url = kakao.getReadyPay((String)session.getAttribute("access_Token"));
+	      String url = kakao.getReadyPay();
 	      model.addAttribute("url", url);
 	      return "kakaopay";
 	  }
 	  
 	  @RequestMapping(value="/kakao_pay_success")
 	  public String successpay(HttpSession session, Model model, String pg_token) {
-	      String resbody = kakao.getReadyPaySucess((String)session.getAttribute("access_Token"), pg_token);
+	      String resbody = kakao.getReadyPaySucess(pg_token);
 //	      model.addAttribute("url", url);
 	      return "pay_success";
 	  }
@@ -289,51 +299,38 @@ public class UserController {
 		  PrintWriter out;
 		  try {
 			out = response.getWriter();
-			out.println("<script>alert('결제를 취소 되었습니다.'); self.close();</script>");	 
-			out.flush();
+			out.println("<script> self.close();</script>");	 
+			out.flush(); //alert('결제를 취소 하셨습니다.');
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	      return "kakaopay_cancel";
 	  }
 
-	  @RequestMapping(value = "/main", method={RequestMethod.GET,RequestMethod.POST} )
-		public ModelAndView userMain(@RequestParam(value="menu", defaultValue = "home") String menu) {
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("menu", menu);
-			mav.setViewName("main");
-			return mav;
-		}
+//	  @RequestMapping(value = "/main", method={RequestMethod.GET,RequestMethod.POST} )
+//		public ModelAndView userMain(@RequestParam(value="menu", defaultValue = "goods") String menu) {
+//			ModelAndView mav = new ModelAndView();
+//			mav.addObject("menu", menu);
+//			mav.setViewName("main");
+//			return mav;
+//		}
+//	  
+//	  @RequestMapping(value = "/community_main", method = RequestMethod.GET )
+//		public ModelAndView commuMain() {
+//			ModelAndView mav = new ModelAndView();
+//			mav.setViewName("commu_main");
+//			return mav;
+//		}
+//	  
+//	  @RequestMapping(value = "/p_detail", method={RequestMethod.GET,RequestMethod.POST} )
+//		public ModelAndView product_detail(@RequestParam(value="gid", required = false) String gid) {
+//			ModelAndView mav = new ModelAndView();
+//			List<ProductVO> vo = service.pagingOrder(gid);
+//			mav.setViewName("p_detail");
+//			return mav;
+//		}
 	  
-	  @RequestMapping(value = "/community_main", method = RequestMethod.GET )
-		public ModelAndView commuMain() {
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("commu_main");
-			return mav;
-		}
 	  
-	  @RequestMapping(value = "/p_detail", method = RequestMethod.GET )
-		public ModelAndView product_detail() {
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("p_detail");
-			return mav;
-		}
-	  
-	  @RequestMapping(value = "/cart_order",  method = RequestMethod.GET )
-		public ModelAndView cart_order() {
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("cart_order");
-			return mav;
-		}
-	  
-	/*
-	 * @RequestMapping(value = "/cart_order", method = RequestMethod.POST ) public
-	 * String cart_order(@ModelAttribute CartVO vo, HttpSession session ) {
-	 * session.setAttribute("o_info", vo.getProduct_name());
-	 * session.setAttribute("o_info2", vo.getO_num());
-	 * session.setAttribute("o_info3", vo.getOption()); // cart.add(vo);
-	 * 
-	 * return "cart_order"; }
-	 */
+
 	
 }

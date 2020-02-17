@@ -402,7 +402,7 @@ input::-moz-placeholder {
 									  <c:when test="${st_user_id ne null }">
 									   <span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
-											<b>${st_user_id }</b> 님 환영합니다.&nbsp;</span>
+											<b>${st_user_id }</b> 님 환영합니다d.&nbsp;</span>
 									<a href='<%=contextpath +"/user_logout"%>'><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">로그아웃</span></a>
 									  </c:when>

@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface AdminService {
 
-	//admin È¸¿ø°¡ÀÔ
+	//admin È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int adminSignUp(AdminVO vo);
 	
-	//admin id Áßº¹Ã¼Å©
+	//admin id ï¿½ßºï¿½Ã¼Å©
 	public String adminIdCheck(String id);
 	
-	//admin login check(1Â÷)
+	//admin login check(1ï¿½ï¿½)
 	public int adminLogin(AdminVO vo);
 	
 	//admin user optcode load
@@ -22,42 +22,44 @@ public interface AdminService {
 	//otp check
 	public boolean otpCheck(AdminVO vo);
 	
-	//°ü¸®ÀÚ °èÁ¤ ¸®½ºÆ®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	public List<AdminVO> adminGetList();
 	
-	//review ¸®½ºÆ® Ãâ·Â
+	//review ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 	public List<ReviewVO> getReviewList();
 	
-	//review »ó¼¼ Ãâ·Â
+	//review ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public ReviewVO getReviewDetail(int seq);
 	
-	//qna ¸®½ºÆ®Ãâ·Â
+	//qna ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½
 	public List<QnaVO> adminQnaList();
 	
-	//qna »ó¼¼ Ãâ·Â
+	//qna ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public QnaVO getQnaDetail(int seq);
 	
-	//qna ´äº¯µî·Ï
+	//qna ï¿½äº¯ï¿½ï¿½ï¿½
 	public int qnaUpdate(QnaVO vo);
 		
-	//notice ¸®½ºÆ® Ãâ·Â
+	//notice ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 	public List<NoticeVO> noticeGetList();
 	
-	//notice »ó¼¼ Ãâ·Â
+	//notice ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public NoticeVO getNoticeDetail(int seq);
 	
-	//notice ÀÛ¼º
+	//notice ï¿½Û¼ï¿½
 	public int noticeWrite(NoticeVO vo);
 	
-	//notice ¼öÁ¤
+	//notice ï¿½ï¿½ï¿½ï¿½
 	public int noticeUpdate(NoticeVO vo);
 	
-	//½´ÆÛ°ü¸®ÀÚÀÇ ·¹º§ÀÎÁö Ã¼Å©
+	//ï¿½ï¿½ï¿½Û°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	public String authlevelchk(AdminVO vo);
 	
-	//°ü¸®ÀÚ ·¹º§, °èÁ¤ È°¼ºÈ­ ¿©ºÎ ¾÷µ¥ÀÌÆ®
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	public int adminUpdate(AdminVO vo);
 	
-	// adminVO¿¡¼­ ·¹º§,±ÇÇÑ °¡Á®¿À±â
+	// adminVOï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public AdminVO adminUserAuthCheck(String id);
+	
+	public List<OrderVO> pagingOrder(int[] pagenum);
 }

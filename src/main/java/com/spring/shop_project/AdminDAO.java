@@ -79,21 +79,23 @@ public class AdminDAO {
 		return session.selectOne("shop.getadmindetail",user);
 	}
 	
-	//½´ÆÛ°ü¸®ÀÚÀÇ ·¹º§ÀÎÁö Ã¼Å©
+	//ï¿½ï¿½ï¿½Û°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	public String authlevelchk(AdminVO vo) {
 		return session.selectOne("shop.authlevelchk", vo);
 	}
 	
-	// °ü¸®ÀÚ ·¹º§, °èÁ¤ È°¼ºÈ­ ¿©ºÎ ¾÷µ¥ÀÌÆ®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	public int adminUpdate(AdminVO vo) {
 		return session.update("shop.adminupdate",vo);
 	}
 	
-	// adminVO¿¡¼­ ·¹º§,±ÇÇÑ °¡Á®¿À±â
+	// adminVOï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public AdminVO adminUserAuthCheck(String id) {
 		return session.selectOne("shop.getalladmin", id);
 	}
 	
-	
+	public List<OrderVO> pagingOrder(int[] pagenum){
+		return session.selectList("order.orderpaging", pagenum);
+	}
 	
 }

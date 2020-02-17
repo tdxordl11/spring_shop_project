@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+	String contextpath = request.getContextPath();
+	String respath = request.getContextPath() + "/resources/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,9 +133,9 @@ body
 				<tr>
 					<td align="center">
 	
-						<div id="naver_id_login"><a href="${naverURL}" onclick="window.open(this.href, 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550'); return false" id="naver_id_login_anchor"><img src="http://static.nid.naver.com/oauth/big_g.PNG" border="0" title="네이버 아이디로 로그인" width="370px" height="80px"></a> </div>
+						<div id="naver_id_login" ><a href="${naverURL}" onclick="window.open(this.href, 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550'); return false" id="naver_id_login_anchor"><img src="<%=respath %>naver_login_Green.PNG" border="0" title="네이버 아이디로 로그인" style= "width : 400px; height : 50px"></a> </div>
  <a href="https://kauth.kakao.com/oauth/authorize?client_id=eb4186f5fb71a201dcbc9a8d9ae2a4ff&redirect_uri=http://localhost:8081/shop_project/kakao_login&response_type=code" onclick="window.open(this.href, 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550'); return false">
-            <img src="https://developers.kakao.com/assets/img/about/logos/kakaologin/kr/kakao_account_login_btn_medium_narrow.png">
+            <img src="https://developers.kakao.com/assets/img/about/logos/kakaologin/kr/kakao_account_login_btn_medium_wide.png" style= "width : 400px; height : 50px">
         </a>
 						
 					</td>
@@ -206,8 +211,8 @@ body
     <a href="http://localhost:8081/shop_project/user_logout">로그아웃 (Invalidate Session)</a>
     </div>
     </c:if>
-    <c:if test="${userId ne null }">
-    ${userId }로 연결되어있습니다.<br>
+    <c:if test="${kakaoId ne null }">
+    ${kakaoId }로 연결되어있습니다.<br>
     <div>for kakao
 <!--     <a href="https://accounts.kakao.com/logout?continue=https://accounts.kakao.com/weblogin/account"> -->
     <input type="button" value="카카오 로그아웃" onclick="location.href='/shop_project/kakao_logout'">

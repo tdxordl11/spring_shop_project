@@ -12,6 +12,14 @@
 
 
 $(document).ready(function(){
+	if(!'${kakaoId}'.isEmpty){
+		$("#token").val('${kakaoId}');
+	}
+	
+	if(!'${useremail}'.isEmpty){
+		$("#mail1").val('${useremail}');
+	}
+	
 	/*
 	이메일 인증 버튼 클릭시 발생하는 이벤트
 	*/
@@ -60,6 +68,7 @@ $(document).ready(function(){
 			success:function(data){
 				if(data=="complete"){
 					alert("인증이 완료되었습니다.");
+					
 				}else if(data == "false"){
 					alert("인증번호를 잘못 입력하셨습니다.")
 					}
@@ -73,10 +82,10 @@ $(document).ready(function(){
 			});
 		});
 	
-	$("#mail1").keyup(function() {
+	$("#id").keyup(function() {
 		$.ajax({
 			url : '<%=request.getContextPath() + "/useridcheck" %>',
-			data : {'user_id' : $("#mail1").val() },
+			data : {'user_id' : $("#id").val() },
 			type : 'GET',
 			dataType : 'json',
 			success : function(data) {
@@ -96,6 +105,90 @@ $(document).ready(function(){
 	});
 	
 </script>
+<script>
+function chk_mail(mail) {
+	  if ((mail.indexOf ('@', 0) == -1) || mail.indexOf('.') == -1)
+	    return false;
+	  else
+	    return true;
+	}
+
+	function ckform2(){
+		var f = document.register;
+		f.phone.value = f.cellpager1.value + f.cellpager2.value + f.cellpager3.value;
+		f.fulladdress.value = f.zipcode.value + "-" + f.address.value + "-" + f.address_ADD.value;
+		if(!f.id.value){
+			alert('아이디를 입력해 주세요');
+			f.id.focus();
+			return false;
+		}
+	  
+	   if(f.id.value.length<4 || f.id.value.length>60) {
+			alert('아이디는 4~60자의 영문,숫자로만 입력해 주세요');
+			f.id.focus();
+			return false;
+		}
+
+		if(!f.password.value){
+			alert('비밀번호를 입력해 주세요');
+			f.password.focus();
+			return false;
+		}
+
+	    if(f.password.value.length<6 ||f.password.value.length>12) {
+			alert('비밀번호는 6~12자로 입력해주세요');
+			f.password.focus();
+			return false;
+		}
+
+		if(!f.password2.value){
+			alert('비밀번호확인 입력을 해주세요');
+			f.password2.focus();
+			return false;
+		}
+
+	    if(f.password.value!=f.password2.value){
+			alert("입력하신 비밀번호가 일치하지 않습니다!");
+			f.password2.focus();
+			return false;
+		}
+
+		if(!f.address_ADD.value){
+			alert('주소를 입력해 주세요');
+			return false;
+		}
+		
+		if(!f.cellpager1.value || !f.cellpager2.value || !f.cellpager3.value ){
+			alert('연락처를 입력해 해주세요');
+			return false;
+		}
+		
+		
+
+		
+		//if(!f.mail1.value || !f.mail2.value){
+		//	alert('이메일을 입력해 주세요');
+		//	f.mail1.focus();
+		//	return false;
+	    //}
+		/*
+		/
+		else{
+		   if(!chk_mail(f.mail.value)){
+			 alert('이메일 형식이 잘못 되었습니다.');
+			 f.mail.focus();
+			 return false;
+		   }
+	    }	
+		*/
+	   
+	    //if(confirm('ok')){
+		 f.submit();
+	    //}
+		
+	}
+	</script>
+
 
 <body>
 <table cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
@@ -110,24 +203,26 @@ $(document).ready(function(){
 <div id="main" class="join">
       <div class="row">	
 <table cellpadding="0" cellspacing="0" align="center" border="0" width="80%">
-<form name="register" method="post" action="user_signup_success"  target="member_join_ps">
+<form name="register" method="post" action=<%=request.getContextPath() + "/signup" %> >
 <!-- <input type=hidden name="id_check_pass"> -->
 <!-- <input type=hidden name="mem_mode" value="member_join"> -->
 <!-- <input type="hidden" name=di value="MC0GCCqGSIb3DQIJAyEAtXyMObs8lKh421PLs+9A1Ks/oR4ziybY6MPLh/pAWX4="> -->
 <!-- <input type="hidden" name=ssn1 value="생년월일"> -->
 <!-- <input type="hidden" name=name value="이름"> -->
+	 <input type="hidden" name="user_address" id="fulladdress" >
+	 <input type="hidden" name="user_phone" id="phone" >
+	 <input type="hidden" name="user_token" id="token" >
 	<tr>
 		<td height="50"></td>
 	</tr>
 	<tr>
 		<td>
-		
-		<div class="grid_17">
+        <div class="grid_17">
 			<table cellpadding="0" cellspacing="0" align="center" border="0" width="100%" height="50" bgcolor="f5f5f5">
 				<tr>
 					<td width="10%"></td>
 					<td>
-<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">이메일 [필수] </span>
+						<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">아이디 [필수]</span>
 					</td>
 				</tr>
 			</table>
@@ -137,14 +232,10 @@ $(document).ready(function(){
 				<tr>
 					<td width="10%"></td>
 					<td>
-<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="mail1" id="mail1" type="email" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 100px; width: 100%; height:30px;" placeholder=""></span>
-<!-- &nbsp;@&nbsp; -->
-<!-- <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="mail2" id="mail2" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 100px; width: 100%; height:30px;" placeholder=""></span> -->
-					<button type="button" class="btn btn-info" id="emailBtn">이메일 발송</button>
-					<input type="text" path="emailAuth" id=emailAuth value="" style="display: none; background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 100px; width: 100%; height:30px;""/>
-					<button type="button" class="btn btn-info" id="emailAuthBtn">이메일 인증</button>
-					<input type="hidden" path="random" id="random" value="${random }" />
-					<div id='id_check' style="font-size: 5px; padding-bottom: 7px; padding-left: 10px"></div>
+<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="user_id" id="id" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 150px; width: 100%; height:30px;" placeholder="입력" maxlength=60></span>
+<a href="javascript:id_check()"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color:#ff0000;">　중복확인</span></a>
+<div id='id_check' style="font-size: 4px; padding-bottom: 1px; padding-left: 10px"></div>
+
 					</td>
 				</tr>
 			</table>
@@ -154,33 +245,6 @@ $(document).ready(function(){
 	<tr>
 		<td height="20"></td>
 	</tr>
-<!-- 	<tr> -->
-<!-- 		<td> -->
-<!--         <div class="grid_17"> -->
-<!-- 			<table cellpadding="0" cellspacing="0" align="center" border="0" width="100%" height="50" bgcolor="f5f5f5"> -->
-<!-- 				<tr> -->
-<!-- 					<td width="10%"></td> -->
-<!-- 					<td> -->
-<!-- 						<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">아이디 [필수]</span> -->
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<!-- 			</table> -->
-<!-- 		</div> -->
-<!--         <div class="grid_18"> -->
-<!-- 			<table cellpadding="0" cellspacing="0" width="100%" align="center" border="0" height="50" bgcolor="f9f9f9"> -->
-<!-- 				<tr> -->
-<!-- 					<td width="10%"></td> -->
-<!-- 					<td> -->
-<!-- <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="id" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 150px; width: 100%; height:30px;" placeholder="입력" maxlength=60></span><a href="javascript:id_check()"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color:#ff0000;">　중복확인</span></a> -->
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<!-- 			</table> -->
-<!-- 		</div> -->
-<!-- 		</td> -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td height="20"></td> -->
-<!-- 	</tr> -->
 	<tr>
 		<td>
         <div class="grid_17">
@@ -198,7 +262,7 @@ $(document).ready(function(){
 				<tr>
 					<td width="10%"></td>
 					<td>
-<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="password" type="password" maxlength=12 style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 200px; width: 100%; height:30px;" placeholder="입력"></span>
+<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="user_password" id="password" type="password" maxlength=12 style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 200px; width: 100%; height:30px;" placeholder="입력"></span>
 					</td>
 				</tr>
 			</table>
@@ -252,7 +316,7 @@ $(document).ready(function(){
 				<tr>
 					<td width="10%"></td>
 					<td>
-<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="name" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 150px; width: 100%; height:30px;" placeholder="입력" maxlength=60></span>						
+<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="user_name" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 150px; width: 100%; height:30px;" placeholder="입력" maxlength=60></span>						
 				</td>
 				</tr>
 			</table>
@@ -264,6 +328,42 @@ $(document).ready(function(){
 	</tr>
 	<tr>
 		<td>
+		
+		
+		<div class="grid_17">
+			<table cellpadding="0" cellspacing="0" align="center" border="0" width="100%" height="50" bgcolor="f5f5f5">
+				<tr>
+					<td width="10%"></td>
+					<td>
+<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">이메일 </span>
+					</td>
+				</tr>
+			</table>
+		</div>
+        <div class="grid_18">
+			<table cellpadding="0" cellspacing="0" width="100%" align="center" border="0" height="50" bgcolor="f9f9f9">
+				<tr>
+					<td width="10%"></td>
+					<td>
+<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="user_email" id="mail1" type="email" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 200px; width: 100%; height:30px;" placeholder=""></span>
+<!-- &nbsp;@&nbsp; -->
+<!-- <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="mail2" id="mail2" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 100px; width: 100%; height:30px;" placeholder=""></span> -->
+					<button type="button" class="btn btn-info" id="emailBtn">이메일 발송</button>
+					<input type="text" path="emailAuth" id=emailAuth value="" style="display: none; background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 100px; width: 100%; height:30px;"/>
+					<button type="button" class="btn btn-info" id="emailAuthBtn">이메일 인증</button>
+					<input type="hidden" path="random" id="random" value="${random }" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td height="20"></td>
+	</tr>
+	<tr>
+		<td>
+		
         <div class="grid_17">
 			<table cellpadding="0" cellspacing="0" align="center" border="0" width="100%" height="50" bgcolor="f5f5f5">
 				<tr>
@@ -392,8 +492,36 @@ element_layer.style.display = 'none';
 function openDaumPostcode(ZipCode, Address, address_ADD) {
 new daum.Postcode({
 oncomplete : function(data) {
+	 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+    var fullAddr = ''; // 최종 주소 변수
+    var extraAddr = ''; // 조합형 주소 변수
+
+    // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+        fullAddr = data.roadAddress;
+
+    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+        fullAddr = data.jibunAddress;
+    }
+ // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+    if(data.userSelectedType === 'R'){
+        //법정동명이 있을 경우 추가한다.
+        if(data.bname !== ''){
+            extraAddr += data.bname;
+        }
+        // 건물명이 있을 경우 추가한다.
+        if(data.buildingName !== ''){
+            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+        }
+        // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+        fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+    }
+ 
 document.getElementById(ZipCode).value = data.zonecode;
-document.getElementById(Address).value = data.address;
+document.getElementById(Address).value = fullAddr;
 document.getElementById(address_ADD).focus();
 element_layer.style.display = 'none';
 },
@@ -405,7 +533,7 @@ initLayerPosition();
 }
 //팝업창 세부 설정
 function initLayerPosition() {
-var width = 300; //우편번호서비스가 들어갈 element의 width
+var width = 600; //우편번호서비스가 들어갈 element의 width
 var height = 460; //우편번호서비스가 들어갈 element의 height
 var borderWidth = 5; //샘플에서 사용하는 border의 두께
 //위에서 선언한 값들을 실제 element에 넣는다.

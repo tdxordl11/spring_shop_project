@@ -8,32 +8,39 @@ public interface UserService {
 	
 	public int checkUser(UserVO vo);
 	
-	// »ç¿ëÀÚ list º¸¿©ÁÖ±â
-	public List<UserVO> userGetList();
+	public String userIdCheck(String id);
 	
-	// »ç¿ëÀÚ detail
-	public UserVO userGetDetail(String user);
+	public int userSignUp(UserVO vo);
 	
-	// »ç¿ëÀÚ detail ¼öÁ¤
-	public int userUpdate(UserVO vo);
+	public int apiIdCheck(String id);
 	
-	// »ç¿ëÀÚ °èÁ¤ »èÁ¦
-	public void userDelete(String user);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ list ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+		public List<UserVO> userGetList();
+		
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ detail
+		public UserVO userGetDetail(String user);
+		
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ detail ï¿½ï¿½ï¿½ï¿½
+		public int userUpdate(UserVO vo);
+		
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		public void userDelete(String user);
+		
+		//cs, review, shoporder, group_purchase, auction, discount ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ 
+		public void csDelete(String user);
+		
+		public void reviewDelete(String user);
+		
+		public void shoporderDelete(String user);
+		
+		public void group_purchaseDelete(String user);
+		
+		public void auctionDelete(String user);
+		
+		public void discountDelete(String user);
+		
+		// vip
+		public List<OrderVO> vipgrade();
 	
-	//cs, review, shoporder, group_purchase, auction, discount Å×ÀÌºíµµ »èÁ¦ÇØ¾ß 
-	public void csDelete(String user);
-	
-	public void reviewDelete(String user);
-	
-	public void shoporderDelete(String user);
-	
-	public void group_purchaseDelete(String user);
-	
-	public void auctionDelete(String user);
-	
-	public void discountDelete(String user);
-	
-	// vip
-	public List<OrderVO> vipgrade();
 	
 }

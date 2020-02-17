@@ -18,82 +18,90 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int checkUser(UserVO vo) {
-		int res = dao.checkUser(vo);
-		return res;
-	}
-	
-	// »ç¿ëÀÚ list º¸¿©ÁÖ±â
-	@Override
-	public List<UserVO> userGetList() {
-		return dao.userGetList();
+		return dao.checkUser(vo);
 	}
 
-	// »ç¿ëÀÚ detail
 	@Override
-	public UserVO userGetDetail(String user) {
-		return dao.userGetDetail(user);
-	}
-	
-	// »ç¿ëÀÚ detail ¼öÁ¤
-	@Override
-	public int userUpdate(UserVO vo) {
-		return dao.userUpdate(vo);
+	public String userIdCheck(String id) {
+		return dao.userIdCheck(id);
 	}
 
-	// »ç¿ëÀÚ °èÁ¤ »èÁ¦
 	@Override
-	public void userDelete(String user) {
-		dao.userDelete(user);
+	public int userSignUp(UserVO vo) {
+		return dao.userSignUp(vo);
 	}
 
-	//cs, review, shoporder, group_purchase, auction, discount Å×ÀÌºíµµ »èÁ¦ÇØ¾ß 
 	@Override
-	public void csDelete(String user) {
-		dao.csDelete(user);
+	public int apiIdCheck(String id) {
+		return dao.apiIdCheck(id);
+	}
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ list ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+		@Override
+		public List<UserVO> userGetList() {
+			return dao.userGetList();
+		}
+
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ detail
+		@Override
+		public UserVO userGetDetail(String user) {
+			return dao.userGetDetail(user);
+		}
 		
-	}
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ detail ï¿½ï¿½ï¿½ï¿½
+		@Override
+		public int userUpdate(UserVO vo) {
+			return dao.userUpdate(vo);
+		}
 
-	@Override
-	public void reviewDelete(String user) {
-		dao.reviewDelete(user);
-		
-	}
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		@Override
+		public void userDelete(String user) {
+			dao.userDelete(user);
+		}
 
-	@Override
-	public void shoporderDelete(String user) {
-		dao.shoporderDelete(user);
-		
-	}
+		//cs, review, shoporder, group_purchase, auction, discount ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ 
+		@Override
+		public void csDelete(String user) {
+			dao.csDelete(user);
+			
+		}
 
-	@Override
-	public void group_purchaseDelete(String user) {
-		dao.grouppurchaseDelete(user);
-		
-	}
+		@Override
+		public void reviewDelete(String user) {
+			dao.reviewDelete(user);
+			
+		}
 
-	@Override
-	public void auctionDelete(String user) {
-		dao.auctionDelete(user);
-		
-	}
+		@Override
+		public void shoporderDelete(String user) {
+			dao.shoporderDelete(user);
+			
+		}
 
-	@Override
-	public void discountDelete(String user) {
-		dao.discountDelete(user);
-		
-	}
+		@Override
+		public void group_purchaseDelete(String user) {
+			dao.grouppurchaseDelete(user);
+			
+		}
 
-	// vip
-	@Override
-	public List<OrderVO> vipgrade() {
-		return dao.vipgrade();
-	}
+		@Override
+		public void auctionDelete(String user) {
+			dao.auctionDelete(user);
+			
+		}
 
-	
-	
-	
-	
-	
+		@Override
+		public void discountDelete(String user) {
+			dao.discountDelete(user);
+			
+		}
+
+		// vip
+		@Override
+		public List<OrderVO> vipgrade() {
+			return dao.vipgrade();
+		}
 	
 	
 	

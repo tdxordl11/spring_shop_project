@@ -14,10 +14,22 @@
 </style>
 </head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
-<script>
-$(document).ready(function(){
+<c:choose>
+<c:when test="${empty cktoken}">
+<script type="text/javascript">
+$(opener.location).attr('href','http://localhost:8081/shop_project/main?menu=signup');
+window.close();
+</script>
+</c:when>
+<c:otherwise>
+<script type="text/javascript">
 	$(opener.location).attr('href','http://localhost:8081/shop_project/main');
 	window.close();
+	</script>
+</c:otherwise>
+</c:choose>
+<script>
+$(document).ready(function(){
 });
 </script>
 <body>
