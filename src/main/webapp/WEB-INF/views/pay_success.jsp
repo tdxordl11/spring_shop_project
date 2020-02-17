@@ -15,6 +15,6 @@ $(document).ready(function(){
 </head>
 <body>
 가상 결제가 성공했습니다.
-<input type="button" value="메인으로" onclick="location.href='/shop_project/user_login'">
+<input type="button" value="닫기" onclick="javascript:self.close();">
 </body>
 </html>

@@ -15,6 +15,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-이동
+카카오 결제 페이지로 이동중입니다.
 </body>
 </html>

@@ -282,7 +282,10 @@ public class UserController {
 	  
 	  @RequestMapping(value="/kakao_pay")
 	  public String readypay(HttpSession session, Model model) {
-	      String url = kakao.getReadyPay();
+	      String name = "헤드폰";
+	      int num = 2;
+	      int price = 43000;
+		  String url = kakao.getReadyPay(name, num, price);
 	      model.addAttribute("url", url);
 	      return "kakaopay";
 	  }
