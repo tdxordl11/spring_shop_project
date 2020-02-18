@@ -52,7 +52,7 @@
 									onclick="location.href='/Spring_shop_project/production?detail=${vo.product_id}'" />
 								</td> --%>
 								<td>${vo.order_balance }</td>
-								<td><a href="">${vo.order_invoice }</a></td>
+								<td>${vo.order_invoice }</td>
 								<td>${vo.order_price }</td>
 								<td>${vo.order_payment }</td>
 								<td>${vo.user_id }</td>

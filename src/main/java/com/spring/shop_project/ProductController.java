@@ -142,7 +142,7 @@ public class ProductController {
 				response.setContentType("text/html; charset=UTF-8");
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('상품추가 되었습니다'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_productlist'</script>");	 
+					out.println("<script>alert('상품추가 되었습니다'); opener.location.reload();window.close();</script>");	 
 					out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -152,7 +152,7 @@ public class ProductController {
 				response.setContentType("text/html; charset=UTF-8");
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('권한이 없습니다.'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_productlist'</script>");	 
+					out.println("<script>alert('권한이 없습니다.'); opener.location.reload();window.close();</script>");	 
 					out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();

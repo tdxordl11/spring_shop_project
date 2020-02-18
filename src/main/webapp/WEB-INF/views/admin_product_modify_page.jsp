@@ -30,6 +30,26 @@
 <link
 	href="<%=respath%>vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
+	
+<style>
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+</style>	
+	
 </head>
 <body>
 	<div class="card shadow mb-4">
@@ -93,15 +113,22 @@
 			</div>
 			
 			<!-- 이미지 출력 라벨 -->
+			<div class="col mr-2">
 			<div
 				class="text-xs font-weight-bold text-primary text-uppercase mb-1">상품
 				이미지</div>
 			<div class="inputArea">
 				<label for="product_image"></label> 
-				<input type="file" id="product_image" name="product_image"> <br>
+				<!-- <input type="file" id="product_image" name="product_image"> <br>
 				<div class="select_img">
 					<img src="" />
-				</div>
+				</div> -->
+				<input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+					<div class="fileUpload btn btn-primary">
+					<span>파일 선택</span>
+						<input multiple="multiple" class="upload" type="file" id="files" name="files"> 
+					</div>
+					<input type="button" id="btn-upload2" class="btn btn-primary" value="파일 업로드 (복수 선택 가능)">
 				<script>
 				${"#product_image"}.change(function(){
 					if(this.files && this.files[0]){
@@ -117,14 +144,21 @@
 				<%=request.getRealPath("/")%>
 			</div>
 
+			<div class="col mr-2">
 			<div
 				class="text-xs font-weight-bold text-primary text-uppercase mb-1">상세 설명 이미지</div>
 			<div class="inputArea">
 				<label for="product_detail"></label> 
-				<input type="file" id="product_detail" name="product_detail"> <br>
+				<!-- <input type="file" id="product_detail" name="product_detail"> <br>
 				<div class="select_img">
 					<img src="" />
-				</div>
+				</div> -->
+					<input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+					<div class="fileUpload btn btn-primary">
+					<span>파일 선택</span>
+						<input multiple="multiple" class="upload" type="file" id="files" name="files"> 
+					</div>
+					<input type="button" id="btn-upload2" class="btn btn-primary" value="파일 업로드 (복수 선택 가능)">
 				<script>
 				${"#product_detail"}.change(function(){
 					if(this.files && this.files[0]){

@@ -27,8 +27,12 @@
 <title>상품 추가</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+
+
 
 <!-- Custom fonts for this template -->
 <link href="<%=respath%>vendor/fontawesome-free/css/all.min.css"
@@ -44,6 +48,26 @@
 <link href="<%=respath%>vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
+<style>
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+</style>
+
 <script type="text/javascript">
 $(function() {
   $('#modifying').click(function(e) {
@@ -140,6 +164,25 @@ $(function() {
 	        		' - '+jqXHR.statusText+')');
 	    });
 	  });
+  
+  $(function() {
+	  $( "#product_release" ).datepicker({
+	    dateFormat: 'yy/mm',
+	    prevText: '이전 달',
+	    nextText: '다음 달',
+	    monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	    monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	    dayNames: ['일','월','화','수','목','금','토'],
+	    dayNamesShort: ['일','월','화','수','목','금','토'],
+	    dayNamesMin: ['일','월','화','수','목','금','토'],
+	    showMonthAfterYear: true,
+	    changeMonth: true,
+	    changeYear: true,
+	    yearSuffix: '년'
+	  });
+	});
+  
+  
 });
 </script>
 
@@ -184,8 +227,18 @@ $(function() {
 			<div class="col mr-2">
 				<div
 					class="text-xs font-weight-bold text-primary text-uppercase mb-1">카테고리</div>
-				<input type="text" id="product_category" name="product_category"
-					class="form-control"><br>
+				<!-- <input type="text" id="product_category" name="product_category"
+					class="form-control"><br> -->
+					<select id="product_category" name="product_category"
+					class="form-control">
+						<option>USB 케이블</option>
+						<option>헤드폰</option>
+						<option>이어폰</option>
+						<option>커스텀 이어폰</option>
+						<option>블루투스 노이즈 캔슬링 헤드폰</option>
+						<option>포터블 DAC 앰프</option>
+						<option>프리미엄 헤드폰</option>
+					</select><br>
 			</div>
 			<div class="col mr-2">
 				<div
@@ -202,7 +255,7 @@ $(function() {
 			<div class="col mr-2">
 				<div
 					class="text-xs font-weight-bold text-primary text-uppercase mb-1">출시일</div>
-				<input type="text" id="product_release" name="product_release"
+				<input type="text" id="product_release" name="product_release" autocomplete=off
 					class="form-control"><br>
 			</div>
 			<!-- <div class="col mr-2">
@@ -221,10 +274,15 @@ $(function() {
 				class="text-xs font-weight-bold text-primary text-uppercase mb-1">상품 이미지</div>
 			<div class="inputArea">
 				<form id="uploadForm1" enctype="multipart/form-data" method="POST" action='<%=contextpath + "/upload" %>'>
-					<label for="files"></label> 
-					<input multiple="multiple" type="file" id="files" name="files"> <br>
+					<label for="files"></label>
+					<input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+					<div class="fileUpload btn btn-primary">
+					<span>파일 선택</span>
+						<input multiple="multiple" class="upload" type="file" id="files" name="files"> <br>
+					</div>
+					<input type="button" id="btn-upload1" class="btn btn-primary" value="파일 업로드 (복수 선택 가능)">
 				</form>
-					<div><input type="button" id="btn-upload1" value="파일 업로드 (복수 선택 가능)"></div>
+					
 					    <!-- Bootstrap Progress bar -->
 			    <div class="progress">
 			      <div id="progressBar1" class="progress-bar progress-bar-success" role="progressbar"
@@ -245,11 +303,14 @@ $(function() {
 				class="text-xs font-weight-bold text-primary text-uppercase mb-1">상세 설명 이미지</div>
 			<div class="inputArea">
 				<form id="uploadForm2" enctype="multipart/form-data" method="POST" action='<%=contextpath + "/upload" %>'>
-					<label for="files"></label> 
-					<input multiple="multiple" type="file" id="files" name="files"> <br>
-
+					<label for="files"></label>
+					<input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+					<div class="fileUpload btn btn-primary">
+					<span>파일 선택</span>
+						<input multiple="multiple" class="upload" type="file" id="files" name="files"> 
+					</div>
+					<input type="button" id="btn-upload2" class="btn btn-primary" value="파일 업로드 (복수 선택 가능)">
 				</form>
-					<div><input type="button" id="btn-upload2" value="파일 업로드 (복수 선택 가능)"></div>
 					    <!-- Bootstrap Progress bar -->
 			    <div class="progress">
 			      <div id="progressBar2" class="progress-bar progress-bar-success" role="progressbar"

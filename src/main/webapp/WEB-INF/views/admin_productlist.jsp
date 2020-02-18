@@ -82,6 +82,8 @@
 			document.userForm.submit();
 		}
 	}
+	
+	
 	﻿
 </script>
 </head>
@@ -95,7 +97,7 @@
 			 <div class="left-box"><h6 class="m-0 font-weight-bold text-primary">상품 관리</h6></div>
 			<div class="right-box">
 			<input  type="button" value="상품 추가" class="btn btn-primary" 
-						onclick="positionedPopup('<%=request.getContextPath() + "/admin/admin_product_insert_page"%>', '상품 추가', '900', '1000', '100', '200', 'yes'); return false">
+						onclick="positionedPopup('<%=request.getContextPath() + "/admin/admin_product_insert_page"%>', '상품 추가', '500', '600', '100', '200', 'yes'); return false">
 			</div>
 		</div>
 		<div class="card-body">

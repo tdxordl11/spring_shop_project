@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
@@ -73,11 +74,11 @@ $.datepicker.setDefaults({
           </div>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">공지사항 시작일</div>
-              <input type="text" id="startDate" name="start_date" class="form-control"><br>
+              <input type="text" autocomplete=off id="startDate" name="start_date" class="form-control"><br>
           </div>
           <div class="col mr-2">
              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">공지사항 종료일</div>
-              <input type="text" id="endDate" name="end_date" class="form-control"><br>
+              <input type="text" autocomplete=off id="endDate" name="end_date" class="form-control"><br>
           </div>
           <div style="text-align: center;">
           <input type="submit" class="btn btn-primary" value="저장">
