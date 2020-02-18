@@ -63,7 +63,7 @@ $(document).ready(function() {
 			 		}
 			      
 				      var options = {
-				        title: '[ ' +str2+ ' 인기 상품의 매출 비율 ]' ,
+				        title: '[인기 상품의 매출 비율 ]' ,
 				        is3D: true,
 				        sliceVisibilityThreshold: .05 // 20% 이하는 기타로 묶어주는 용도
 				      };
@@ -116,11 +116,12 @@ $(document).ready(function() {
 				      if( <%= "'"+request.getParameter("month")+"'" %> == null || <%= "'"+request.getParameter("month")+"'" %> == 'null' ) {
 				 			str2 = new Date().getMonth()+1 +' 월' ;
 				 		} else {
-				 			str2 =  <%= "'"+request.getParameter("month")+"'" %> ;
+				 			<%-- str2 =  <%= "'"+request.getParameter("month")+"'" %> ; --%>
+				 			str2 = $("#month option:selected").val();
 				 		}
 				      
 					      var options = {
-					        title: '[ ' +str2+ ' 인기 상품의 매출 비율 ]' ,
+					        title: '[인기 상품의 매출 비율 ]' ,
 					        is3D: true,
 					        sliceVisibilityThreshold: .05 // 20% 이하는 기타로 묶어주는 용도
 					      };

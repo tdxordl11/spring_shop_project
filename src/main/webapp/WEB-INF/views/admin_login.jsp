@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- <%@ tablib prefix="sec" uri="http://www.springframework.org/security/tags" %> --%>
 <% String respath = request.getContextPath() +"/resources/"; %>
 <!DOCTYPE html>
 <html>
@@ -37,6 +38,8 @@
 			alert("정상 등록되었습니다.");
 		} else if (<%=request.getAttribute("checked") %> == 2) {
 			alert("OTP 패스워드 틀림");
+		} else if(<%=request.getAttribute("checked") %> == 3) {
+			alert("비활성화 계정입니다. 관리자에게 문의바랍니다.");
 		}
 		
 		$("#loginchk").on("click",function() {		

@@ -34,7 +34,35 @@
 	) a, product p
 	where a.product_id = p.product_id
  </select>
+ 
+ 
+	<!-- 슈퍼관리자의 레벨인지 체크하기 -->
+	<select id="authlevelchk" resultType="String" parameterType="admin">
+		select admin_authlevel from admin where admin_id = #{admin_id}
+	</select> 
+	
+	<!-- 슈퍼관리자의 레벨이면 관리자계정관리 권한레벨,계정활성화여부 수정 가능하게 -->
+	<update id="adminupdate" parameterType="admin">
+		update admin
+		set admin_authlevel = #{admin_authlevel}, 
+		admin_active = #{admin_active},
+		admin_phone = #{admin_phone},
+		admin_name = #{admin_name},
+		admin_address = #{admin_address},
+		admin_otpkey = #{admin_otpkey} 
+		where admin_id = #{admin_id}
+	</update>
+	
+	<!-- 로그인한 admin_id의 모든 정보 가져오기 -->
+	<select id="getalladmin" resultType="admin" parameterType="String">
+		select * from admin where admin_id = #{admin_id}	
+	</select>
+ 
+ 
+ 
 </mapper>
+
+
 
 		
 

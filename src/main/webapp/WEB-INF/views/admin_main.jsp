@@ -69,7 +69,7 @@
       
       <!-- Nav Item - 상품관리 -->
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href='<%=contextpath +"/admin/main?menu=admin_productlist" %>'>
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>상품관리</span>
           </a>
@@ -110,7 +110,7 @@
       </li>
       
       <!-- Nav Item - 기타 -->
-      <li class="nav-item">
+     <!--  <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
           <i class="fas fa-fw fa-cog"></i>
           <span>기타</span>
@@ -123,7 +123,7 @@
             <a class="collapse-item" href="blank.html">Blank Page</a>
           </div>
         </div>
-      </li>
+      </li> -->
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -303,15 +303,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-body">로그아웃 버튼을 눌러주세요</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href='<%=request.getContextPath() + "/admin/logout"%>'>Logout</a>
+          <a class="btn btn-primary" href='<%=request.getContextPath() + "/admin/logout"%>'>로그아웃</a>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
       </div>
     </div>

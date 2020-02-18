@@ -28,14 +28,14 @@
 					cellspacing="0">
 					<thead>
 						<tr>
+							<th>SEQ</th>
 							<th>주문번호</th>
-							<th>주문이름?</th>
 							<th>상품명</th>
 							<th>주문개수</th>
 							<th>송장번호</th>
 							<th>주문가격</th>
 							<th>구매방식</th>
-							<th>사용자아이디</th>
+							<th>구매자</th>
 							<th>주문날짜</th>
 							<th>배송지</th>
 							<th>우편번호</th>
@@ -46,10 +46,11 @@
 							<tr>
 								<td>${vo.order_seq }</td>
 								<td>${vo.order_id }</td>
-								<td>${vo.product_name }<br> <input type="button"
+								<td>${vo.product_name}</td>
+								<%-- <td>${vo.product_name }<br> <input type="button"
 									value="Detail"
 									onclick="location.href='/Spring_shop_project/production?detail=${vo.product_id}'" />
-								</td>
+								</td> --%>
 								<td>${vo.order_balance }</td>
 								<td><a href="">${vo.order_invoice }</a></td>
 								<td>${vo.order_price }</td>

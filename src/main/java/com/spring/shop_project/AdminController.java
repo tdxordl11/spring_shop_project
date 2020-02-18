@@ -182,7 +182,7 @@ public class AdminController {
 				response.setContentType("text/html; charset=UTF-8");
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('���� �Ǿ����ϴ�'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
+					out.println("<script>alert('수정 완료되었습니다'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
 					out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -192,7 +192,7 @@ public class AdminController {
 				response.setContentType("text/html; charset=UTF-8");
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('������ �����ϴ�.'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
+					out.println("<script>alert('권한이 없습니다'); location.href='"+request.getContextPath()+"/admin/main?menu=admin_manage'</script>");	 
 					out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -231,7 +231,7 @@ public class AdminController {
 			int chk = service.qnaUpdate(vo);
 			if(chk == 1) { // ���� ������Ʈ
 				out = response.getWriter();
-				out.println("<script>alert('�亯�� ��� �Ǿ����ϴ�'); opener.location.reload();window.close();</script>");	 
+				out.println("<script>alert('답변이 등록 되었습니다'); opener.location.reload();window.close();</script>");	 
 				out.flush();
 			}
 		} catch (IOException e) {
@@ -299,7 +299,7 @@ public class AdminController {
 			response.setContentType("text/html; charset=UTF-8");
 			try {
 				out = response.getWriter();
-				out.println("<script>alert('��� �Ǿ����ϴ�'); opener.location.reload();window.close();</script>");	 
+				out.println("<script>alert('작성 완료되었습니다'); opener.location.reload();window.close();</script>");	 
 				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -324,7 +324,7 @@ public class AdminController {
 					int chk = service.noticeUpdate(vo);
 					if(chk == 1) { // ���� ������Ʈ
 						out = response.getWriter();
-						out.println("<script>alert('���� �Ǿ����ϴ�'); opener.location.reload();window.close();</script>");	 
+						out.println("<script>alert('수정 완료되었습니다'); opener.location.reload();window.close();</script>");	 
 						out.flush();
 					} else {
 						//���н�
@@ -338,7 +338,7 @@ public class AdminController {
 	        	response.setContentType("text/html; charset=UTF-8");
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('Ÿ ������� �Խù��� ������ �Ұ��մϴ�.'); self.close();</script>");	 
+					out.println("<script>alert('타 사용자의 게시물은 수정이 불가합니다.); self.close();</script>");	 
 					out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();

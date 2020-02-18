@@ -46,7 +46,7 @@ $(document).ready(function () {
                       <th>주소</th>
                       <th>이름</th>
                       <th>전화번호</th>
-                      <th>등급</th>
+                      <!-- <th>등급</th> -->
                       <th>가입일</th>
                     </tr>
                   </thead>
@@ -58,7 +58,7 @@ $(document).ready(function () {
 							<td>${vo.user_address }</td>
 							<td>${vo.user_name }</td>
 							<td>${vo.user_phone}</td>
-							<td>${vo.user_grade}</td>
+							<%-- <td>${vo.user_grade}</td> --%>
 						<%-- <td>
 								<c:if test="${vip.user_id == '${vo.user_id}' "> 
 								 	${vo.user_grade = 1} 

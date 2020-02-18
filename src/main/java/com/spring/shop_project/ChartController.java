@@ -65,7 +65,7 @@ public class ChartController {
 
 	}
 	 
-	// piechart ajax·Î ¼öÁ¤Áß ////////////////////////////////////////////////
+	// piechart ajaxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ////////////////////////////////////////////////
 	 @RequestMapping(value="/piechart" , method = RequestMethod.GET)
 	 public String PieChart() { 
 		 return "piechart";
@@ -74,10 +74,10 @@ public class ChartController {
 	 @RequestMapping(value="/admin/piechart1" , method = RequestMethod.GET)
 	 @ResponseBody
 	 public List<OrderVO> getPieChart(
-			 @RequestParam(value="month",required = false, defaultValue = "13¿ù")  String month, 
+			 @RequestParam(value="month",required = false, defaultValue = "13ì›”")  String month, 
 				@RequestParam(value="year",required=false, defaultValue = "year") String year) {
 			
-		//urlµðÄÚµù
+		//urlï¿½ï¿½ï¿½Úµï¿½
 		try {
 			month = URLDecoder.decode(month, "UTF-8");
 			 year = URLDecoder.decode(year, "UTF-8"); 
@@ -88,9 +88,9 @@ public class ChartController {
 		
 		
 		 
-			month = month.split("¿ù")[0];
+			month = month.split("ì›”")[0];
 			
-			if(month.equals("13")) { // ÇöÀç ³¯Â¥
+			if(month.equals("13")) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥
 				month = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
 				year = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR));
 			} else {
@@ -105,76 +105,17 @@ public class ChartController {
 			
 	 }
 
-	 
-	// ¿ùº° ¸ÅÃâ Á¡À¯À² ³õÀº »óÇ° ¼ø¼­´ë·Î ÆÄÀÌ Â÷Æ® get
-//	@RequestMapping(value="/piechart", method = RequestMethod.GET)
-//	public ModelAndView PieChartg(
-//			@RequestParam(value="month",required = false, defaultValue = "13¿ù")  String month, 
-//			@RequestParam(value="year",required=false, defaultValue = "year") String year) {
-//		
-//		month = month.split("¿ù")[0];
-//		
-//		if(month.equals("13")) { // ÇöÀç ³¯Â¥
-//			month = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
-//			year = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR));
-//		} else {
-//			month = String.format("%02d", Integer.parseInt(month));
-//			year = String.format("%02d", Integer.parseInt(year));
-//		}
-//		
-//		String[] param3 = {month, year};
-//		int monthtotal = service.getMonthTotal(param3);
-//		ModelAndView nav = new ModelAndView();
-//		
-//		if(service.getShare(param3) == null) {
-//			nav.setViewName("piechartfail");
-//		} else {
-//			List<OrderVO> monthshare = service.getShare(param3);
-//			
-//			nav.addObject("monthshare", monthshare);
-//			nav.addObject("monthtotal", monthtotal);
-//			nav.setViewName("piechart");
-//		}
-//		
-//		return nav;
-//	}
 	
 	
-	// ¿ùº° ¸ÅÃâ Á¡À¯À² ³õÀº »óÇ° ¼ø¼­´ë·Î ÆÄÀÌ Â÷Æ® post
-	/*
-	@RequestMapping(value="/piechart", method = RequestMethod.POST)
-	@ResponseBody
-	public ModelAndView PieChart(@RequestParam(value="month") String month) {
-		
-		month = month.split("¿ù")[0];
-		int calmon = Integer.parseInt(month);
-		if(calmon < 10) {
-			month = month.split("¿ù")[0];
-			month = "0"+month;
-		} else {
-			month = month.split("¿ù")[0];
-			month = ""+month;
-		}
-		
-		List<OrderVO> monthshare = service.getShare(month);
-		
-		ModelAndView nav = new ModelAndView();
-		nav.addObject("monthshare", monthshare);
-		nav.setViewName("piechart");
-		
-		return nav;
-	} */
-	
-	
-	// Àü¿ù´ëºñ ¸ÅÃâ¾× Áõ°¡À²
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/monthgrowth", method = RequestMethod.GET)
 	public ModelAndView monthGrowth
-	(@RequestParam (value="month", defaultValue = "13¿ù" ) String month,
+	(@RequestParam (value="month", defaultValue = "13ì›”" ) String month,
 	@RequestParam (value="year", defaultValue = "year" ) String year) {
 		
-		month = month.split("¿ù")[0];
+		month = month.split("ì›”")[0];
 		String prevmonth = "";
-		if(month.equals("13")) { // ÇöÀç ³¯Â¥
+		if(month.equals("13")) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥
 			month = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
 			prevmonth = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH));
 			year = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR));
@@ -193,15 +134,15 @@ public class ChartController {
 		return nav;
 	}
 	
-	// Àü³â µ¿±â´ëºñ ¸ÅÃâ¾× Áõ°¡À² ¹ÌÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/yeargrowth", method = RequestMethod.GET)
 	public ModelAndView yearGrowth
-	(@RequestParam (value="month", defaultValue = "13¿ù" ) String month,
+	(@RequestParam (value="month", defaultValue = "13ì›”" ) String month,
 	@RequestParam (value="year", defaultValue = "year" ) String year) {
 		
-		month = month.split("¿ù")[0];
+		month = month.split("ì›”")[0];
 		String prevyear = "";
-		if(month.equals("13")) { // ÇöÀç ³¯Â¥
+		if(month.equals("13")) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥
 			month = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
 			year = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR));
 			prevyear = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR)-1);
@@ -221,7 +162,7 @@ public class ChartController {
 	}
 	
 	
-	// ¿À´Ã ¸ÅÃâ¾× ÃÑ¾× º¸¿©ÁÖ±â ¹ÌÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/todaytotalincome", method = RequestMethod.GET)
 	public ModelAndView todaytotalincome() {
 		
@@ -247,7 +188,7 @@ public class ChartController {
 		 return nav;
 	}
 	
-	// ¿À´Ã ÃÑ ÆÇ¸Å·® º¸¿©ÁÖ±â ¹ÌÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¸Å·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/todaytotalorder", method = RequestMethod.GET)
 	public ModelAndView todaytotalorder() {
 		
@@ -273,14 +214,14 @@ public class ChartController {
 		 return nav;
 	}
 	
-	// ÀÌ¹ø´Þ ÆÇ¸Å·® TOP3 »óÇ° º¸¿©ÁÖ±â
+	// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ç¸Å·ï¿½ TOP3 ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	@RequestMapping(value="/monthtop3", method = RequestMethod.GET)
 	public ModelAndView monthtop3(
-		@RequestParam (value="month", defaultValue = "13¿ù" ) String month,
+		@RequestParam (value="month", defaultValue = "13ì›”" ) String month,
 		@RequestParam (value="year", defaultValue = "year" ) String year) {
 		
-		month = month.split("¿ù")[0];
-		if(month.equals("13")) { // ÇöÀç ³¯Â¥
+		month = month.split("ì›”")[0];
+		if(month.equals("13")) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥
 			month = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
 			year = String.format("%02d", Calendar.getInstance().get(Calendar.YEAR));
 		}

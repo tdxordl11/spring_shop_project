@@ -333,7 +333,110 @@ public class UserController {
 //			return mav;
 //		}
 	  
+	  // user 정보 list 보여주기
+	  @RequestMapping("/admin/user_manage")
+	  public ModelAndView userManage() {
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("userlist", service.userGetList());
+			mav.setViewName("user_manage");
+			return mav;
+		}
+
+	  //사용자 detail
+	  @RequestMapping("/admin/user_manage_detail")
+		public ModelAndView userManageDetail(@RequestParam(value = "user") String user) {
+			ModelAndView mav = new ModelAndView();
+		    UserVO vo = service.userGetDetail(user);
+		    mav.addObject("userdetail",vo);
+			mav.setViewName("user_manage_detail");
+			return mav;
+		}
 	  
+	  // 사용자 detail 수정
+	  @RequestMapping(value = "/admin/user_manage_update" , method = RequestMethod.POST)
+		public void adminManageDetail(UserVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+			
+			SessionVO sessionVO = (SessionVO)session.getAttribute("session");
+			PrintWriter out;
+			
+			int level = Integer.parseInt(sessionVO.getAuthlevel());
+				
+				if(level >= 1) {
+					service.userUpdate(vo);
+					response.setContentType("text/html; charset=UTF-8");
+					try {
+						out = response.getWriter();
+						out.println("<script>alert('수정 되었습니다'); location.href='"+request.getContextPath()+"/admin/main?menu=user_manage'</script>");	 
+						out.flush();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+				 //실패시
+					response.setContentType("text/html; charset=UTF-8");
+					try {
+						out = response.getWriter();
+						out.println("<script>alert('권한이 없습니다.'); location.href='"+request.getContextPath()+"/admin/main?menu=user_manage'</script>");	 
+						out.flush();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+			}
+		
+		}
+	  
+	  // 사용자 계정 삭제 
+	  @RequestMapping(value="/admin/userdelete")
+		public void UserDelete(@RequestParam(value="user") String user, HttpSession session,HttpServletRequest request, HttpServletResponse response) {
+		  
+		  SessionVO sessionVO = (SessionVO)session.getAttribute("session");
+			PrintWriter out;
+			
+			int level = Integer.parseInt(sessionVO.getAuthlevel());
+				
+				if(level >= 1) {
+					service.csDelete(user);
+				  	service.reviewDelete(user);
+				  	service.auctionDelete(user);
+				  	service.discountDelete(user);
+				  	service.group_purchaseDelete(user);
+				  	service.shoporderDelete(user);
+					service.userDelete(user);
+					response.setContentType("text/html; charset=UTF-8");
+					try {
+						out = response.getWriter();
+						out.println("<script>alert('삭제 되었습니다'); location.href='"+request.getContextPath()+"/admin/main?menu=user_manage'</script>");	 
+						out.flush();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+				 //실패시
+					response.setContentType("text/html; charset=UTF-8");
+					try {
+						out = response.getWriter();
+						out.println("<script>alert('권한이 없습니다.'); location.href='"+request.getContextPath()+"/admin/main?menu=user_manage'</script>");	 
+						out.flush();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+			}
+			
+		}
+	  
+	  
+	  // 지출액이 높은 사람은 회원등급을 높여줘보자
+//	  @RequestMapping(value="/viptop3")
+//	  public ModelAndView vipgrade() {
+//		List<OrderVO> viptop3 = service.vipgrade();
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("viptop3", viptop3);
+//		mav.setViewName("/user_manage");
+//		
+//		return mav;
+//	  }
 
 	
 }

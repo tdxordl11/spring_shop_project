@@ -1,8 +1,10 @@
 package com.spring.shop_project;
 
+import java.util.Date;
+
 public class ProductVO {
 	String product_detail;
-	String product_price;
+	int product_price;
 	String product_balance;
 	String product_sellcount;
 	String product_category;
@@ -10,20 +12,19 @@ public class ProductVO {
 	String product_name;
 	String product_id;
 	String product_image;
-	String product_release ;
+	String product_release;
 	int sales_persent;
-	String sales_date;
-	
+	Date sales_date;
 	public String getProduct_detail() {
 		return product_detail;
 	}
 	public void setProduct_detail(String product_detail) {
 		this.product_detail = product_detail;
 	}
-	public String getProduct_price() {
+	public int getProduct_price() {
 		return product_price;
 	}
-	public void setProduct_price(String product_price) {
+	public void setProduct_price(int product_price) {
 		this.product_price = product_price;
 	}
 	public String getProduct_balance() {
@@ -80,10 +81,10 @@ public class ProductVO {
 	public void setSales_persent(int sales_persent) {
 		this.sales_persent = sales_persent;
 	}
-	public String getSales_date() {
+	public Date getSales_date() {
 		return sales_date;
 	}
-	public void setSales_date(String sales_date) {
+	public void setSales_date(Date sales_date) {
 		this.sales_date = sales_date;
 	}
 	

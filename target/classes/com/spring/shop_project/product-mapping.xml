@@ -3,9 +3,62 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product">
 
-	
+	<!-- 상품 정보 페이지 접근 -->
+	<select id="productpaging" resultType="product">
+		select product_detail,
+		product_price, product_balance, product_sellcount, product_category,
+		product_brand, product_name, product_id, product_image,
+		product_release, sales_persent, sales_date
+		from product
+	</select>
 
-	
+	<!-- 상세정보 접근 -->
+	<select id="product_detail" resultType="product">
+		select product_detail,
+		product_price, product_balance, product_sellcount, product_category,
+		product_brand, product_name, product_id, product_image,
+		product_release, sales_persent, sales_date from product where product_id=#{product_id}
+	</select>
+
+	<!-- 상품 추가 -->
+	<insert id="product_insert" parameterType="product">
+		insert into product(product_detail,
+		product_price, product_balance,
+		product_sellcount, product_category,
+		product_brand, product_name,
+		product_id, product_image,
+		product_release, sales_persent, sales_date)
+		values (#{product_detail}, #{product_price}, #{product_balance}, #{product_sellcount},
+		#{product_category},
+		#{product_brand}, #{product_name}, #{product_id}, #{product_image},
+		#{product_release}, #{sales_persent}, sysdate)
+	</insert>
+
+	<!-- 상품 삭제 -->
+	<delete id="product_delete">
+		delete from product where product_id = #{product_id}
+	</delete>
+
+	<!-- 상품 수정 -->
+	<update id="product_modify">
+		update product
+		<set> 
+		<if test="product_detail!= null and product_detail!=''">product_detail= #{product_detail}, </if> 
+		<if test="product_price!= null and product_price!=''">product_price = #{product_price}, </if> 
+		<if test="product_balance!= null and product_balance!=''">product_balance = #{product_balance},</if> 
+		<if test="product_sellcount!= null and product_sellcount!=''">product_sellcount = #{product_sellcount},</if> 
+		<if test="product_category!= null and product_category!=''">product_category = #{product_category},</if> 
+		<if test="product_brand!= null and product_brand!=''">product_brand = #{product_brand},</if> 
+		<if test="product_name!= null and product_name!=''">product_name = #{product_name},</if>  
+		<if test="product_image!= null and product_image!=''">product_image = #{product_image},</if> 
+		<if test="product_release!= null and product_release!=''">product_release = #{product_release},</if> 
+		<if test="sales_persent!= null and sales_persent!=''">sales_persent = #{sales_persent},</if> 
+		<if test="sales_date!= null and sales_date!=''">sales_date = #{sales_date}</if> 
+		</set>
+		where product_id = #{product_id}
+	</update>
+
+
 </mapper>
 
 		
