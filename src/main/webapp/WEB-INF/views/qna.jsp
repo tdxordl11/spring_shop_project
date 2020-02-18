@@ -7,6 +7,13 @@
 <%
 	String contextpath = request.getContextPath();
 	String respath = request.getContextPath() + "/resources/";
+	
+	if(request.getAttribute("chk")!=null) {
+		if((Integer)request.getAttribute("chk") == -1) {
+			out.print("<script>alert('작성자만 열람할 수 있습니다');</script>");
+		}
+	}
+	
 %>
 <html>
 <head>
@@ -69,12 +76,12 @@
 		<tbody>
 		
 		
-		<c:choose>
-		<c:when test="${user_id ne null}">
+<%-- 		<c:choose>
+		<c:when test="${user_id ne null}"> --%>
 		<c:forEach items="${qnalist }" var="vo" >
 		<tr>
 			<td width="100" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">${vo.cs_seq }</span></td>
-			<td width="800" align="left"><a href="board_view.html?no=7051&amp;s_key=&amp;s_field=&amp;category=100&amp;page=1"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 11pt; color:#000;">${vo.cs_title }</span></a></td>
+			<td width="800" align="left"><a href='<%=contextpath+ "/main?menu=user_qna_detail&cs_seq="%>${vo.cs_seq}'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">${vo.cs_title }</span></a></td>
 			<td width="100" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">${vo.user_id }</span></td>
 			<td width="100" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">${vo.cs_date }</span></td>
 			<td width="100" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">
@@ -82,23 +89,22 @@
 									X
         						</c:if>
         						<c:if test="${vo.comments_contents != null}">
-									O (${vo.comments_date })
+									${vo.comments_date }
         						</c:if>
 									</span>
         						</td>
 		</tr>
 		<tr>
-			<td height="20" colspan="5"></td>
 		</tr>
 		<tr>
 			<td height="1" bgcolor="f5f5f5" colspan="5"></td>
 		</tr>
    </c:forEach>
-		</c:when>
+<%-- 		</c:when>
 		<c:otherwise>
-		<h3>등록된 글이 없습니다.</h3>
+		<center><h3>등록된 글이 없습니다.</h3></center>
 		</c:otherwise>
-		</c:choose>
+		</c:choose> --%>
 
 <!-- 		<tr> -->
 <!-- 			<td height="20" colspan="5"></td> -->
@@ -148,13 +154,13 @@
 				
 			</tbody></table>
 		</td>
-		<td height="80" align="right" colspan="2"><!--<a href="board_modi.html"><img src="/img/board/modi.jpg" border="0" width="100" height="auto" /></a><a href="#"><img src="/img/board/del.jpg" border="0" width="100" height="auto" /></a>--><a href="board_write.html?category=100"><img src="<%=respath %>img/board/write.jpg" border="0" width="100" height="auto"></a></td>
+		<td height="80" align="right" colspan="2"><!-- <a href="board_modi.html"><img src="/img/board/modi.jpg" border="0" width="100" height="auto" /></a> <a href="#"><img src="/img/board/del.jpg" border="0" width="100" height="auto" /></a>--><a href='<%=contextpath + "/main?menu=user_qna_write"%>'><img src="<%=respath %>img/board/write.jpg" border="0" width="100" height="auto"></a></td>
 	</tr>
 </tbody></table>
 <table cellpadding="0" cellspacing="0" align="center" width="80%">
 	<tbody><tr>
-		<td width="100%" height="50" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-size: 10pt; font-weight: 300; color: #898989;"><span class="pagenum">◀&nbsp;&nbsp;&nbsp;<b>1</b>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=2">2</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=3">3</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=4">4</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=5">5</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=6">6</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=7">7</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=8">8</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=9">9</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=10">10</a>&nbsp;&nbsp;&nbsp;<a href="?s_key=&amp;s_field=&amp;category=100&amp;page=11">▶</a></span>	</span></td>
-	</tr>
+		<td height="30"></td>
+		</tr>
 	<tr>
 		<td height="100"></td>
 	</tr>

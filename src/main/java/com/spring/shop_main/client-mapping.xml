@@ -50,6 +50,11 @@
     	select product_detail, product_price, TO_CHAR(product_price, '999,999,999,999,999') convert_price , product_balance, product_sellcount, product_category, product_brand, product_name, product_id, REGEXP_SUBSTR(product_image, '[^,]+',1,1) product_image, product_release, sales_persent, sales_date 
         from product where product_id = TRIM(#{name})
     </select>
+    
+    <insert id="insertqna" parameterType="qna">
+    	insert into cs (cs_seq, cs_title, cs_password, user_id, cs_contents, cs_date )
+    	values(cs_seq.nextval, #{cs_title}, #{cs_password}, #{user_id}, #{cs_contents}, sysdate)
+    </insert>
 </mapper>
 
 

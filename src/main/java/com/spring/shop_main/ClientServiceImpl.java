@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.shop_project.ProductVO;
+import com.spring.shop_project.QnaVO;
 
 @Service
 public class ClientServiceImpl implements ClientService{
@@ -24,7 +25,6 @@ public class ClientServiceImpl implements ClientService{
 		return dao.getGoodsList(curPage,pageListSize);
 	}
 
-
 	@Override
 	public List<ProductVO> getGoodsFindListSort(String curPage, String pageListSize, String sort, String ts_key) {
 		return dao.getGoodsFindListSort(curPage, pageListSize, sort, ts_key);
@@ -38,6 +38,11 @@ public class ClientServiceImpl implements ClientService{
 	@Override
 	public ProductVO getCartList(String name) {
 		return dao.getCartList(name);
+	}
+
+	@Override
+	public int insertQna(QnaVO vo) {
+		return dao.insertQna(vo);
 	}
 
 }

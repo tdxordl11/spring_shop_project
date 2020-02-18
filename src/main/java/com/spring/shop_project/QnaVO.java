@@ -9,10 +9,18 @@ public class QnaVO {
     String cs_title;
     String cs_contents;
     String cs_date;
+    String cs_password;
     String admin_id;
     String comments_contents;
     String comments_date;
     
+    
+	public String getCs_password() {
+		return cs_password;
+	}
+	public void setCs_password(String cs_password) {
+		this.cs_password = cs_password;
+	}
 	public String getProduct_name() {
 		return product_name;
 	}

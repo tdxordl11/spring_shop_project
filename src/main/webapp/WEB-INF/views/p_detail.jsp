@@ -1,8 +1,8 @@
+<%@page import="com.spring.shop_project.ProductVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
 
 <%
 	String contextpath = request.getContextPath();
@@ -11,126 +11,36 @@
 
 <html>
 <head>
+<script>
+$(document).ready(function($){
+    
+    $("#cart_add").on("click", function(e){
+    	e.preventDefault();
+    	var gid = ${p_info.product_id };
+    	
+    	if($.cookie('product') != null ) {
+    		if($.cookie('product').indexOf( gid ) != -1) {
+    			alert("이미 장바구니에 등록되어 있음");
+    		} else {
+            	$.cookie('product', $.cookie('product')+","+gid+":1", { expires: 7 , path: '/' });
+            	alert("장바구니에 저장되었습니다.");
+    		}
 
-<title>?</title>
-<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
-<meta name="description" content="프리미엄 헤드폰 이어폰 전문 쇼핑몰,전시품,개봉품,기호기전,커뮤니티,역경매">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SONY [소니] 블루투스 헤드폰 (WH-1000XM3)">
-<meta property="og:image" content="http://www.schezade.co.kr/goods/img/img_B3718.jpg">
-<meta property="og:url" content="http://www.schezade.co.kr/goods/g_detail.html?gid=3718">
-<meta property="og:description" content="프리미엄 헤드폰 이어폰 전문 쇼핑몰,전시품,개봉품,기호기전,커뮤니티,역경매">
-<meta property="og:site_name" content="st" />
-<meta property="og:author" content="st" />
-<link rel="canonical" href="http://www.schezade.co.kr/goods/g_detail.html?gid=3718">
+    	} else {
+        	$.cookie('product', gid+":1", { expires: 7 , path: '/' });
+        	alert("장바구니에 저장되었습니다.");
+    	}
 
-<meta name="naver-site-verification" content="c33b73cc52448e79391ce2f6854ba194ca9f8b0e"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	//쿠키 읽기
+    	//alert($.cookie('product_id'));
+    	//alert($.cookie('product_balance'));
+    	
 
-<!-- AMP Analytics -->
-
-<!-- Google Tag Manager -->
-
-
-
-<!-----------------고정 로그인---------------------->
-
-<!--------------------------------상단 텍스트 롤링배너 스크립트---------------------------->
-<!--------------------------------상단 텍스트 롤링배너 스크립트---------------------------->
-
-
-
-
-<!--------------------------------상단 텍스트 롤링배너 스크립트---------------------------->
-
-<!--------------------------------상단 텍스트 롤링배너 스크립트---------------------------->
-
-
-
-
-
-<!------------------------카테고리 메뉴----------------------------->
-<!------------------------카테고리 메뉴----------------------------->
-<!------------------------브랜드 카테고리 메뉴----------------------------->
-<!------------------------브랜드 카테고리 메뉴----------------------------->
-<!------------------검색바------------------------------->
-<!------------------검색바------------------------------->
-
-
-<!------------------움직이는 메뉴---------------------->
-
-
-
-<!------------
-
------------------------->
-
-
-
- 
-
-
-<!-------------------좌측메뉴 카테고리----------------------->
-<!-----------------------------------좌측메뉴 카테고리부분 스크립트------------------------------>
-
- 
-<!-----------------------------------------------검색 및 장바구니----------------------------------->
-<!-- 	<div id="cate_div17" style="display: none;"> -->
-<!--         <div id="container" style="z-index: 99999999999;"> -->
-<!-- 			<div align="right" style="float: right; margin-top: 23px; margin-right: 10px; z-index: 9;"> -->
-<!-- 				<a onclick="menu_open16();" style="cursor:hand"><img src="/img/search.png" border="0" width="25" height="auto" /></a> -->
-<!-- 				<a href="/order/cart_view.html"><img src="/img/cart.png" border="0" width="25" height="auto" /></a> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<table cellpadding="0" cellspacing="0" border="0" bgcolor="ffffff" width="100%" align="center" height="10"> -->
-<!-- 			<tr> -->
-<!-- 				<td align="center"></td> -->
-<!-- 			</tr> -->
-<!-- 		</table> -->
-<!-- 		<table cellpadding="0" cellspacing="0" border="0" bgcolor="f9f9f9" width="100%" align="center" height="50"> -->
-<!-- 			<form name=search_total method=get action="/goods/g_list_search.html" onSubmit="return s_total_chk();"> -->
-<!-- 			<tr> -->
-<!-- 				<td align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 8pt; color:#ff7d00;"><input id="ts_key" name="ts_key" type="text" style="BORDER: #f2f2f2 1px solid; max-width: 1200px; width: 90%; height:30px; text-indent: 10;" placeholder="Search.."></span></td> -->
-<!-- 			</tr> -->
-<!-- 			</form> -->
-<!-- 		</table> -->
-<!-- 	</div> -->
-<!-----------------------------------------------검색 및 장바구니----------------------------------->
-<!----------------------------------------로그인-------------------------------------------------->
-<!----------------------------------------로그인-------------------------------------------------->
-
-<!-----------------------------브랜드------------------------------------------->
-<!-----------------------------브랜드------------------------------------------->
-
-<!------------------움직이는 메뉴---------------------->
-
-<!--<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-<meta name="description" content="Simple Responsive Template is a template for responsive web design. Mobile first, responsive grid layout, toggle menu, navigation bar with unlimited drop downs, responsive slideshow">
-<meta name="keywords" content="">
--->
-<!-- Mobile viewport -->
+    });
+});
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <link rel="shortcut icon" href="/images/favicon.ico"  type="image/x-icon">
-
-<!-- CSS-->
-<!-- Google web fonts. You can get your own bundle at http://www.google.com/fonts. Don't forget to update the CSS accordingly!-->
-
-<!-- end CSS-->
-    
-<!-- JS-->
-<!-- end JS-->
-
-
-
-
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-
-<!-- Event snippet for 전체 방문자 conversion page -->
-
 
 
 <table cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
@@ -370,22 +280,21 @@ $(document).ready(function(){
         </div>
         <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 570px; height: 570px; overflow: hidden;">
 <!--------------------썸네일 570사이즈 기준으로 추가될 때마다 아래 소스가 반복 시작---------------------->
-			<div data-p="112.50" style="display: none;">
-                <img data-u="image" src="http://www.schezade.co.kr/${p_info.product_image}" />
-                <img data-u="thumb" src="http://www.schezade.co.kr/${p_info.product_image}" />
-            </div>
-			<div data-p="112.50" style="display: none;">
-                <img data-u="image" src="/goods/8/img/etc_img1_B3718.jpg" />
-                <img data-u="thumb" src="/goods/8/img/etc_img1_B3718.jpg" />
-            </div>
-			<div data-p="112.50" style="display: none;">
-                <img data-u="image" src="/goods/8/img/etc_img2_B3718.jpg" />
-                <img data-u="thumb" src="/goods/8/img/etc_img2_B3718.jpg" />
-            </div>
-			<div data-p="112.50" style="display: none;">
-                <img data-u="image" src="/goods/8/img/etc_img3_B3718.jpg" />
-                <img data-u="thumb" src="/goods/8/img/etc_img3_B3718.jpg" />
-            </div>
+
+			<!-- 카운트 만큼 반복  -->
+			<% 
+			
+				ProductVO vo = (ProductVO)request.getAttribute("p_info");
+			
+				String[] splimg = vo.getProduct_image().split(", ");
+				for(String str : splimg) {
+					out.print("<div data-p='112.50' style='display: none;'>"+
+			                "<img data-u='image' src='http://www.schezade.co.kr/"+str+"' />"+
+			                "<img data-u='thumb' src='http://www.schezade.co.kr/"+str+"' />"+
+			                "</div>");
+				}
+				
+			%>
             
 <!--------------------썸네일 570사이즈 기준으로 추가될 때마다 아래 소스가 반복 끝---------------------->
            
@@ -662,11 +571,9 @@ $(document).ready(function(){
 											<td colspan="3">
 												<table cellpadding="0" cellspacing="0" border="0">
 													<tr>
-														<td width="240"><a href="javascript:g_detail_cart_add_pc('buy')"><img src="<%=respath %>img/goods/buy.jpg"
-																															  border="0"/></a></td>
+														<td width="240"><a href='<%=contextpath +"/main?menu=cart_order&product_list="%>${p_info.product_id }:1'><img src="<%=respath %>img/goods/buy.jpg" border="0"/></a></td>
 														<td width="20"></td>
-														<td width="240"><a href="javascript:g_detail_cart_add_pc('add')"><img src="<%=respath %>img/goods/cart.jpg"
-																															  border="0"/></a>
+														<td width="240"><a id="cart_add" href="#"><img src="<%=respath %>img/goods/cart.jpg" border="0"/></a>
 														</td>
 													</tr>
 												</table>
@@ -764,7 +671,6 @@ $(document).ready(function(){
 				<tr><td height=20></td></tr>
 	<tr>
 	   <td   align="center">
-				<center><img class="main4" src="http://www.sorishop.com/editor/uploads/202002/20200207152543z_tmtytl.jpg"></center>
 	</tr>
 	<tr><td height=5></td></tr>
 					
@@ -780,24 +686,13 @@ $(document).ready(function(){
 <tr>
 </tr>
 <tr>
-<td><img src="http://www.audiocamp.net/freedata/detail/sony/WH-1000XM3/20180920091728_UnPdG.jpg"></td>
-</tr>
-<tr>
-</tr>
-<tr>
-<td><img src="http://www.audiocamp.net/freedata/detail/sony/WH-1000XM3/20180920091732_GaEhQ.jpg"></td>
-</tr>
-<tr>
-<td><img src="http://www.audiocamp.net/freedata/detail/sony/WH-1000XM3/20180920091735_ZrLzR.jpg"></td>
-</tr>
+<!--  디테일     -->
+<td><img src='${p_info.product_detail }'></td>
 </table>
 
 
 
 				<!-- 셋트에 포함된상품의 상세설명을 자동으로보인다. -->
-				
-
-				
 
 				<p><br></p><br>
 
@@ -820,38 +715,6 @@ $(document).ready(function(){
 							</td>
 						</tr>
 					</table>
-<!-- 					<table width="1920" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="fbfbfb"> -->
-<!-- 						<tr> -->
-<!-- 							<td> -->
-<!-- 								<table width="500" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="fbfbfb"> -->
-<!-- 									<tr> -->
-<!-- 										<td height="20" colspan="2"></td> -->
-<!-- 									</tr> -->
-<!-- 									<tr> -->
-<!-- 										<td height="50" colspan="2" align="center"><p style="line-height: 1.8"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 17pt; color:#000;">상품정보 고시</span></p></td> -->
-<!-- 									</tr> -->
-<!-- 									<tr> -->
-<!-- 										<td width="40"></td> -->
-<!-- 										<td valign="top" > -->
-<!-- 											<p style="line-height: 2.0"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">1. 품명 및 모델명: WH-1000XM3<br /> -->
-<!-- 2. 전기용품 안전인증 필 유무: R-CMI-SOK-WH-1000XM3<br /> -->
-<!-- 3. 동일모델의 출시년월: 2018년 09월<br /> -->
-<!-- 4. 수입원: 소니코리아<br /> -->
-<!-- 5. 제조사: Sony Corporation<br /> -->
-<!-- 6. 제조국: 말레이시아<br /> -->
-<!-- 7. 품질보증기준: 1년 보증<br /> -->
-<!-- 8. A/S 책임자와 전화번호: 소니코리아 고객센터 / 1588-0911</span></p> -->
-<!-- 										</td> -->
-<!-- 									</tr> -->
-<!-- 									<tr> -->
-<!-- 										<td height="20" colspan="2"></td> -->
-<!-- 									</tr> -->
-<!-- 								</table> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
-<!-- 					</table> -->
-				
-
 			</td>
 		</tr>
 	</table>
@@ -869,56 +732,9 @@ $(document).ready(function(){
 </table>
 
 
-
 	<table cellpadding="0" cellspacing="0" align="center" style="max-width: 1200px; width: 100%; height: auto;">
 		<tr>
-			<td align="left"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;">　셰에라자드 유튜브</span></td>
-		</tr>
-		<tr>
-			<td align="left" height="1" bgcolor="#000"></td>
-		</tr>
-		<tr>
-			<td>
-				<!--------갤러리 게시판---->
-				<table cellpadding="0" cellspacing="0" align="center" border="0" align="center" width="1200">
-					<tr>
-						<td height="20" colspan="4"></td>
-					</tr>
-
-					<tr>								<td width="400" height="307" align="center" valign="top">
-									<table cellpadding="0" cellspacing="0" align="center" border="0" align="center" width="400">
-										<tr>
-											<td>
-<!-- 												<iframe width="380" height="214" src="https://www.youtube.com/embed/9uAcbjf6svs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<a href="/board/video/board_view.html?no=21"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;"><br>[제품추천] 청음샵MD가 추천하는 겨울 실외용 헤드폰 Top3!</a></span></a>
-											</td>
-										</tr>
-									</table>
-								</td>
-																<td width="400">&nbsp;</td>
-																<td width="400">&nbsp;</td>
-								</tr>					<tr>
-						<td height="20" colspan="4"></td>
-					</tr>
-				</table>
-				<!--------갤러리 게시판---->
-			</td>
-		</tr>
-	</table>
-
-
-
-
-
-
-	<!-----------------상품정보 영역 각 게시판에서 불러올 폼, 게시물이 없으면 아예 폼도 안보이게 처리. 불러오는 순서는.. 프리미엄 리뷰, 일반 리뷰, 갤러리 순서입니다.----------------->
-	<table cellpadding="0" cellspacing="0" align="center" style="max-width: 1200px; width: 100%; height: auto;">
-		<tr>
-			<td align="left"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;">　쇼핑가이드</span></td>
+			<td align="left"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;">　리뷰 </span></td>
 		</tr>
 		<tr>
 			<td align="left" height="1" bgcolor="#000"></td>
@@ -930,7 +746,7 @@ $(document).ready(function(){
 					<tr>
 						<td height="20" colspan="4"></td>
 					</tr>
-											<tr>
+						<!-- 	<tr>
 							<td width="150" align="center" rowspan="3"><a href="/board/guide/board_view.html?no=137"><img src="/board/guide/upload/guide_137_3.jpg" width="100" height="auto"></a></td>
 							<td width="850" align="left"><a href="/board/guide/board_view.html?no=137"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;"><b>[가이드] 다른 헤드폰 제조사들 다 굶어죽겠다. SONY WH-1000XM3</a></span></a></td>
 						</tr>
@@ -959,7 +775,7 @@ $(document).ready(function(){
 						</tr>
 						<tr>
 							<td><a href="/board/guide/board_view.html?no=170"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">소니의 인기 이어폰과 헤드폰의 청취기입니다.</span></a></td>
-						</tr>
+						</tr> -->
 
 						<tr>
 							<td height="20" colspan="4"></td>
@@ -978,65 +794,6 @@ $(document).ready(function(){
 			<td height="50">
 		</tr>
 	</table>
-
-
-
-
-<table cellpadding="0" cellspacing="0" align="center" style="max-width: 1200px; width: 100%; height: auto;">
-	<tr>
-		<td align="left"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;">　언론 보도</span></td>
-	</tr>
-	<tr>
-		<td align="left" height="1" bgcolor="#000"></td>
-	</tr>
-	<tr>
-		<td>
-<!--------일반 리뷰 게시판---->
-			<table cellpadding="0" cellspacing="0" align="center" border="0" align="center" width="1200">
-				<tr>
-					<td height="20" colspan="2"></td>
-				</tr>
-								<tr>
-					<td width="150" align="center" rowspan="3"><a href="http://www.gvalley.co.kr/news/articleView.html?idxno=566131" target="_blank"><img src="/board/press/upload/press__360_1.jpg" width="100" height="auto"></a></td>
-					<td width="850" align="left"><a href="http://www.gvalley.co.kr/news/articleView.html?idxno=566131" target="_blank"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 13pt; color:#000;">청담 셰에라자드, 소니코리아와 ‘노이즈 캔슬링 세미나’ 개최</span></a></td>
-				</tr>
-				<tr>
-					<td><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#858585;">G밸리뉴스　ㅣ　2019-07-02</span></td>
-				</tr>
-				<tr>
-					<td><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">프리미엄 헤드폰·이어폰 청음샵 셰에라자드가 지난 5월 29일 소니코리아가 함께 주관하는 노이즈 캔슬링 세미나를 개최했다. 제 1회 오디오 세미나는 노이즈 캔슬링이라는 주제를 가지고 고객과 함께 노이즈 캔슬링 시장 분석과 헤드폰, 이어폰이 외부 소음을 제거하는 기술적 원리부터 노이즈 캔슬링과 음질의 관계를 설명하는 등 다양한 주제를 논했다.셰에라자드 관계자는 “흥미로운 주제로 고객분들과 엔지니어가 긴밀하게 소통할 수 있는 시간을 마련할 수 있어 영광”이라며 “앞으로도 다양한 문화 행사를 개최하며 이번 세미나와 같이 의미 있는 자리를 마련할 수 있길 바라본다”고 전했다.</span></td>
-				</tr>
-				<tr>
-					<td height="20" colspan="2"></td>
-				</tr>
-				<tr>
-					<td height="1" bgcolor="f5f5f5" colspan="2"></td>
-				</tr>
-								<tr>
-					<td width="150" align="center" rowspan="3"><a href="http://www.newsworks.co.kr/news/articleView.html?idxno=373381" target="_blank"><img src="/board/press/upload/press__359_1.jpg" width="100" height="auto"></a></td>
-					<td width="850" align="left"><a href="http://www.newsworks.co.kr/news/articleView.html?idxno=373381" target="_blank"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 13pt; color:#000;">셰에라자드, 소니코리아와 ‘노이즈 캔슬링 세미나’ 개최&#8203;</span></a></td>
-				</tr>
-				<tr>
-					<td><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#858585;">뉴스웍스　ㅣ　2019-07-02</span></td>
-				</tr>
-				<tr>
-					<td><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">셰에라자드에서 소니코리아가 함께 주관하는 노이즈 캔슬링 세미나가 개최됐다.
-노이즈 캔슬링이라는 주제를 가지고 고객과 함께 노이즈 캔슬링 시장 분석과 헤드폰·이어폰이 외부 소음을 제거하는 기술적 원리부터 노이즈 캔슬링과 음질의 관계를 설명하는 등 다양한 주제를 논했다.노이즈 캔슬링이란 외부 소음을 상쇄 혹은 차단하는 기술로, 음향기기에 적용되어 지하철이나 기내, 카페 등 시끄러운 공간에서도 평온한 음악 감상을 가능하게 한다. 또한 외부 소음을 차단하여 낮은 볼륨으로도 몰입의 즐거움을 느낄 수 있다.</span></td>
-				</tr>
-				<tr>
-					<td height="20" colspan="2"></td>
-				</tr>
-				<tr>
-					<td height="1" bgcolor="f5f5f5" colspan="2"></td>
-				</tr>
-							</table>
-<!--------일반 리뷰 게시판---->
-		</td>
-	</tr>
-	<tr>
-		<td height="50">
-	</tr>
-</table>
 
 	<!-----------------상품정보 영역 각 게시판에서 불러올 폼, 게시물이 없으면 아예 폼도 안보이게 처리. 불러오는 순서는.. 프리미엄 리뷰, 일반 리뷰, 갤러리 순서입니다.----------------->
 	<a name="delimain"><div style="position: absolute; width: 100px; height: 50px; opacity: 0;"></div></a>
@@ -1069,119 +826,7 @@ $(document).ready(function(){
 			</td>
 		</tr>
 	</table>
-	<!-----------배송정보--------->
 </div>
-<!----1200 이상-----><!----1200 이하----->
-								<!------------------------모바일 썸네일----------------->
-	<!-------------------------쿠폰----------------------->
-		<!-------------------------쿠폰----------------------->
-
-
-								<!-------------------------모바일 상세페이지(어드민에서 모바일 상세코딩 영역------------------------------------->
-								
-
-
-								<!-- 셋트에 포함된상품의 상세설명을 자동으로보인다. -->
-								
-
-								
-								
-
-								<!-------------------------모바일 상세페이지(어드민에서 모바일 상세코딩 영역------------------------------------->
-
-
-<!-------------------------커뮤니티 정보----------------------------------- -->
-
-<!-------------------------커뮤니티 정보----------------------------------- -->
-
 
 
 </div>
-<!----1200 이하----->
-
-<script>
-function votePopModi(review_no){
-   window.open('/member/order_cyberm/vote_popup_modify.html?no='+review_no,'votePop','width=650,height=670,top=10,left=350');
-}
-</script>
-
-  <!--naver nay-->
-  <form name="npay_form" method=post action="" target="ifrmProcess">
-    <input type="hidden" name="mode" value="direct_order">
-    <input type="hidden" name="npay_gid" value="aZ6SpQE1ND27E1ND27">
-    <input type="hidden" name="npay_g_name" value="ibavxoWA1C910Kz4gAI9R8FQYVCpZLCaMA1B920B7mGy1ajY27t5mdYWJhjrSUlgE1ND27E1ND27">
-    <input type="hidden" name="npay_g_price" value="aaCanZWU">
-    <input type="hidden" name="npay_opt1" id="npay_opt1" value="">
-    <input type="hidden" name="npay_opt2" id="npay_opt2" value="">
-    <input type="hidden" name="npay_g_num" id="npay_g_num" value="">
-  </form>
-  <iframe name="ifrmProcess" src='about:blank' style="display:none" width="100%" height="0" bgcolor="#000"></iframe>
-  <!--naver nay-->
-
-<iframe name="g_detail_ps" src="about:blank" style="display:none" frameborder="0" width="0" height="0"></iframe>
-    <!-----------------------top버튼 css--------------------------->
-    <style>
-        .go-top{
-			z-index: 99999999999;
-            display:block;
-            width:40px;
-            height:40px;
-            line-height:px;
-            text-align:center;
-            font-size:30px;
-            position:fixed;
-            bottom:-40px;
-            opacity: 1;
-            right:20px;
-            -webkit-transition: all 1s ease;
-            -moz-transition: all 1s ease;
-            -o-transition: all 1s ease;
-            transition: all 1s ease;
-            background-color:#ffffff;
-            color:#FFFFFF;
-            text-decoration:none;
-            -moz-border-radius:50px;
-            -webkit-border-radius:50px;
-            border-radius:50px;
-        }
-
-        .go-top.show{
-            bottom:70px;
-        }
-    </style>
-    <!-----------------------top버튼 css--------------------------->
-    <!-------------------------------top버튼 스크립트------------------------------>
-    <script>
-        /*Add class when scroll down*/
-//         $(window).scroll(function(event){
-//             var scroll = $(window).scrollTop();
-//             if (scroll >= 100) {
-//                 $(".go-top").addClass("show");
-//             } else {
-//                 $(".go-top").removeClass("show");
-//             }
-//         });
-    </script>
-    <!-------------------------------top버튼 스크립트------------------------------>
-
-
-
-<!-- Google 리마케팅 태그 코드 -->
-<!-- Google 리마케팅 태그 코드 -->
-<!--form name="go_loginQQQQQQ" action="http://www.schezade.co.kr/member/member_login.html" method="get"-->
-
-
-
-
-
-
-
-
-<!-- 공통 적용 스크립트 , 모든 페이지에 노출되도록 설치. 단 전환페이지 설정값보다 항상 하단에 위치해야함 --> 
-
-<!--naver Analytics -->
-
-<!-- naver 프리미엄 로그 --> 
-
-</body>
-</html>

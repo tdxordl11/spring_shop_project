@@ -3,6 +3,7 @@ package com.spring.shop_main;
 import java.util.List;
 
 import com.spring.shop_project.ProductVO;
+import com.spring.shop_project.QnaVO;
 
 public interface ClientService {
 
@@ -20,4 +21,7 @@ public interface ClientService {
 	
 	//장바구니 조회
 	public ProductVO getCartList(String name);
+	
+	//게시글 작성
+	public int insertQna(QnaVO vo);
 }

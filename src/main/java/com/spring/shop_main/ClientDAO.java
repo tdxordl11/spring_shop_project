@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.shop_project.ProductVO;
+import com.spring.shop_project.QnaVO;
 
 @Repository
 public class ClientDAO {
@@ -54,6 +55,10 @@ public class ClientDAO {
 
 	public ProductVO getCartList(String name) {
 		return session.selectOne("client.getcartlist", name);
+	}
+
+	public int insertQna(QnaVO vo) {
+		return session.insert("client.insertqna",vo);
 	}
 	
 	

@@ -244,7 +244,10 @@ function f_chk(){
 							<form name="cart_view465000" method=post>
 							<input type=hidden name=cart_mode value="modi">
 							<input type=hidden name=c_no value="465000">
-							<input type=hidden name="link_val" value="">					
+							<input type=hidden name="link_val" value="">		
+							<tr>
+								<td height="50" colspan="6"></td>
+							</tr>			
 							<tr>
 								<td width="200" align="center" height="150">
 																			<a href='/goods/g_detail.html?gid=3718'><img src="http://www.schezade.co.kr/${vo.product_image}" width="150" style="BORDER: #898989 1px solid;" /></a>
@@ -292,9 +295,7 @@ function f_chk(){
 								</td>
 								<td width="150" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">${vo.convert_price }원</span></td>
 							</tr>
-							<tr>
-								<td height="50" colspan="6"></td>
-							</tr>
+							
 							<tr>
 								<td height="1" bgcolor="f5f5f5" colspan="6"></td>
 							</tr>

@@ -5,7 +5,7 @@
 	<select id="getqnalist" resultType="qna">
 		select CS_SEQ, USER_ID, PRODUCT_NAME, CS_CATEGORY , CS_TITLE ,CS_CONTENTS, CS_DATE,  ADMIN_ID  ,COMMENTS_CONTENTS , COMMENTS_DATE
 		from cs c, product p
-		where c.product_id = p.product_id(+)
+		where c.product_id = p.product_id(+) order by cs_seq desc
 	</select>
 		
 	<select id="getqnadetail" resultType="qna" parameterType="int">
