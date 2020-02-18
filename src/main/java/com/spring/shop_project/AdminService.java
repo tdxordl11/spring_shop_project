@@ -34,6 +34,8 @@ public interface AdminService {
 	//qna ����Ʈ���
 	public List<QnaVO> adminQnaList();
 	
+	public List<QnaVO> userQnaList(String id);
+	
 	//qna �� ���
 	public QnaVO getQnaDetail(int seq);
 	

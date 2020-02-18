@@ -19,6 +19,12 @@
 		set admin_id = #{admin_id}, comments_contents = #{comments_contents}, comments_date = sysdate
 		where cs_seq = #{cs_seq}
 	</update>
+	
+	<select id="getuserqnalist" resultType="qna" parameterType="String">
+		select CS_SEQ, USER_ID, PRODUCT_NAME, CS_CATEGORY , CS_TITLE ,CS_CONTENTS, CS_DATE, COMMENTS_CONTENTS , COMMENTS_DATE
+		from cs c, product p
+		where c.user_id = #{id}
+	</select>
 </mapper>
 
 		

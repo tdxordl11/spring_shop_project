@@ -42,6 +42,19 @@ public class AdminDAO {
 	public List<ReviewVO> getReviewList() {
 		return session.selectList("shop.getreviewlist");
 	}
+	
+	//���۰������� �������� üũ
+		public String authlevelchk(AdminVO vo) {
+			return session.selectOne("shop.authlevelchk", vo);
+		}
+		
+		public int adminUpdate(AdminVO vo) {
+			return session.update("shop.adminupdate",vo);
+		}
+		
+		public AdminVO adminUserAuthCheck(String id) {
+			return session.selectOne("shop.getalladmin", id);
+		}
 
 	public ReviewVO getReviewDetail(int seq) {
 		return session.selectOne("shop.getreviewdetail", seq);
@@ -66,6 +79,10 @@ public class AdminDAO {
 	public List<QnaVO> adminQnaList() {
 		return session.selectList("shop.getqnalist");
 	}
+	
+	public List<QnaVO> userQnaList(String id) {
+		return session.selectList("shop.getuserqnalist");
+	}
 
 	public QnaVO getQnaDetail(int seq) {
 		return session.selectOne("shop.getqnadetail", seq);
@@ -79,23 +96,10 @@ public class AdminDAO {
 		return session.selectOne("shop.getadmindetail",user);
 	}
 	
-	//���۰������� �������� üũ
-	public String authlevelchk(AdminVO vo) {
-		return session.selectOne("shop.authlevelchk", vo);
-	}
-	
-	// ������ ����, ���� Ȱ��ȭ ���� ������Ʈ
-	public int adminUpdate(AdminVO vo) {
-		return session.update("shop.adminupdate",vo);
-	}
-	
-	// adminVO���� ����,���� ��������
-	public AdminVO adminUserAuthCheck(String id) {
-		return session.selectOne("shop.getalladmin", id);
-	}
-	
 	public List<OrderVO> pagingOrder(int[] pagenum){
 		return session.selectList("order.orderpaging", pagenum);
 	}
+	
+	
 	
 }

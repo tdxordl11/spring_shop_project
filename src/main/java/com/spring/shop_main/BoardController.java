@@ -22,10 +22,10 @@ public class BoardController {
 	AdminService service;
 	
 	@RequestMapping("/user_qna")
-	public ModelAndView qnaManage() {
+	public ModelAndView qnaManage(@RequestParam(value = "id", required = false) String id) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("qnalist", service.adminQnaList());
-		mav.setViewName("admin_qna");
+		mav.addObject("qnalist", service.userQnaList(id));
+		mav.setViewName("qna");
 		return mav;
 	}
 	

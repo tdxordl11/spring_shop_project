@@ -93,7 +93,7 @@ public class ClientController {
 		List<ProductVO> pro_list = new ArrayList<ProductVO>();
 		int totalprice = 0;
 		
-		if(!product_list.equals("")) {
+		if(!product_list.equals("undefined")) {
 			try {
 				product_list = URLDecoder.decode(product_list, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
@@ -101,21 +101,22 @@ public class ClientController {
 				e.printStackTrace();
 			}
 	
-			String[] list = product_list.split(",");
-			
-			for(String product : list) {
-				String name = product.split(":")[0];
-				String balance = product.split(":")[1];
+				String[] list = product_list.split(",");
 				
-				ProductVO vo = service.getCartList(name);
-				//임시
-				if(!vo.getProduct_image().isEmpty()) {
-					vo.setProduct_image(vo.getProduct_image().split(",")[0]);
-					totalprice += vo.getProduct_price();
+				for(String product : list) {
+					String name = product.split(":")[0];
+					String balance = product.split(":")[1];
+					
+					ProductVO vo = service.getCartList(name);
+					//임시
+					if(!vo.getProduct_image().equals("")) {
+						vo.setProduct_image(vo.getProduct_image().split(",")[0]);
+						totalprice += vo.getProduct_price();
+					}	
+					pro_list.add(vo);
 				}	
-				pro_list.add(vo);
-			}	
-		} 
+			}
+			
 		
 		DecimalFormat dc = new DecimalFormat("###,###,###,###");
 		String ch = dc.format(totalprice);

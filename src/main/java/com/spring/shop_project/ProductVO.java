@@ -5,6 +5,7 @@ import java.util.Date;
 public class ProductVO {
 	String product_detail;
 	int product_price;
+	String convert_price;
 	String product_balance;
 	String product_sellcount;
 	String product_category;
@@ -15,6 +16,7 @@ public class ProductVO {
 	String product_release;
 	int sales_persent;
 	Date sales_date;
+	
 	public String getProduct_detail() {
 		return product_detail;
 	}
@@ -87,5 +89,13 @@ public class ProductVO {
 	public void setSales_date(Date sales_date) {
 		this.sales_date = sales_date;
 	}
+	public String getConvert_price() {
+		return convert_price;
+	}
+	public void setConvert_price(String convert_price) {
+		this.convert_price = convert_price;
+	}
+	
+	
 	
 }

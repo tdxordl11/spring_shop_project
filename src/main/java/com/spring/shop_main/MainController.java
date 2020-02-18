@@ -41,5 +41,7 @@ public class MainController {
 		mav.setViewName("p_detail");
 		return mav;
 	}
+  
+ 
 
 }

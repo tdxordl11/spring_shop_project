@@ -118,6 +118,11 @@ public class AdminServiceImpl implements AdminService {
 		return dao.pagingOrder(pagenum);
 	}
 
+	@Override
+	public List<QnaVO> userQnaList(String id) {
+		return dao.userQnaList(id);
+	}
+
 
 	
 }
