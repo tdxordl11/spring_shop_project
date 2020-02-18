@@ -7,85 +7,21 @@
 	String contextpath = request.getContextPath();
 	String respath = request.getContextPath() +"/resources/"; 
 %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
  var count = 0;
 $(document).ready(function($){
 	
-	var totalprice ="";
-	var cookie = $.cookie('product');
-	var cookielength = cookie.split(",").length;
-	//alert(cookielength);
-
-<%-- 	$.ajax({
-		url : '<%=request.getContextPath() + "/cart_view_ajax" %>',
-		data : {'product_list' : $.cookie('product') },
-		type : 'get',
-		dataType : 'json',
-		cache: false,
-		success : function(data) {
-			
-			for(var i=0; i<data.length;i++) {
-				var str = "<tr><form name='cart_viewp465509' method='post' action='cart_view_sub_ps.html' target='cart_view_sub_ps'></form>"+
-				"<input type='hidden' name='cart_mode' value='modi'>"+
-				"<input type='hidden' name='c_no' value='465509'>"+
-				"<input type='hidden' name='link_val' value=''>"+
-				"	<td width='50' align='center' height='150'></td>"+
-				"	<td width='200' align='center' height='150'>"+
-				"						<a href=''><img src='http://www.schezade.co.kr/"+data[i].product_image+"' width='150' style='BORDER: #898989 1px solid;'></a>"+
-				"					</td>"+
-				"	<td width='600' align='left'> <a href=''><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;'>"+data[i].product_name+"</span></a>"+
-				"	</td>"+
-				"	<td width='100' align='center'>"+
-				"					<select name='product_balance' id='product_balance'>"+
-				"									<option value='1'selected=''>1</option>"+
-				"										<option value='2'>2</option>"+
-				"										<option value='3'>3</option>"+
-				"										<option value='4'>4</option>"+
-				"										<option value='5'>5</option>"+
-				"										<option value='6'>6</option>"+
-				"										<option value='7'>7</option>"+
-				"										<option value='8'>8</option>"+
-				"										<option value='9'>9</option>"+
-				"										<option value='10'>10</option>"+
-				"										<option value='11'>11</option>"+
-				"										<option value='12'>12</option>"+
-				"										<option value='13'>13</option>"+
-				"										<option value='14'>14</option>"+
-				"										<option value='15'>15</option>"+
-				"										<option value='16'>16</option>"+
-				"										<option value='17'>17</option>"+
-				"										<option value='18'>18</option>"+
-				"										<option value='19'>19</option>"+
-				"										<option value='20'>20</option>"+
-				"										<option value='21'>21</option>"+
-				"										<option value='22'>22</option>"+
-				"										<option value='23'>23</option>"+
-				"										<option value='24'>24</option>"+
-				"										<option value='25'>25</option>"+
-				"										<option value='26'>26</option>"+
-				"										<option value='27'>27</option>"+
-				"										<option value='28'>28</option>"+
-				"										<option value='29'>29</option>"+
-				"								</select>"+
-				"			</td>"+
-				"	<td width='150' align='center'><span id='price' style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;'>"+data[i].product_price+
-/* 				"<script> totalprice += eval($('#product_balance option:selected').val()*"+data[i].product_price+"); alert(totalprice)<\/script>"+ */
-				"</span></td>"+
-				"	<td width='100' align='center'><a href='javascript:cart_del('465509','p');'><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;'>삭제</span></a></td>"+
-				"</tr>";
-				
-				$("#cartview").append(str);
-			}
-			
-		},
-		error:function(err) {
-			alert(err);
-		},
-		
-	}); --%>
+	$("#order").on("click",function() {
+		var cookie = $.cookie('product');
+		var cookielength = cookie.split(",").length;
+		var orderurl = "<%=contextpath %>/main?menu=cart_order&product_list="+cookie;
+		$("#order").
+		attr("href", orderurl);
+	});
 	
-
+	
+	
+	//alert(cookielength);
 });
 </script>
 <div class="main4">
@@ -126,15 +62,66 @@ $(document).ready(function($){
 						<tr>
 							<td colspan="5">						
 								<!-------------------상품리스트----------------->
+								<form name='cart_viewp465509' method='post' action=''>
 								<table cellpadding="0" cellspacing="0" align="center" border="0" width="1200">
 									<tbody id="cartview">
 									<tr>
 										<td height="50" colspan="6"></td>
 									</tr>
-
-										
+							
+							<c:forEach items="${pro_list }" var="vo">
+							 
+							<tr>
+								<input type='hidden' name='cart_mode' value='modi'>
+								<input type='hidden' name='c_no' value='465509'>
+								<input type='hidden' name='link_val' value=''>
+									<td width='50' align='center' height='150'></td>
+									<td width='200' align='center' height='150'>
+														<a href=''><img src='http://www.schezade.co.kr/${vo.product_image}' width='150' style='BORDER: #898989 1px solid;'></a>
+													</td>
+									<td width='600' align='left'> <a href=''><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;'>${vo.product_name}</span></a>
+									</td>
+									<td width='100' align='center'>
+													<select name='product_balance' id='product_balance'>
+																	<option value='1'selected=''>1</option>
+																		<option value='2'>2</option>
+																		<option value='3'>3</option>
+																		<option value='4'>4</option>
+																		<option value='5'>5</option>
+																		<option value='6'>6</option>
+																		<option value='7'>7</option>
+																		<option value='8'>8</option>
+																		<option value='9'>9</option>
+																		<option value='10'>10</option>
+																		<option value='11'>11</option>
+																		<option value='12'>12</option>
+																		<option value='13'>13</option>
+																		<option value='14'>14</option>
+																		<option value='15'>15</option>
+																		<option value='16'>16</option>
+																		<option value='17'>17</option>
+																		<option value='18'>18</option>
+																		<option value='19'>19</option>
+																		<option value='20'>20</option>
+																		<option value='21'>21</option>
+																		<option value='22'>22</option>
+																		<option value='23'>23</option>
+																		<option value='24'>24</option>
+																		<option value='25'>25</option>
+																		<option value='26'>26</option>
+																		<option value='27'>27</option>
+																		<option value='28'>28</option>
+																		<option value='29'>29</option>
+																</select>
+											</td>
+									<td width='150' align='center'><span id='price' style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;'>${vo.convert_price }원
+								</span></td>
+									<td width='100' align='center'><a href='javascript:cart_del('465509','p');'><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;'>삭제</span></a></td>
+								</tr>
+								
+								</c:forEach>	
 								</tbody></table>
-
+								</form>
 								<!-------------------상품리스트----------------->
 							</td>
 						</tr>
@@ -142,7 +129,7 @@ $(document).ready(function($){
 				</td>
 			</tr>
 						<tr>
-				<td width="1180" height="100" align="right"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">최종 결제금액</span><span id="totalprice" style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;">　6,380,000 원</span></td>
+				<td width="1180" height="100" align="right"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">최종 결제금액</span><span id="totalprice" style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;">　${totalprice }원</span></td>
 				<td width="20"></td>
 			</tr>
 			<tr>
@@ -153,9 +140,9 @@ $(document).ready(function($){
 			</tr>
 			<tr>
 				<td height="50" align="right" colspan="2">
-					<a href="/index.html"><img src="<%=respath %>img/back.jpg" border="0"></a>
+					<a href="<%=contextpath+"/main" %>l"><img src="<%=respath %>img/back.jpg" border="0"></a>
 					<!--a href="order.html"><img src="/img/cart/pay2.jpg" border="0" /></a-->
-					<a href="https://www.schezade.co.kr/order/cart_login.html"><img src="<%=respath %>img/pay.jpg" border="0"></a>
+					<a id='order' href=""><img src="<%=respath %>img/pay.jpg" border="0"></a>
 				</td>
 			</tr>
 		</tbody></table>

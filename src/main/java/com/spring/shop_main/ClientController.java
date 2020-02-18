@@ -2,6 +2,7 @@ package com.spring.shop_main;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +91,47 @@ public class ClientController {
 		ModelAndView mav = new ModelAndView();
 		
 		List<ProductVO> pro_list = new ArrayList<ProductVO>();
+		int totalprice = 0;
+		
+		if(!product_list.equals("")) {
+			try {
+				product_list = URLDecoder.decode(product_list, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+			String[] list = product_list.split(",");
+			
+			for(String product : list) {
+				String name = product.split(":")[0];
+				String balance = product.split(":")[1];
+				
+				ProductVO vo = service.getCartList(name);
+				//임시
+				if(!vo.getProduct_image().isEmpty()) {
+					vo.setProduct_image(vo.getProduct_image().split(",")[0]);
+					totalprice += vo.getProduct_price();
+				}	
+				pro_list.add(vo);
+			}	
+		} 
+		
+		DecimalFormat dc = new DecimalFormat("###,###,###,###");
+		String ch = dc.format(totalprice);
+		
+		mav.addObject("totalprice",ch);
+		mav.addObject("pro_list",pro_list);
+		mav.setViewName("cart_view");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/cart_order", method = RequestMethod.GET )
+	public ModelAndView orderView(@RequestParam(value="product_list") String product_list) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<ProductVO> pro_list = new ArrayList<ProductVO>();
+		int totalprice = 0;
 		
 		if(!product_list.isEmpty()) {
 			try {
@@ -108,13 +150,17 @@ public class ClientController {
 				ProductVO vo = service.getCartList(name);
 				//임시
 				vo.setProduct_image(vo.getProduct_image().split(",")[0]);
-				
+				totalprice += vo.getProduct_price();
 				pro_list.add(vo);
 			}	
 		} 
 		
+		DecimalFormat dc = new DecimalFormat("###,###,###,###");
+		String ch = dc.format(totalprice);
+		
+		mav.addObject("totalprice",ch);
 		mav.addObject("pro_list",pro_list);
-		mav.setViewName("cart_view");
+		mav.setViewName("cart_order");
 		return mav;
 	}
 }

@@ -85,9 +85,11 @@ public class NaverLoginAPI {
 	        
 	    	String email = response.getAsJsonObject().get("email").getAsString();
 	        String name = response.getAsJsonObject().get("name").getAsString();
+	        String naverId = response.getAsJsonObject().get("id").getAsString();
 	    	HashMap<String, String> userInfo = new HashMap<String, String>();
 	    	userInfo.put("email", email);
 	    	userInfo.put("name", name);
+	    	userInfo.put("id", naverId);
 			return userInfo;
 	  }
 		

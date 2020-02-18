@@ -135,8 +135,8 @@ function chk_mail(mail) {
 			return false;
 		}
 
-	    if(f.password.value.length<6 ||f.password.value.length>12) {
-			alert('비밀번호는 6~12자로 입력해주세요');
+	    if(f.password.value.length<4 ||f.password.value.length>12) {
+			alert('비밀번호는 4~12자로 입력해주세요');
 			f.password.focus();
 			return false;
 		}
