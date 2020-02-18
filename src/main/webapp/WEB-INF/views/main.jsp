@@ -22,6 +22,7 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src='<%=respath%>js/js.js?<%=System.currentTimeMillis()%>'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!-- AMP Analytics -->
 <script>
 	function helpmail() {
@@ -64,9 +65,17 @@
 
 <script type="text/javascript">
 	$(document).ready(function($) {
-		var cookie = $.cookie('product');
-		var carturl = "<%=contextpath %>/main?menu=cart_view&product_list="+cookie;
-		$("#cart").attr("href", carturl);
+		$("#cart").on("click",function() {
+			var cookie = $.cookie('product');
+			var carturl = "<%=contextpath %>/main?menu=cart_view&product_list="+cookie;
+			$("#cart").attr("href", carturl);
+		});
+		
+		$("#cartmini").on("click",function() {
+			var cookie = $.cookie('product');
+			var carturl = "<%=contextpath %>/main?menu=cart_view&product_list="+cookie;
+			$("#cartmini").attr("href", carturl);
+		});
 		
 		var nav = $('.menuWrap');
 		$(window).scroll(function() {
@@ -399,17 +408,17 @@ input::-moz-placeholder {
 								<tr>
 									<td height="30" align="right">
 									 <c:choose>
-									  <c:when test="${st_user_id ne null }">
+									  <c:when test="${user_id ne null }">
 									   <span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
-											<b>${st_user_id }</b> 님 환영합니다d.&nbsp;</span>
+											<b>${user_name }</b> 님 환영합니다.&nbsp;</span>
 									<a href='<%=contextpath +"/user_logout"%>'><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">로그아웃</span></a>
 									  </c:when>
 									  <c:otherwise>
 									<a href='<%=contextpath +"/main?menu=user_login"%>'><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">로그인</span></a>
-										<a href='<%=contextpath +"/main?menu=signup"%>'><span
+										<a href='<%=contextpath%>/main?menu=signup'><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
 												I 회원가입</span></a> 
 									  </c:otherwise>
@@ -1170,10 +1179,22 @@ input::-moz-placeholder {
 							<div align="right"
 								style="float: right; top: 0px; margin-right: 20px; z-index: 9; height: 40px;">
 								<a href="#top"><img src="<%=respath%>img/top.png" border="0"
-									width="30" height="auto" /></a> <a
+									width="30" height="auto" /></a> 
+									<c:choose>
+									<c:when test="${user_id ne null}">
+									<a
+									href="<%=contextpath +"/user_logout"%>"><img
+									src="<%=respath%>img/login.png" border="0" width="30"
+									height="auto" /></a>
+									</c:when>
+									<c:otherwise>
+									<a
 									href="<%=contextpath +"/main?menu=user_login"%>"><img
 									src="<%=respath%>img/login.png" border="0" width="30"
-									height="auto" /></a> <a href="/order/cart_view.html"><img
+									height="auto" /></a>
+									</c:otherwise>
+									</c:choose>
+									 <a id='cartmini'><img
 									src="<%=respath%>img/cart.png" border="0" width="30"
 									height="auto" /></a>
 							</div>

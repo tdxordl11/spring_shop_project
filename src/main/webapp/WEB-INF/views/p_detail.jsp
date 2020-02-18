@@ -371,8 +371,8 @@ $(document).ready(function(){
         <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 570px; height: 570px; overflow: hidden;">
 <!--------------------썸네일 570사이즈 기준으로 추가될 때마다 아래 소스가 반복 시작---------------------->
 			<div data-p="112.50" style="display: none;">
-                <img data-u="image" src="/goods/img/img_B3718.jpg" />
-                <img data-u="thumb" src="/goods/img/img_B3718.jpg" />
+                <img data-u="image" src="http://www.schezade.co.kr/${p_info.product_image}" />
+                <img data-u="thumb" src="http://www.schezade.co.kr/${p_info.product_image}" />
             </div>
 			<div data-p="112.50" style="display: none;">
                 <img data-u="image" src="/goods/8/img/etc_img1_B3718.jpg" />
@@ -455,7 +455,7 @@ $(document).ready(function(){
 												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">소비자가격</span>
 											</td>
 											<td width="350" align="left" colspan="2">
-												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#939393;">${p_info.product_price } 원</span>
+												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#939393;">${p_info.convert_price } 원</span>
 											</td>
 										</tr>
 									
@@ -464,7 +464,7 @@ $(document).ready(function(){
 												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">판매가격</span>
 											</td>
 											<td width="150" align="left">
-												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#939393;">${p_info.product_price } 원</span>
+												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#939393;">${p_info.convert_price } 원</span>
 											</td>
 											<td width="200" align="left"><a href="#" onclick="javascript:window.open('<%=contextpath%>/images/index/banner_NaSeI901.jpg','open','width=600,height=655,top=10,left=10,scrollbars=no')"><img src="<%=respath %>img/goods/cardinfo.jpg" border="0" alt="무이자할부안내" /></a></td>
 										</tr>
@@ -509,7 +509,7 @@ $(document).ready(function(){
 <!-- 									<input type=hidden name='mode' value="cart_add"> -->
 									<input type=hidden name='card_add_mode' value="add">
 									<input type=hidden name='gid' value="${p_info.product_id }">
-									<input type=hidden name='cart_g_price' value="${p_info.product_price }">
+									<input type=hidden name='cart_g_price' value="${p_info.convert_price }">
 									<input type=hidden name='product_name' value="${p_info.product_name }">
 									<input type=hidden name='link_val' value="">
 																			<tr>
@@ -654,7 +654,7 @@ $(document).ready(function(){
 										</tr>
 										<tr>
 											<td height="133" colspan="3" align="right">
-												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 30pt; color:#000;">${p_info.product_price }</span>
+												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 30pt; color:#000;">${p_info.convert_price }</span>
 												<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;">원</span>
 											</td>
 										</tr>

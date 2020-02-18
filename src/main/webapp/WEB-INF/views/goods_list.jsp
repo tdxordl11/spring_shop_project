@@ -23,7 +23,6 @@ $(document).ready(function($){
     $(".cart_add").on("click", function(e){
     	e.preventDefault();
     	var gid = $(this).attr("value");
-    	alert("나와라 시발");
     	
     	if($.cookie('product') != null ) {
     		if($.cookie('product').indexOf( gid ) != -1) {
@@ -110,11 +109,11 @@ var start = {
             				"					<tr>"+
             				"						<td align='center'>"+
             				"							<p style='line-height: 1.7; test-align: center;'><span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 300; color: #000;'><br>"+goodslist[i*4].product_brand+"</span>"+
-            				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;'><br><a href='/goods/g_detail.html?gid=3506'>"+goodslist[i*4+0].product_name+"</a></span>"+
+            				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;'><br><a href='/shop_project/main?menu=p_detail?gid="+goodslist[i*4].product_id+"'>"+goodslist[i*4+0].product_name+"</a></span>"+
             				"		     <br><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 8pt; color: #000;'>"+
             				"			 [청음가능]</span>"+
             				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 500; color: #000;'><br><br>"+
-            				"				<b></b>"+goodslist[i*4+0].product_price+"원</b>"+
+            				"				<b></b>"+goodslist[i*4+0].convert_price+"원</b>"+
             				"				</span>				"+		
             				"				</p>"+
             				"						</td>"+
@@ -155,11 +154,11 @@ var start = {
 		    				"					<tr>"+
 		    				"						<td align='center'>"+
 		    				"							<p style='line-height: 1.7; test-align: center;'><span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 300; color: #000;'><br>"+goodslist[i*4+1].product_brand+"</span>"+
-		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;'><br><a href='/goods/g_detail.html?gid=3506'>"+goodslist[i*4+1].product_name+"</a></span>"+
+		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;'><br><a href='/shop_project/main?menu=p_detail?gid="+goodslist[i*4+1].product_id+"'>"+goodslist[i*4+1].product_name+"</a></span>"+
 		    				"		     <br><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 8pt; color: #000;'>"+
 		    				"			 [청음가능]</span>"+
 		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 500; color: #000;'><br><br>"+
-		    				"				<b></b>"+goodslist[i*4+1].product_price+"원</b>"+
+		    				"				<b></b>"+goodslist[i*4+1].convert_price+"원</b>"+
 		    				"				</span>				"+		
 		    				"				</p>"+
 		    				"						</td>"+
@@ -200,11 +199,11 @@ var start = {
 		    				"					<tr>"+
 		    				"						<td align='center'>"+
 		    				"							<p style='line-height: 1.7; test-align: center;'><span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 300; color: #000;'><br>"+goodslist[i*4+2].product_brand+"</span>"+
-		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;'><br><a href='/goods/g_detail.html?gid=3506'>"+goodslist[i*4+2].product_name+"</a></span>"+
+		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;'><br><a href='/shop_project/main?menu=p_detail?gid="+goodslist[i*4+2].product_id+"'>"+goodslist[i*4+2].product_name+"</a></span>"+
 		    				"		     <br><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 8pt; color: #000;'>"+
 		    				"			 [청음가능]</span>"+
 		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 500; color: #000;'><br><br>"+
-		    				"				<b></b>"+goodslist[i*4+2].product_price+"원</b>"+
+		    				"				<b></b>"+goodslist[i*4+2].convert_price+"원</b>"+
 		    				"				</span>				"+		
 		    				"				</p>"+
 		    				"						</td>"+
@@ -246,11 +245,11 @@ var start = {
 		    				"					<tr>"+
 		    				"						<td align='center'>"+
 		    				"							<p style='line-height: 1.7; test-align: center;'><span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 300; color: #000;'><br>"+goodslist[i*4+3].product_brand+"</span>"+
-		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;'><br><a href='/goods/g_detail.html?gid=3506'>"+goodslist[i*4+3].product_name+"</a></span>"+
+		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;'><br><a href='/shop_project/main?menu=p_detail?gid="+goodslist[i*4+3].product_id+"'>"+goodslist[i*4+3].product_name+"</a></span>"+
 		    				"		     <br><span style='font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 8pt; color: #000;'>"+
 		    				"			 [청음가능]</span>"+
 		    				"				<span style='font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 500; color: #000;'><br><br>"+
-		    				"				<b></b>"+goodslist[i*4+3].product_price+"원</b>"+
+		    				"				<b></b>"+goodslist[i*4+3].convert_price+"원</b>"+
 		    				"				</span>				"+		
 		    				"				</p>"+
 		    				"						</td>"+
@@ -354,7 +353,7 @@ var start = {
 		</tr>
 		<tr>
 			<td width="10"></td>
-			<td align="center"><a href='/shop_project/main?menu=p_detail?gid=${vo.product_id }'><img src='http://www.schezade.co.kr/${vo.product_image}' width="100%" height="100%" style="max-width: 400px; max-height: 400px;" border="0" /></a></td>
+			<td align="center"><a href="<%=contextpath %>/main?menu=p_detail?gid=${vo.product_id}"><img src='http://www.schezade.co.kr/${vo.product_image}' width="100%" height="100%" style="max-width: 400px; max-height: 400px;" border="0" /></a></td>
 			<td width="10"></td>
 		</tr>
 		<tr>
@@ -363,11 +362,11 @@ var start = {
 					<tr>
 						<td align="center">
 							<p style="line-height: 1.7; test-align: center;"><span style="font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 300; color: #000;"><br>${vo.product_brand }</span>
-				<span style="font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;"><br><a href="/goods/g_detail.html?gid=3506">${vo.product_name }</a></span>
+				<span style="font-family: Noto Sans KR, sans-serif; font-size: 15pt; font-weight: 500; color: #000;"><br><a href="<%=contextpath %>/main?menu=p_detail?gid=${vo.product_id}">${vo.product_name }</a></span>
 		     <br><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 8pt; color: #000;">
 			 [청음가능]</span>
 				<span style="font-family: Noto Sans KR, sans-serif; font-size: 12pt; font-weight: 500; color: #000;"><br><br>
-				<b></b>${vo.product_price}원</b>
+				<b></b>${vo.convert_price}원</b>
 				</span>						
 				
 				</p>

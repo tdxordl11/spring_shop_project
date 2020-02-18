@@ -71,11 +71,14 @@ public class UserController {
 	  public String loginResult(HttpSession session, Model model, UserVO vo) {
 	    if(service.checkUser(vo)==1) {
 //	    	System.out.println(vo.getUser_password());
-	    	session.setAttribute("st_user_id", vo.getUser_id());
+	    	session.setAttribute("user_id", vo.getUser_id());
+	    	UserVO user_name = service.userGetDetail(vo.getUser_id());
+	    	session.setAttribute("user_name", user_name.getUser_name());
+	    	System.out.println(session.getAttribute("user_name"));
 	    	System.out.println("로그인 성공");
-	    	return "main";
+	    	return "redirect:/main";
 	    }
-	    return "main";
+	    return "redirect:/main?menu=user_login";
 	  }
 	  
 	  @RequestMapping(value="userloginchk",  method = RequestMethod.POST, produces="application/json;charset=utf-8")
@@ -125,7 +128,7 @@ public class UserController {
 			}
 			
 			mav.addObject("checked", chk);
-			mav.setViewName("/main");
+			mav.setViewName("redirect:/main");
 			
 			return mav;
 		}
@@ -183,9 +186,10 @@ public class UserController {
 	      System.out.println(res);
 		String accessToken = res.get("access_token").toString();
 		HashMap<String, String> res2 = naver.getProfileFromNaver(accessToken);
-	      session.setAttribute("currentUser", res2.get("name"));
-	      session.setAttribute("currentAT", res.get("access_token"));
-	      session.setAttribute("currentRT", res.get("refresh_token"));
+	      session.setAttribute("user_id", res2.get("id"));
+	      session.setAttribute("user_name", res2.get("name"));
+//	      session.setAttribute("currentAT", res.get("access_token"));
+//	      session.setAttribute("currentRT", res.get("refresh_token"));
 	    } else {
 	      model.addAttribute("res", "Login failed!");
 	    }
@@ -244,7 +248,8 @@ public class UserController {
 		  System.out.println("controller access_token : " + access_Token);
 		  HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
 		    System.out.println("login Controller : " + userInfo);
-		    session.setAttribute("kakaoId", userInfo.get("kakaoId"));
+		    session.setAttribute("user_id", userInfo.get("kakaoId"));
+		    session.setAttribute("user_name", userInfo.get("nickname"));
 		    System.out.println("카카오 아이디 = " + userInfo.get("kakaoId"));
 		    int check = service.apiIdCheck((String) userInfo.get("kakaoId"));
 		    System.out.println(check);

@@ -6,7 +6,7 @@
 	<select id="checkuser" resultType="int" parameterType="user">
 select count(*) from shopuser where user_id = #{user_id} and user_password = #{user_password}
 </select>
-	
+
 	<insert id="usersignup" parameterType="user">
 		insert into shopuser(user_id, user_password, user_email, user_address, user_name, user_joindate, user_phone) values ( #{user_id}, #{user_password}, #{user_email}, #{user_address}, #{user_name}, sysdate, #{user_phone}  )
 	</insert>

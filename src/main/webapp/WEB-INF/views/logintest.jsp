@@ -112,13 +112,13 @@ body
 					<td align="center" height="50"></td>
 				</tr>
 				<tr>
-					<td align="center"><input name="user_id" id="user_id" type="text" style="border-top: #cccccc 1px solid; border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid; max-width: 400px; width: 100%; height:50px; text-indent: 20;" placeholder="아이디"></td>
+					<td align="center"><input name="user_id" id="user_id" type="text" style="border-top: #cccccc 1px solid; border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid; max-width: 400px; width: 100%; height:50px; text-indent: 20;" placeholder="  아이디"></td>
 				</tr>
 				<tr>
 					<td align="center" height="20"></td>
 				</tr>
 				<tr>
-					<td align="center"><input name="user_password" id="user_password" type="password" style="border-top: #cccccc 1px solid; border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid; max-width: 400px; width: 100%; height:50px; text-indent: 20;" placeholder="비밀번호" autocomplete="on"></td>
+					<td align="center"><input name="user_password" id="user_password" type="password" style="border-top: #cccccc 1px solid; border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid; border-right: #cccccc 1px solid; max-width: 400px; width: 100%; height:50px; text-indent: 20;" placeholder="  비밀번호" autocomplete="on"></td>
 				</tr>
 				<tr>
 					<td align="center" height="20"></td>
@@ -194,32 +194,32 @@ body
 <!--         </a> -->
 <!--   </div> -->
 <%--   </c:if> --%>
-  <c:if test="${st_user_id ne null }">
-   ${st_user_id }로 연결되어있습니다
+  <c:if test="${user_id ne null }">
    <script type="text/javascript">
+   alert('이미 로그인이 되어있습니다.');
    window.location.href='http://localhost:8081/shop_project/main';
    </script>
   </c:if>
-  <c:if test="${currentUser ne null}">
-  <div>
-    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
-	  ${currentUser }<br>
-	  for naver
-    <a href="http://localhost:8081/shop_project/getProfile?accessToken=${currentAT}">Get User's Profile</a>
-    <a href="http://localhost:8081/shop_project/refreshToken?refreshToken=${currentRT}">Refresh Token</a>
-    <a href="http://localhost:8081/shop_project/deleteToken?accessToken=${currentAT}">Delete Token (연동해제)</a>
-    <a href="http://localhost:8081/shop_project/user_logout">로그아웃 (Invalidate Session)</a>
-    </div>
-    </c:if>
-    <c:if test="${kakaoId ne null }">
-    ${kakaoId }로 연결되어있습니다.<br>
-    <div>for kakao
-<!--     <a href="https://accounts.kakao.com/logout?continue=https://accounts.kakao.com/weblogin/account"> -->
-    <input type="button" value="카카오 로그아웃" onclick="location.href='/shop_project/kakao_logout'">
-<!--     </a> -->
-    <input type="button" value="카카오 연동해제" onclick="location.href='/shop_project/kakao_unlink'">
-    <input type="button" value="카카오페이 테스트" onclick="window.open('/shop_project/kakao_pay', 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550'); return false">
-  </div>
-  </c:if>
+<%--   <c:if test="${naverId ne null}"> --%>
+<!--   <div> -->
+<!--     <h3>이 부분은 로그인한 사용자한테만 보임</h3> -->
+<%-- 	  ${naverId }<br> --%>
+<!-- 	  for naver -->
+<%--     <a href="http://localhost:8081/shop_project/getProfile?accessToken=${currentAT}">Get User's Profile</a> --%>
+<%--     <a href="http://localhost:8081/shop_project/refreshToken?refreshToken=${currentRT}">Refresh Token</a> --%>
+<%--     <a href="http://localhost:8081/shop_project/deleteToken?accessToken=${currentAT}">Delete Token (연동해제)</a> --%>
+<!--     <a href="http://localhost:8081/shop_project/user_logout">로그아웃 (Invalidate Session)</a> -->
+<!--     </div> -->
+<%--     </c:if> --%>
+<%--     <c:if test="${kakaoId ne null }"> --%>
+<%--     ${kakaoId }로 연결되어있습니다.<br> --%>
+<!--     <div>for kakao -->
+<!-- <!--     <a href="https://accounts.kakao.com/logout?continue=https://accounts.kakao.com/weblogin/account"> --> 
+<!--     <input type="button" value="카카오 로그아웃" onclick="location.href='/shop_project/kakao_logout'"> -->
+<!-- <!--     </a> --> 
+<!--     <input type="button" value="카카오 연동해제" onclick="location.href='/shop_project/kakao_unlink'"> -->
+<!--     <input type="button" value="카카오페이 테스트" onclick="window.open('/shop_project/kakao_pay', 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550'); return false"> -->
+<!--   </div> -->
+<%--   </c:if> --%>
 </body>
 </html>

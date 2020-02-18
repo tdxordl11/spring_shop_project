@@ -14,81 +14,8 @@
 <!-- Google Tag Manager -->
 
 <form name="go_loginQQQQQQ" action="https://www.schezade.co.kr/member/member_login.html?" method="get"></form>
-
-
-
-<!-------------------상단텍스트롤링 스크립트--------------------->
-<!-------------------상단텍스트롤링 스크립트--------------------->
-
-
-
 </head>
 
-
-
-<!-----------------고정 로그인---------------------->
-
-<!--------------------------------상단 텍스트 롤링배너 스크립트---------------------------->
-<!--------------------------------상단 텍스트 롤링배너 스크립트---------------------------->
-
-
-
-
-<!--------------------------------상단 텍스트 롤링배너 스크립트---------------------------->
-<!--------------------------------상단 텍스트 롤링배너 스크립트---------------------------->
-
-
-<!------------------------카테고리 메뉴----------------------------->
-<!------------------------카테고리 메뉴----------------------------->
-<!------------------------브랜드 카테고리 메뉴----------------------------->
-<!------------------------브랜드 카테고리 메뉴----------------------------->
-<!------------------검색바------------------------------->
-<!------------------검색바------------------------------->
-
-<!------------------움직이는 메뉴---------------------->
-
-
-
-<!------------
-
------------------------->
-
-
-
-
-<!-------------------좌측메뉴 카테고리----------------------->
-<!-----------------------------------좌측메뉴 카테고리부분 스크립트------------------------------>
-
- 
-<!-----------------------------------------------검색 및 장바구니----------------------------------->
-<!-- 	<div id="cate_div17" style="display: none;"> -->
-<!--         <div id="container" style="z-index: 99999999999;"> -->
-<!-- 			<div align="right" style="float: right; margin-top: 23px; margin-right: 10px; z-index: 9;"> -->
-<!-- 				<a onclick="menu_open16();" style="cursor:hand"><img src="/img/search.png" border="0" width="25" height="auto" /></a> -->
-<!-- 				<a href="/order/cart_view.html"><img src="/img/cart.png" border="0" width="25" height="auto" /></a> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<table cellpadding="0" cellspacing="0" border="0" bgcolor="ffffff" width="100%" align="center" height="10"> -->
-<!-- 			<tr> -->
-<!-- 				<td align="center"></td> -->
-<!-- 			</tr> -->
-<!-- 		</table> -->
-<!-- 		<table cellpadding="0" cellspacing="0" border="0" bgcolor="f9f9f9" width="100%" align="center" height="50"> -->
-<!-- 			<form name=search_total method=get action="/goods/g_list_search.html" onSubmit="return s_total_chk();"> -->
-<!-- 			<tr> -->
-<!-- 				<td align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 8pt; color:#ff7d00;"><input id="ts_key" name="ts_key" type="text" style="BORDER: #f2f2f2 1px solid; max-width: 1200px; width: 90%; height:30px; text-indent: 10;" placeholder="Search.."></span></td> -->
-<!-- 			</tr> -->
-<!-- 			</form> -->
-<!-- 		</table> -->
-<!-- 	</div> -->
-<!-----------------------------------------------검색 및 장바구니----------------------------------->
-<!----------------------------------------로그인-------------------------------------------------->
-<!----------------------------------------로그인-------------------------------------------------->
-
-<!-----------------------------브랜드------------------------------------------->
-<!-----------------------------브랜드------------------------------------------->
-
-<!------------------움직이는 메뉴---------------------->
 
 <!--<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -100,17 +27,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <link rel="shortcut icon" href="/images/favicon.ico"  type="image/x-icon">
 
-<!-- CSS-->
-
-<!-- end CSS-->
-    
-<!-- JS-->
-<!-- end JS-->
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-
-<!-- Event snippet for 전체 방문자 conversion page -->
 
 <table cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
 	<tr>
@@ -166,9 +82,6 @@ function zip(zipcode,address1,address2)  {
 }
 </script>
 <script>
-alert('${o_info}');
-alert('${o_info2}');
-alert('${o_info3}');
 
 function onlyNumber1(obj){
  var digits="0123456789";
@@ -325,6 +238,7 @@ function f_chk(){
 				</tr>
 				<tr>
 					<td colspan="5">
+					<c:forEach items="${pro_list }" var="vo">
 <!-------------------상품리스트----------------->						
 						<table cellpadding="0" cellspacing="0" align="center" border="0" align="center" width="1200">
 							<form name="cart_view465000" method=post>
@@ -333,15 +247,12 @@ function f_chk(){
 							<input type=hidden name="link_val" value="">					
 							<tr>
 								<td width="200" align="center" height="150">
-																			<a href='/goods/g_detail.html?gid=3718'><img src="/goods/img/img_S3718.jpg" width="150" style="BORDER: #898989 1px solid;" /></a>
+																			<a href='/goods/g_detail.html?gid=3718'><img src="http://www.schezade.co.kr/${vo.product_image}" width="150" style="BORDER: #898989 1px solid;" /></a>
 																					
 								</td>
 								<td width="750" align="left">
-																	  <a href='/goods/g_detail.html?gid=3718'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">SONY [소니] 블루투스 헤드폰 (WH-1000XM3)[사은품:소니 정품등록 이벤트][블랙]</span></a>					
-									
-																									<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#858585;"><br>18959</span>
-								
-																<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#858585;"><br>소니 정품등록 이벤트</span>
+																	  <a href='/goods/g_detail.html?gid=3718'><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">${vo.product_name}</span></a>					
+
 								
 								</td>
 								<td width="100" align="center">
@@ -379,9 +290,8 @@ function f_chk(){
 																		</select>
 																	
 								</td>
-								<td width="150" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">399,000 원</span></td>
+								<td width="150" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">${vo.convert_price }원</span></td>
 							</tr>
-							-->
 							<tr>
 								<td height="50" colspan="6"></td>
 							</tr>
@@ -390,6 +300,7 @@ function f_chk(){
 							</tr>
 							</form>
 						</table>
+						</c:forEach>
 <!-------------------상품리스트----------------->
 					</td>
 				</tr>
@@ -405,7 +316,7 @@ function f_chk(){
 		<td width="1180" height="100" align="right">
 		<input type=hidden name="total_price" value="1197000">
 		<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">전체금액</span>　
-		<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;" >1,197,000 원</span>
+		<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;" >${totalprice }원</span>
 
 
 
@@ -417,7 +328,7 @@ function f_chk(){
 	</tr>
 	<tr>
 		<td width="1180" height="100" align="right"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">최종 결제금액</span>　
-		<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;" id="cuopon_price_total">1,197,000 원</span></td>
+		<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 20pt; color:#000;" id="cuopon_price_total">${totalprice }원</span></td>
 		<td width="20"></td>
 	</tr>
 </form>
