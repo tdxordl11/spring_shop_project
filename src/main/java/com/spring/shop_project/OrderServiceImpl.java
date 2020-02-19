@@ -28,5 +28,10 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
+	@Override
+	public void insertOrder(OrderVO vo) {
+		dao.insertOrder(vo);
+	}
+
 
 }

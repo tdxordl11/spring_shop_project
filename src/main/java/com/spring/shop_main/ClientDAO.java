@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.shop_project.OrderVO;
 import com.spring.shop_project.ProductVO;
 import com.spring.shop_project.QnaVO;
 
@@ -59,6 +60,10 @@ public class ClientDAO {
 
 	public int insertQna(QnaVO vo) {
 		return session.insert("client.insertqna",vo);
+	}
+	
+	public OrderVO getorder(int order_seq) {
+		return session.selectOne("order.selectorder", order_seq);
 	}
 	
 	

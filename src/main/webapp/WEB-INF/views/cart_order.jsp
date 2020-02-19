@@ -3,6 +3,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
+<% 
+	String contextpath = request.getContextPath();
+	String respath = request.getContextPath() +"/resources/"; 
+%>
 <html>
 <head>
 
@@ -34,8 +38,25 @@
 	</tr>
 </table>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function($){
+	if(!'${total_price}'.isEmpty){
+		$("#total_price").val("${total_price}");
+	}
+	
+	if(!'${user_id}'.isEmpty){
+		$("#user_id").val("${user_id}");
+	}
+		
+	var cookie = $.cookie('product');
+	$("#product_list").val(cookie);
+// 	alert(cookie);
+		
+	
+});
 
-
+</script>
 <SCRIPT language=JavaScript>
 function zip(zipcode,address1,address2)  {
 	new daum.Postcode({
@@ -98,9 +119,9 @@ function onlyNumber1(obj){
  
  obj.value=val;
 
- if(!b_point_chk(val)){
-	obj.value=0; 
- }
+//  if(!b_point_chk(val)){
+// 	obj.value=0; 
+//  }
 } 
 
 function chk_str_20180227(chk_str,str)
@@ -131,11 +152,18 @@ function same_receiver(){
 
 function f_chk(){	
   var f=document.register;
+  f.fulladdress.value = f.b_address.value + " " + f.b_address_add.value;
     if(!f.o_name.value){		
     alert('주문자 성함을 입력해 주세요');		
     f.o_name.focus();		
     return false;	
   }
+    
+    if(f.buy_way[1].checked==true){	
+
+    	window.open('/shop_project/kakao_pay?user_id=${user_id}&product_name=기타&order_price=${total_price}', 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550');
+//     return false;    
+    }
 
   if(!f.o_etc.value){		
     alert('주문자 연락처를 입력해 주세요');		
@@ -184,7 +212,8 @@ function f_chk(){
   }
 
   
-  if(f.buy_way[0].checked==true){		
+  if(f.buy_way[0].checked==true){	
+	  f.payment.value = "무통장입금";
     if(!f.bank_iname.value){		
       alert('온라인입금시 입금자를 적어 주세요');		
       f.bank_iname.focus();		
@@ -197,6 +226,7 @@ function f_chk(){
 			  f.receipt_phone_number.focus();
 			  return false;
 		  }
+		  
 	}
   }
   
@@ -244,10 +274,7 @@ function f_chk(){
 							<form name="cart_view465000" method=post>
 							<input type=hidden name=cart_mode value="modi">
 							<input type=hidden name=c_no value="465000">
-							<input type=hidden name="link_val" value="">		
-							<tr>
-								<td height="50" colspan="6"></td>
-							</tr>			
+							<input type=hidden name="link_val" value="">					
 							<tr>
 								<td width="200" align="center" height="150">
 																			<a href='/goods/g_detail.html?gid=3718'><img src="http://www.schezade.co.kr/${vo.product_image}" width="150" style="BORDER: #898989 1px solid;" /></a>
@@ -295,7 +322,9 @@ function f_chk(){
 								</td>
 								<td width="150" align="center"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 11pt; color:#000;">${vo.convert_price }원</span></td>
 							</tr>
-							
+							<tr>
+								<td height="50" colspan="6"></td>
+							</tr>
 							<tr>
 								<td height="1" bgcolor="f5f5f5" colspan="6"></td>
 							</tr>
@@ -315,7 +344,7 @@ function f_chk(){
 <input type=hidden name='buy_type' value="1">
 	<tr>
 		<td width="1180" height="100" align="right">
-		<input type=hidden name="total_price" value="1197000">
+<!-- 		<input type=hidden name="total_price" value="0"> -->
 		<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">전체금액</span>　
 		<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;" >${totalprice }원</span>
 
@@ -342,11 +371,13 @@ function f_chk(){
 	<tr>
 		<td height="50" align="center"></td>
 	</tr>
-
-	<FORM name=register action="https://www.schezade.co.kr/order/cart_order_ps.html" method=post onsubmit="return f_chk()">
-	<input type=hidden name='total_price' id="total_price" value='1197000'>
-	<input type=hidden name='buy_type' id="buy_type" value='1'>
-	<input type=hidden name='b_point' id="b_point" value=''>
+<!-- onsubmit="return f_chk()" -->
+	<FORM name=register action=<%=request.getContextPath() + "/order_success"%> method=post onsubmit="return f_chk()">  
+	<input type=hidden name='order_price' id="total_price" value="" >
+	<input type=hidden name='user_id' id="user_id" value=''>
+	<input type=hidden name='shipment_address' id="fulladdress" value=''>
+	<input type=hidden name='order_payment' id="payment" value='카카오페이'>  <!-- 임시  <input type=hidden name='order_payment' id="payment" value='무통장입금'>-->
+	<input type=hidden name='product_list' id="product_list" value=''>
 	<tr>
 		<td align="center">
 			<table cellpadding="0" cellspacing="0" align="center">
@@ -354,7 +385,7 @@ function f_chk(){
 					<td width="40"></td>
 					<td width="550" valign="top">
 
-<p style="line-height: 1.7;"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 18pt; color:#000;">주문자 정보(회원시 자동입력)</span>
+<p style="line-height: 1.7;"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 18pt; color:#000;">주문자 정보</span>
 <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;"><br><br>주문자　:　
 </span><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name=o_name value="" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 250px; width: 100%; height:30px; text-indent: 10;" placeholder="입력"></span>
 
@@ -388,11 +419,11 @@ function f_chk(){
 </span><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input   name=b_hometel value="" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 250px; width: 100%; height:30px; text-indent: 10;" placeholder="기타 연락처를 남기실 분만 기재바랍니다" onchange="onlyNumber1(this)"></span>
 
 <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;"><br><br>　　이메일　:　
-</span><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input   name=o_email value="" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 250px; width: 100%; height:30px; text-indent: 10;" placeholder="이메일을 입력해주세요"></span>
+</span><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input   name=user_email value="" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 250px; width: 100%; height:30px; text-indent: 10;" placeholder="이메일을 입력해주세요"></span>
 
 
 <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;"><br><br>　　배송지　:　
-</span><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name=b_zip1 id="b_zip1" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 250px; width: 100%; height:30px; text-indent: 10;" placeholder="우편번호"></span><a href="javascript:zip('b_zip1','b_address','b_address_add')"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color:#ff0000;">　주소 검색</span></a>
+</span><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name=shipment_zipcode id="b_zip1" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 250px; width: 100%; height:30px; text-indent: 10;" placeholder="우편번호"></span><a href="javascript:zip('b_zip1','b_address','b_address_add')"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color:#ff0000;">　주소 검색</span></a>
 <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;"><br><br>　　　　　　　
 </span><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name=b_address id="b_address"  value=""  style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 450px; width: 100%; height:30px; text-indent: 10;" placeholder="주소"></span>
 <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;"><br><br>　　　　　　　
@@ -436,8 +467,8 @@ function f_chk(){
 							<tr>
 								<td align="left"><p style="line-height: 1.7;"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">입금 은행　</span>
 <select  name=bank >
-<option value="국민은행 015-01-0695-981 ㈜소리샵">국민은행 015-01-0695-981 ㈜소리샵
-<option value="우리은행 180-238919-13-001 ㈜소리샵">우리은행 180-238919-13-001 ㈜소리샵
+<option value="국민은행 015-01-0695-981 ㈜st샵">국민은행 015-01-0695-981 ㈜st샵
+<option value="우리은행 180-238919-13-001 ㈜st샵">우리은행 180-238919-13-001 ㈜st샵
 </select>
 </p>
 								</td>
@@ -461,15 +492,16 @@ function f_chk(){
 				<tr>
 					<td width="40"></td>
 					<td width="200" valign="top">
-<p style="line-height: 1.7;"><label><input type="radio" value="card" name=buy_way onclick="order_receipt_off()"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 12pt; color:#000;">　신용카드 결제</span></label></p>
+<p style="line-height: 1.7;"><label><input type="radio" value="card" name=buy_way ><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 12pt; color:#000;">　카카오페이 결제</span></label></p>
 					</td>
 					<td width="960" valign="top" align="left">
 						<table cellpadding="0" cellspacing="0" align="left" border="0" width="960">
 							<tr>
 								<td align="left"><p style="line-height: 2.0;"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">무이자 및 일반할부는 카드사 정책에 따라 다릅니다.</span>
- <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#858585;"><br>카드전표를 세금계산서로 사용하실 수 있습니다.
- <br>무이자 할부개월수가 다른제품의 결제시 낮은개월수를 우선으로 결제됩니다.
- <br>할인쿠폰을 사용해서 결제시 쿠폰의 무이자결제 유무에 따라 결제됩니다.</span></p></td>
+<!--  <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#858585;"><br>카드전표를 세금계산서로 사용하실 수 있습니다. -->
+<!--  <br>무이자 할부개월수가 다른제품의 결제시 낮은개월수를 우선으로 결제됩니다. -->
+<!--  <br>할인쿠폰을 사용해서 결제시 쿠폰의 무이자결제 유무에 따라 결제됩니다.</span></p> -->
+ </td>
 							</tr>
 						</table>
 
@@ -477,19 +509,9 @@ function f_chk(){
 						<table cellpadding="0" cellspacing="0" border="0">
 															<tr>
 									<td  height="40">
-										<a href="#" onclick="javascript:window.open('/images/index/banner_NaSeI901.jpg','open','width=600,height=655,top=10,left=10,scrollbars=no')"><img src="/img/goods/cardinfo.jpg" border="0" alt="무이자할부안내" /></a>									</td>
 								</tr>
 														<tr>
-								<td width="150" height="40">
-									<p align="left" style="line-height: 1.8;"><label><input type="radio"   name="card_event" value="" checked><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000000;">　일반결제</span></label></p>
-								</td>
-																<td width="760">
-									<p align="left" style="line-height: 1.8;"><label><input type="radio"   name="card_event" value="sam"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#ff0000;">　삼성카드 18,24개월 할부(부분 무이자)</span></label></p>
-								</td>
 															</tr>
-							<tr>
-								<td colspan="2" height="40"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt;">카드전표를 세금계산서로 사용하실 수 있습니다.</span></td>
-							</tr>
 						</table>
 						<!--------------------------------추가된 부분--------------------------------------->
 					</td>
@@ -500,15 +522,11 @@ function f_chk(){
 				<tr>
 					<td width="40"></td>
 					<td width="200" valign="top">
-<p style="line-height: 1.7;"><label><input type="radio" value="escrow" name=buy_way  onclick="order_receipt_on()"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 500; font-size: 12pt; color:#000;">　에스크로</span></label></p>
 					</td>
 					<td width="960" valign="top" align="left">
 						<table cellpadding="0" cellspacing="0" align="left" border="0" width="960">
 							<tr>
-								<td align="left"><p style="line-height: 2.5;"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 12pt; color:#000;">현금영수증 및 세금계산서</span>
-<span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#858585;">　(현금영수증은 에스크로 거래후 주문조회나 MyPage에서 인쇄 가능합니다. )<br></span>
-<label><input type="radio" name="tex" checked><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　발행안함<br></span></label>
-<label><input type="radio" name="tex"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#000;">　세금계산서</span></label><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#858585;">　(사업자용-주문후 전화 드립니다. 사업자등록증 발송하실 팩스번호(02-713-8584))</span><br>
+								<td align="left"><p style="line-height: 2.5;">
 <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#858585;"><br>매매보호서비스는 1회성 가상계좌(신한,농협,국민)에 입금을 하는 방식이며 제품수령후 홈페이지의 주문조회에서  
 <br>구매확인을 하셔야  입금처리되고 구매거부로 처리할시 관리자가 확인/처리후 7일 이내에 고객님계좌로 환불됩니다. 
 <br>가상계좌로 입금시 CD기로의 입금은 처리 되지 않으니 사용시 유의 하시기 바랍니다. 
@@ -531,8 +549,9 @@ function f_chk(){
 	<tr>
 		<td height="50"></td>
 	</tr>
-	<tr>
-		<td height="50" align="center" colspan="2"><input type=image src="/img/order/order.jpg" border="0" width="100%" height="auto" style="max-width: 150px;" /></td>
+	<tr> 
+<!-- 	<td align="center" width="200" height="50" bgcolor="252525"><a href="javascript:f_chk();" style="text-decoration:none"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 15pt; color:#fff;" >결제하기</span></a></td> -->
+		<td height="50" align="center" colspan="2"><input type="image" src="<%=respath %>img/order/order.jpg" border="0" width="100%" height="auto" style="max-width: 150px;" /></td>
 	</tr>
 	<tr>
 		<td height="150" align="center"></td>
@@ -660,16 +679,16 @@ if (isNS4) {
   moveRightEdge();
 } else if (isDOM) {
   var divMenu = getRef('divMenu');
-  divMenu.style.top = (isNS ? window.pageYOffset : document.body.scrollTop) + 60;
-  divMenu.style.visibility = "visible";
-  moveRightEdge();
+//   divMenu.style.top = (isNS ? window.pageYOffset : document.body.scrollTop) + 60;
+//   divMenu.style.visibility = "visible";
+//   moveRightEdge();
 }
 //-->
 </script>
 
 
 <!-- 공통 적용 스크립트 , 모든 페이지에 노출되도록 설치. 단 전환페이지 설정값보다 항상 하단에 위치해야함 --> 
-<script type="text/javascript" src="//wcs.naver.net/wcslog.js"> </script> 
+<!-- <script type="text/javascript" src="//wcs.naver.net/wcslog.js"> </script>  -->
 
 <!--naver Analytics -->
 

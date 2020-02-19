@@ -12,6 +12,8 @@ public interface OrderService {
 	public OrderVO getOrderdetail(int seq);
 
 	public void updateViews(int seq);
+	
+	public void insertOrder(OrderVO vo);
 
 
 

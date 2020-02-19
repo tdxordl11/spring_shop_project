@@ -3,7 +3,10 @@ package com.spring.shop_project;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.UnknownHostException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -285,14 +288,39 @@ public class UserController {
 	      return "redirect:/main";
 	  }
 	  
-	  @RequestMapping(value="/kakao_pay")
-	  public String readypay(HttpSession session, Model model) {
+	  @RequestMapping(value="/kakao_pay", method = RequestMethod.GET )
+	  public String readypay(HttpSession session, HttpServletResponse response, Model model, String order_price, String product_name, String user_id) {
 	      String name = "헤드폰";
 	      int num = 2;
-	      int price = 43000;
-		  String url = kakao.getReadyPay(name, num, price);
+	      String price = "143000";
+	      String id = "test";
+	      
+		/*
+		 * try { name = URLDecoder.decode(product_name,"UTF-8"); price =
+		 * URLDecoder.decode(order_price,"UTF-8"); id =
+		 * URLDecoder.decode(user_id,"UTF-8"); } catch (UnsupportedEncodingException e)
+		 * { // TODO Auto-generated catch block e.printStackTrace(); }
+		 */
+	    						  
+		  System.out.println(product_name+","+num+","+order_price+","+user_id);
+	      
+	      String op = order_price;
+		  String url = kakao.getReadyPay(name, num, price, id);
+//		  PrintWriter out;
+//		  try {
+//			out = response.getWriter();
+//			out.println("<script> window.open('"+url+"', 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550'); return false'</script>");	 
+//			out.flush(); //alert('결제를 취소 하셨습니다.');
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	      model.addAttribute("url", url);
 	      return "kakaopay";
+	  }
+	  
+	  @RequestMapping(value="/kakaopay_progress", method = RequestMethod.GET )
+	  public String readypay2(HttpSession session, Model model, String order_price, String product_name) {
+	      return "kakaopay_progress";
 	  }
 	  
 	  @RequestMapping(value="/kakao_pay_success")
@@ -314,6 +342,10 @@ public class UserController {
 		}
 	      return "kakaopay_cancel";
 	  }
+	  
+	  
+	  
+	  
 
 //	  @RequestMapping(value = "/main", method={RequestMethod.GET,RequestMethod.POST} )
 //		public ModelAndView userMain(@RequestParam(value="menu", defaultValue = "goods") String menu) {
@@ -443,5 +475,41 @@ public class UserController {
 //		return mav;
 //	  }
 
-	
+//	  @RequestMapping(value = "/cart_order", method = RequestMethod.GET )
+//		public ModelAndView orderView(@RequestParam(value="product_list") String product_list) {
+//			ModelAndView mav = new ModelAndView();
+//			
+//			List<ProductVO> pro_list = new ArrayList<ProductVO>();
+//			int totalprice = 0;
+//			
+//			if(!product_list.isEmpty()) {
+//				try {
+//					product_list = URLDecoder.decode(product_list, "UTF-8");
+//				} catch (UnsupportedEncodingException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//		
+//				String[] list = product_list.split(",");
+//				
+//				for(String product : list) {
+//					String name = product.split(":")[0];
+//					String balance = product.split(":")[1];
+//					
+//					ProductVO vo = service.getCartList(name);
+//					//임시
+//					vo.setProduct_image(vo.getProduct_image().split(",")[0]);
+//					totalprice += vo.getProduct_price();
+//					pro_list.add(vo);
+//				}	
+//			} 
+//			
+//			DecimalFormat dc = new DecimalFormat("###,###,###,###");
+//			String ch = dc.format(totalprice);
+//			
+//			mav.addObject("totalprice",ch);
+//			mav.addObject("pro_list",pro_list);
+//			mav.setViewName("cart_order");
+//			return mav;
+//		}
 }

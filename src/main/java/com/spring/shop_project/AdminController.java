@@ -51,9 +51,9 @@ public class AdminController {
 	public ModelAndView adminLogin(AdminVO vo, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 	
-		//boolean chk = service.otpCheck(vo);
+		boolean chk = service.otpCheck(vo);
 		
-		boolean chk = true;
+//		boolean chk = true;
 		
 		if(chk == false) {
 			mav.addObject("checked", 2);

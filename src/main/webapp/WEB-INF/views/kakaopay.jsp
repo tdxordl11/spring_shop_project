@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
 <script>
+// window.open('${url }', 'naverloginpop', 'titlebar=1, resizable=1, scrollbars=yes, width=600, height=550');
 $(document).ready(function(){
 	
 });

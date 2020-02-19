@@ -194,12 +194,14 @@ public class KakaoLoginAPI {
 
 	 }
 	 
-	 public String getReadyPay (String name, int num, int price) {
+	 public String getReadyPay (String name, int num, String price , String user_id) {
 //		    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
 			    String result = "";
 			    String next_redirect_url = "";
 			    String reqURL = "https://kapi.kakao.com/v1/payment/ready";
-			    int vat = price/11;
+			    
+			    
+//			    int vat = price/11;
 			    try {
 			        URL url = new URL(reqURL);
 			        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -215,11 +217,11 @@ public class KakaoLoginAPI {
 		            
 		            sb.append("&cid=TC0ONETIME");
 		            sb.append("&partner_order_id=partner_order_id");
-		            sb.append("&partner_user_id=partner_user_id");
+		            sb.append("&partner_user_id=" + user_id);
 		            sb.append("&item_name=" + name);
 		            sb.append("&quantity=" + num);
 		            sb.append("&total_amount=" + price);
-		            sb.append("&vat_amount=" + vat);
+//		            sb.append("&vat_amount=" + vat);
 		            sb.append("&tax_free_amount=0");
 		            sb.append("&approval_url=http://localhost:8081/shop_project/kakao_pay_success");
 		            sb.append("&fail_url=https://localhost:8081/shop_project/fail");

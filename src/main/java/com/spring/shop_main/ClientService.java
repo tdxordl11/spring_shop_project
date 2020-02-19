@@ -2,6 +2,7 @@ package com.spring.shop_main;
 
 import java.util.List;
 
+import com.spring.shop_project.OrderVO;
 import com.spring.shop_project.ProductVO;
 import com.spring.shop_project.QnaVO;
 
@@ -24,4 +25,6 @@ public interface ClientService {
 	
 	//게시글 작성
 	public int insertQna(QnaVO vo);
+	
+	public OrderVO getorder(int order_seq);
 }

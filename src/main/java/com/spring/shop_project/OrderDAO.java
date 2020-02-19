@@ -23,9 +23,9 @@ public class OrderDAO {
 //		return session.selectOne("order.ordercnt");
 //	}
 //	
-//	public void insertOrder(OrderVO vo) {
-//		session.insert("order.insertorder", vo);
-//	}
+	public void insertOrder(OrderVO vo) {
+		session.insert("order.insertorder", vo);
+	}
 //	
 //	public int checkMember(String name) {
 //		int check = 0;

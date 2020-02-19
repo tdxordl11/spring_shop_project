@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.shop_project.OrderVO;
 import com.spring.shop_project.ProductVO;
 import com.spring.shop_project.QnaVO;
 
@@ -43,6 +44,11 @@ public class ClientServiceImpl implements ClientService{
 	@Override
 	public int insertQna(QnaVO vo) {
 		return dao.insertQna(vo);
+	}
+	
+	@Override
+	public OrderVO getorder(int seq) {
+		return dao.getorder(seq);
 	}
 
 }

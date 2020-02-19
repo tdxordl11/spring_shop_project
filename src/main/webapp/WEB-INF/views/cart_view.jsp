@@ -140,7 +140,7 @@ $(document).ready(function($){
 			</tr>
 			<tr>
 				<td height="50" align="right" colspan="2">
-					<a href="<%=contextpath+"/main" %>l"><img src="<%=respath %>img/back.jpg" border="0"></a>
+					<a href="<%=contextpath+"/main" %>"><img src="<%=respath %>img/back.jpg" border="0"></a>
 					<!--a href="order.html"><img src="/img/cart/pay2.jpg" border="0" /></a-->
 					<a id='order' href=""><img src="<%=respath %>img/pay.jpg" border="0"></a>
 				</td>

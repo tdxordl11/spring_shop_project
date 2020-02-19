@@ -12,8 +12,8 @@
 
 
 $(document).ready(function(){
-	if(!'${kakaoId}'.isEmpty){
-		$("#token").val('${kakaoId}');
+	if(!'${user_id}'.isEmpty){
+		$("#token").val('${user_id}');
 	}
 	
 	if(!'${useremail}'.isEmpty){
@@ -233,7 +233,7 @@ function chk_mail(mail) {
 					<td width="10%"></td>
 					<td>
 <span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 10pt; color:#959595;"><input name="user_id" id="id" type="text" style="background: #f9f9f9; BORDER: #f9f9f9 1px solid; max-width: 150px; width: 100%; height:30px;" placeholder="입력" maxlength=60></span>
-<a href="javascript:id_check()"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color:#ff0000;">　중복확인</span></a>
+<a href="javascript:id_check()"><span style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color:#ff0000;"></span></a>
 <div id='id_check' style="font-size: 4px; padding-bottom: 1px; padding-left: 10px"></div>
 
 					</td>
