@@ -211,7 +211,7 @@ input::-moz-placeholder {
 				<tr>
 					<td align="right" width="323" height="100"></td>
 					<td align="center" height="100"><a
-						href="http://localhost:8081/shop_project/main"><img
+						href="<%=contextpath %>/main"><img
 							src="<%=respath%>img/logo.png" style="max-width: 250px;"
 							width="50%" height="auto" border="0" /></a></td>
 					<td align="right" width="323" height="100"></td>
