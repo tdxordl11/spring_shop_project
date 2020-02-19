@@ -425,7 +425,7 @@ input::-moz-placeholder {
 									  </c:choose>
 									  			<a id='cart' href=""><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
-												I 장바구니</span></a> <a href="/order/delivery_search.html"><span
+												I 장바구니</span></a> <a href="<%=contextpath%>/main?menu=order_search"><span 
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">
 												I 주문조회</span></a> <a href="<%=contextpath%>/main?menu=user_qna"><span
 											style="font-family: Noto Sans KR, sans-serif; font-weight: 300; font-size: 9pt; color: #393939;">

@@ -164,4 +164,12 @@ public class ClientController {
 		mav.setViewName("cart_order");
 		return mav;
 	}
+	
+	//배송조회
+	@RequestMapping(value = "/order_search", method = RequestMethod.GET )
+	public String orderSearch() {
+
+		return "order_search";
+	}
+
 }
